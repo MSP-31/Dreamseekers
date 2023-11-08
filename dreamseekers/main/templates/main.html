@@ -5,8 +5,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/style.css'%}">
-    <link rel="stylesheet" href="{% static 'css/main.css'%}">
+    <link rel="stylesheet" href="{% static 'css/main.css'%}?after">
 </haed>
+
+{% include 'header.html' %}
+{%block content%}
 
 <section class="main">
     <h1 class="title">꿈을 찾는사람들 교육원 입니다</h1>

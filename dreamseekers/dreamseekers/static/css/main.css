@@ -1,3 +1,47 @@
+/*--------헤더 부분--------*/
+header { /*기본설정*/
+    text-align:center;
+    font-size: 25px;
+    font-weight: bold;
+    position: fixed;
+    width: 100%;
+    background-color: #3C65AD;
+    justify-content:space-between;
+}
+
+.logo { /*로고*/
+    width: 150px;
+    height: 80px;
+    float: left;
+    margin-right: 60px;
+}
+
+.menu { 
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.menu_list{ /*메뉴 상하 간격*/
+    display: flex;
+}
+
+.menu_list li { /*메뉴 좌우 간격*/
+    margin-right: 20px;
+}
+
+.menu a { /*메뉴 링크*/
+    width: 190px;
+    color: white;
+    text-decoration: none; /*밑줄 제거*/
+    display: block; /*블록 지정*/
+}
+
+.menu a:hover{ /*메뉴에 마우스를 올려두었을때*/
+    background-color: aqua;
+}
+
+/*--------메인 부분--------*/
 section {
     height: 80vh;
     background-size: cover;
@@ -12,3 +56,4 @@ section {
     font-family: 'Noto Sans KR', sans-serif;
     padding-top: 30vh;
 }
+
