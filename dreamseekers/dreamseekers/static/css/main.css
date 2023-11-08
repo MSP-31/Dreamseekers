@@ -1,44 +1,27 @@
 /*--------헤더 부분--------*/
-header { /*기본설정*/
-    text-align:center;
-    font-size: 25px;
-    font-weight: bold;
-    position: fixed;
-    width: 100%;
-    background-color: #3C65AD;
-    justify-content:space-between;
-}
-
-.logo { /*로고*/
-    width: 150px;
-    height: 80px;
-    float: left;
-    margin-right: 60px;
-}
-
-.menu { 
-    width: 100%;
+.nav_menu {
     display: flex;
+    justify-content: space-between;
     align-items: center;
+    background-color: white;
+    padding: 8px 12px;
 }
 
-.menu_list{ /*메뉴 상하 간격*/
+/*메뉴 글꼴 스타일*/
+.nav_menu a {
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+}
+
+.nav_menu .menu_list{
     display: flex;
 }
 
-.menu_list li { /*메뉴 좌우 간격*/
-    margin-right: 20px;
-}
-
-.menu a { /*메뉴 링크*/
-    width: 190px;
-    color: white;
-    text-decoration: none; /*밑줄 제거*/
-    display: block; /*블록 지정*/
-}
-
-.menu a:hover{ /*메뉴에 마우스를 올려두었을때*/
-    background-color: aqua;
+/*첫번째 메뉴 조정*/
+.menu_list li{
+    padding: 8px 12px;
+    margin-right: 60px;
 }
 
 /*--------메인 부분--------*/
