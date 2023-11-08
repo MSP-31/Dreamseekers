@@ -1,0 +1,14 @@
+section {
+    height: 80vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.main {
+    background-image: url(../img/1.jpg);
+    text-align: center;
+    color: aliceblue;
+    font-family: 'Noto Sans KR', sans-serif;
+    padding-top: 30vh;
+}

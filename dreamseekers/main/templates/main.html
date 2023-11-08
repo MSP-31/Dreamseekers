@@ -1,1 +1,30 @@
-테스트 페이지입니다.
+{% include 'header.html' %}
+{%block content%}
+
+{%load static %}
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <link rel="stylesheet" href="{% static 'css/main.css'%}">
+</haed>
+
+<section class="main">
+    <h1 class="title">꿈을 찾는사람들 교육원 입니다</h1>
+    <p>
+        ※코로나 19에 따른 최적화된 온라인/방송교육 가능<br>
+        ZOOM / Webex / Google Classroom등등<br><br>
+        ■강의특징<br>
+        ★전문적인 지식으로 사례화된 교육 실시<br>
+        ★대면강의와 온라인 강의가능합니다.<br>
+        ★모두가 공감하는 현실적인 교육<br>
+        ★대상별 차별화된 맞춤형 강의내용<br>
+    </p>
+</section>
+
+<!-- <img src = {% static "img/1.jpg" %}> -->
+
+{%endblock%}
+{% include 'fotter.html' %}

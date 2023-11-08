@@ -1,0 +1,13 @@
+@import "reset.css";
+
+h1 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 10vh;
+    font-weight: 600;
+}
+
+p {
+    font-size: 3vh;
+    font-weight: 300;
+}
