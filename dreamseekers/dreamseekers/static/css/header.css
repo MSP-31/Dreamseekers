@@ -1,0 +1,90 @@
+/*--------헤더 부분--------*/
+.nav_menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 8px 12px;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+}
+
+/*메뉴 글꼴 스타일*/
+.nav_menu {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 25px;
+    color: black;
+}
+
+.nav_menu .menu_list{
+    display: flex;
+}
+
+/*첫번째 메뉴 조정*/
+.menu_list li{
+    padding: 8px 12px;
+    margin-right: 60px;
+}
+
+/* Change background color on hover */
+ul.menu_list > li:hover {
+    background-color: #aa5c5c;
+  }
+  
+  /* 서브메뉴 숨겨짐 */
+  ul.menu_list > li ul.submenu {
+    display: none;
+    position: absolute;
+    width: 50%;
+    left: 40%;
+    background-color: #ff4343;
+  }
+  
+  /* 마우스가 올라갔을때 */
+  ul.menu_list > li:hover ul.submenu {
+    display: block;
+    background-color: #4643f3;
+  }
+  
+  /* Style submenu items */
+  ul.menu_list > li ul.submenu > li {
+    display: inline-block;
+    width: auto;
+    padding: 5px 10px;
+    text-align: center;
+    background-color: #707070;
+  }
+  
+  /* Change background color of submenu items on hover */
+  ul.menu_list > li ul.submenu > li:hover {
+    background-color: #fff;
+  }
+
+/*
+.menu_list :after {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: rgb(40, 113, 116);
+    content: '';
+    opacity: 0;
+    -webkit-transition: height 0.3s, opacity 0.3s, -webkit-transform 0.3s;
+    -moz-transition: height 0.3s, opacity 0.3s, -moz-transform 0.3s;
+    transition: height 0.3s, opacity 0.3s, transform 0.3s;
+    -webkit-transform: translateY(-10px);
+    -moz-transform: translateY(-10px);
+    transform: translateY(-10px);
+}
+
+.menu_list :hover:after, .menu_list :focus:after {
+    height: 50px;
+    opacity: 1;
+    -webkit-transform: translateY(0px);
+    -moz-transform: translateY(0px);
+    transform: translateY(0px);
+}
+*/

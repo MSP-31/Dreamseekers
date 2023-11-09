@@ -1,29 +1,3 @@
-/*--------헤더 부분--------*/
-.nav_menu {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: white;
-    padding: 8px 12px;
-}
-
-/*메뉴 글꼴 스타일*/
-.nav_menu a {
-    text-decoration: none;
-    font-weight: bold;
-    color: black;
-}
-
-.nav_menu .menu_list{
-    display: flex;
-}
-
-/*첫번째 메뉴 조정*/
-.menu_list li{
-    padding: 8px 12px;
-    margin-right: 60px;
-}
-
 /*--------메인 부분--------*/
 section {
     height: 80vh;
