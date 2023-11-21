@@ -1,4 +1,18 @@
 {%load static %}
+
+<head>
+<link rel="stylesheet" href="{% static 'css/header.css'%}">
+<style>
+    @media screen and (max-width: 981px){
+        .nav_menu .menu_list{display: none;}
+    }
+    @media screen and (min-width: 981px){
+        .nav_menu .menu_list{display: flex;}
+    }
+</style>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="{% static 'js/header.js'%}"></script>
 <header>
     <nav class="nav_menu">
         <div class="nav_logo">
@@ -6,30 +20,41 @@
         </div>
         
         <ul class="menu_list">
-            <li class="menu1">교육원 소개
-                <ul class="menu1_s submenu">
-                    <li>주요 강의</li>
-                    <li>대표 강사</li>
-                    <li>오시는 길</li>
-                </ul>
+            <li class="menu"><a href="#">교육원 소개</a>
+                <div class="menu-bar"><span></span></div>
+                <div class="submenu_bg">
+                    <ul class="menu1_s submenu">
+                        <li><a href="#">주요 강의</a></li>
+                        <li><a href="#">대표 강사</a></li>
+                        <li><a href="#">오시는 길</a></li>
+                    </ul>
+                </div>
             </li>
-            <li class="menu2">주요 소식
-                <ul class="menu2_s submenu">
-                    <li>SNS</li>
-                    <li>방명록</li>
-                </ul>
+            <li class="menu"><a href="#">주요 소식</a>
+                <div class="menu-bar"><span></span></div>
+                <div class="submenu_bg">
+                    <ul class="menu2_s submenu">
+                        <li><a href="#">SNS</a></li>
+                        <li><a href="#">방명록</a></li>
+                    </ul>
+                </div>
             </li>
-            <li class="menu3">문의 및 예약
-                <ul class="menu3_s submenu">
-                    <li>일정 예약 확인</li>
-                    <li>강의 상담 문의</li>
-                </ul>
+            <li class="menu"><a href="#">문의 및 예약</a>
+                <div class="menu-bar"><span></span></div>
+                <div class="submenu_bg">
+                    <ul class="menu3_s submenu">
+                        <li><a href="#">일정 예약 확인</a></li>
+                        <li><a href="#">강의 상담 문의</a></li>
+                    </ul>
+                </div>
             </li>
         </ul>
-
-        <div>
-
+        <div id="menuToggle">
+            <a class="menu-trigger" href="#">
+                <span></span>
+                <span></span>
+                <span></span>
+            </a>
         </div>
     </nav>
 </header>
-<!---->
