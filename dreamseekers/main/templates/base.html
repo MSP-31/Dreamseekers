@@ -1,7 +1,15 @@
 {%load static %}
 
 <head>
+<title>꿈을 찾는 사람들 교육원</title>
+<link rel="icon" href="{% static 'img/logo.svg'%}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/style.css'%}?after">
+<link rel="stylesheet" href="{% static 'css/main.css'%}">
 <link rel="stylesheet" href="{% static 'css/header.css'%}">
+
 <style>
     @media screen and (max-width: 981px){
         .nav_menu .menu_list{display: none;}
@@ -9,10 +17,16 @@
     @media screen and (min-width: 981px){
         .nav_menu .menu_list{display: flex;}
     }
+
+    footer{
+        background-color: black;
+    }
 </style>
+
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="{% static 'js/header.js'%}"></script>
+
 <header>
     <nav class="nav_menu">
         <div class="nav_logo">
@@ -58,3 +72,21 @@
         </div>
     </nav>
 </header>
+
+{% block content %}
+<!--본문 위치-->
+{% endblock %}
+
+<footer>
+    <div style = "text-align:center; color: white;">
+        <br>
+        <p>꿈을찾는사람들교육원</p>
+        <p>홍의섭</p>
+        <p>경남 창원시 성산구 용지로70.1029호 (중앙동/성원그랜드 오피스텔)</p>
+        <p>사업자등록번호 : 102-27-75425</p>
+        <p>전화번호 : 055-601-0451</p>
+        <p>이메일 : jhs9747@naver.com</p>
+        <p>기타 : (강의접수)010-9371-0450</p>
+        <br>
+    </div>
+</footer>
