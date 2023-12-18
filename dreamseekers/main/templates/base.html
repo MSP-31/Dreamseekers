@@ -30,7 +30,7 @@
 <header>
     <nav class="nav_menu">
         <div class="nav_logo">
-            <img class="logo_img" src = {% static "img/logo.jpg" %}>
+            <a href="/"><img class="logo_img" src = {% static "img/logo.jpg" %}></a>
         </div>
         
         <ul class="menu_list">
@@ -62,6 +62,7 @@
                     </ul>
                 </div>
             </li>
+            <li class="menu"><a href="/user/login">로그인</a></li>
         </ul>
         <div id="menuToggle">
             <a class="menu-trigger" href="#">

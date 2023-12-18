@@ -17,4 +17,5 @@ def signup(request):
             return redirect('/')
         return render(request,'signup.html')
     return render(request, 'signup.html')
-        
+
+#https://wikidocs.net/72281
