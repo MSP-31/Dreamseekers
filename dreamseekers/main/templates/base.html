@@ -62,7 +62,13 @@
                     </ul>
                 </div>
             </li>
-            <li class="menu"><a href="/user/login">로그인</a></li>
+            <li class="menu">
+                {% if user.is_authenticated %} <!--로그인 여부 확인-->
+                <a href="{% url 'common:logout' %}">{{ user.username }}님 로그아웃</a>
+                {% else %}
+                <a href="{% url 'common:login' %}">로그인</a>
+                {% endif %}
+            </li>
         </ul>
         <div id="menuToggle">
             <a class="menu-trigger" href="#">

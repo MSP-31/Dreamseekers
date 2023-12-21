@@ -122,3 +122,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #이미지 저장
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+#로그인/아웃 성공시 이동하는 URL
+LOGIN_REDIRECT_URL ='/'
+LOGOUT_REDIRECT_URL = '/'
