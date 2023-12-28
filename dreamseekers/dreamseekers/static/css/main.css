@@ -7,10 +7,9 @@ section {
 }
 
 .main {
-    background-image: url(../img/1.jpg);
+    /*background-image: url(../img/1.jpg);*/
     text-align: center;
-    color: aliceblue;
+    color: rgb(0, 0, 0);
     font-family: 'Noto Sans KR', sans-serif;
     padding-top: 30vh;
 }
-

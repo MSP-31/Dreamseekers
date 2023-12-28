@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'main',
     'course',
     'user',
+    'board',
     'rest_framework',
     'corsheaders',
 ]

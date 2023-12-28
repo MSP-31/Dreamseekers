@@ -15,3 +15,22 @@ p {
     font-size: 3vh;
     font-weight: 300;
 }
+
+/*--------게시판--------*/
+table{
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    table-layout: fixed;
+    text-align: center;
+}
+
+/*게시판 머리*/
+.board-table thead th {
+    background: #f8f8f8;
+    font-size: 20px;
+    font-weight: normal;
+    padding: 20px 0;
+    border-bottom: 1px solid rgb(65, 64, 64);
+    border-top: 2px solid rgb(37, 35, 35);
+}

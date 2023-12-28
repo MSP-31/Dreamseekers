@@ -13,3 +13,4 @@ class User(models.Model):
         db_table = 'my_user'
         verbose_name = '고객'
         verbose_name_plural = '고객'
+
