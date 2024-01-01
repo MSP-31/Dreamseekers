@@ -1,6 +1,7 @@
 from django.urls import path
-from . import views
+from .views import index, posting
 
 urlpatterns = [
-    path('',views.board, name="board"),
+    path('',index, name="index"),
+    path('<int:pk>/',posting,name='post'),
 ]
