@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 
-<section class="main">
+<div class="main-content">
     <div class="container my-3">
         <h1>로그인</h1>
         <form method="post" action="{% url 'common:login' %}">
@@ -22,6 +22,6 @@
         </form>
     </div>
     <a href="/user/signup"><p>회원가입</p></a>
-</section>
+</div>
 
 {% endblock %}

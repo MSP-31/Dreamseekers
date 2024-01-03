@@ -180,3 +180,12 @@ ul.menu_list > li ul.submenu > li {
     transform: translateY(-20px) rotate(45deg);
   }
   
+  /*-------- footer ----------*/
+  footer{
+    position : relative;
+    transform : translateY(-100%);
+
+    text-align:center;
+    color: white;
+    background-color: #000000;
+  }

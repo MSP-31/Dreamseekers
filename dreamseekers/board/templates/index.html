@@ -1,34 +1,56 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load dr_filter %}
 {% block content %}
 
-<section class="main">
+<div class="main-content">
   <h1>방명록</h1>
 
   <table class="board-table">
     <thead class>
-      <tr class="text-center">
-        <th class ="num" scope="col">번호</th>
-        <th scope="col">제목</th>
-        <th scope="col">작성자</th>
-        <th scope="col">작성일</th>
-        <th scope="col">조회수</th>
+      <tr class="table-head">
+        <th scope="col">번호</th>
+        <th style="width: 80%;" scope="col">제목</th>
+        <th scope="col">글쓴이</th>
+        <th scope="col">날짜</th>
       </tr>
     </thead>
 
-    {% for list in postlist %}
+    {% for post in page_obj %}
     <tbody>
       <tr>
-        <td>{{list.pk}}</td>
-        <td><a href="{{list.pk}}/">{{list.postname}}</td>
-        <td>{{list.contents}}</td>
-        <td>23.12.19</td>
-        <td>999</td>
+        <td>
+          <!-- 번호 = 전체건수 - 시작인덱스 - 현재인덱스 + 1 -->
+          {{ page_obj.paginator.count|sub:page_obj.start_index|sub:forloop.counter0|add:1 }}
+        </td>
+        <td style="text-align: left;"><a href="{{post.pk}}/">{{post.postname}}</td>
+        <td>{{post.author}}</td>
+        <td>{{post.created_dt}}</td>
       </tr>
     </tbody>
     {% endfor %}
     
   </table>
-</section>
+  <br/>
+  <br/>
+  <div class="paging-navi">
+    {% if page_obj.has_other_pages %}
+    <ul>
+      {% if page_obj.has_previous %}
+      <li><a style="text-decoration:none; color: black;" href="?page={{page_obj.previous_page_number}}">&#10094;</a></li>
+      {% endif %}
+
+      {% for page in custom_range %}
+        <li class="{% if page == page_obj.number %}active{% endif %}">
+          <a href="?page={{page}}">{{page}}</a></li>
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+      <li><a style="text-decoration:none; color: black;" href="?page={{page_obj.next_page_number}}">&#10095;</a></li>
+      {% endif %}
+    </ul>
+    {% endif %}
+  </div>
+</div>
 
 {% endblock %}

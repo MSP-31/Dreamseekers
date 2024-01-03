@@ -1,16 +1,64 @@
 /*--------메인 부분--------*/
-section {
-    height: 80vh;
+.main-content {
+    /*background-image: url(../img/1.jpg);*/
+    height: 100%;
+    min-height: 100%;
+
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-}
-
-.main {
-    /*background-image: url(../img/1.jpg);*/
+    
     text-align: center;
     color: rgb(0, 0, 0);
     font-family: 'Noto Sans KR', sans-serif;
-    padding-top: 30vh;
     margin: 10px 20px;
+}
+
+/*--------게시판--------*/
+table{
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    table-layout: fixed;
+    text-align: center;
+}
+
+/* 게시판 머리 */
+.board-table thead th {
+    background: #f8f8f8;
+    font-size: 20px;
+    font-weight: normal;
+    padding: 20px 0;
+    border-bottom: 1px solid rgb(65, 64, 64);
+    border-top: 2px solid rgb(37, 35, 35);
+}
+
+/* 게시판 리스트 */
+.board-table tbody td {
+    border-top: 1px solid rgb(235, 230, 230);
+    padding: 8px;
+}
+
+/* 게시판 폭 */
+.board-table table-num{
+    padding: 0 0 0 0;
+}
+
+/* 게시판 페이징 네비*/
+.paging-navi ul {
+  display: flex;
+  justify-content: center;
+}
+
+.paging-navi li {
+    margin:3px;
+}
+
+.paging-navi li a {
+    text-decoration: none;
+    color: black;
+}
+  
+.paging-navi li.active a {
+    color: red;
 }
