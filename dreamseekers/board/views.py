@@ -34,3 +34,6 @@ def posting(request, pk):
     # 게시글에서 pk(primary_key)로 해당 게시글 검색
     post = Post.objects.get(pk=pk)
     return render(request, 'post.html',{'post':post})
+
+def write(request):
+    return render(request,'write.html')

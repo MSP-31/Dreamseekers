@@ -1,12 +1,16 @@
-<html>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
     <head>
         <title>Posting!</title>
     </head>
-    <body>
+    <div class="main-content">
         <h1>게시글 개별 페이지입니다</h1>
-        <p>제목 | {{post.postname}}</p>
+        <p>제목 | {{post.title}}</p>
         <p>{{post.contents}}</p>
         <p>{{post.created_dt}}</p>
         <a href="/board">목록</a>
-    </body>
-</html>
+    </div>
+
+{% endblock %}

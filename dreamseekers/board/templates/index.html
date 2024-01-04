@@ -23,7 +23,7 @@
           <!-- 번호 = 전체건수 - 시작인덱스 - 현재인덱스 + 1 -->
           {{ page_obj.paginator.count|sub:page_obj.start_index|sub:forloop.counter0|add:1 }}
         </td>
-        <td style="text-align: left;"><a href="{{post.pk}}/">{{post.postname}}</td>
+        <td style="text-align: left;"><a href="{{post.pk}}/">{{post.title}}</td>
         <td>{{post.author}}</td>
         <td>{{post.created_dt}}</td>
       </tr>
@@ -32,7 +32,10 @@
     
   </table>
   <br/>
+  <button><a href="write">글쓰기</a></button>
   <br/>
+
+  <!--페이지 네비-->
   <div class="paging-navi">
     {% if page_obj.has_other_pages %}
     <ul>
