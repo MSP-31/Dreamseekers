@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from .models import Post
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
@@ -35,5 +35,21 @@ def posting(request, pk):
     post = Post.objects.get(pk=pk)
     return render(request, 'post.html',{'post':post})
 
+# 글쓰기
 def write(request):
+    # 로그인 여부 확인
+    if not request.session.get('user'):
+        return redirect('/user/login')
+
+    if request.method == 'POST':
+        print("ㅡㅡㅡ시작ㅡㅡㅡㅡ")
+        print(request.POST['title'])
+        print(request.POST['contents'])
+        print("ㅡㅡㅡ끝ㅡㅡㅡㅡ")
+        if title and contents:  # title과 contents가 모두 존재하는지 확인
+            new_post=Post.objects.create(
+                title=request.POST['title'],
+                contents=request.POST['contents'],
+            )
+        return redirect('/')
     return render(request,'write.html')
