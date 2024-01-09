@@ -1,5 +1,8 @@
 from django.shortcuts import redirect, render
+
+from user.models import Users
 from .models import Post
+from .forms import BoardForm
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 def index(request):
@@ -36,20 +39,24 @@ def posting(request, pk):
     return render(request, 'post.html',{'post':post})
 
 # 글쓰기
-def write(request):
+def board_write(request):
     # 로그인 여부 확인
     if not request.session.get('user'):
         return redirect('/user/login')
+    
+    if request.method == 'GET':
+        form = BoardForm()
 
-    if request.method == 'POST':
-        print("ㅡㅡㅡ시작ㅡㅡㅡㅡ")
-        print(request.POST['title'])
-        print(request.POST['contents'])
-        print("ㅡㅡㅡ끝ㅡㅡㅡㅡ")
-        if title and contents:  # title과 contents가 모두 존재하는지 확인
-            new_post=Post.objects.create(
-                title=request.POST['title'],
-                contents=request.POST['contents'],
+    elif request.method == 'POST':
+        form = BoardForm(request.POST)
+        if form.is_valid():
+            user_id = request.session.get('user')
+            user = Users.objects.get(pk = user_id)
+            new_Post = Post(
+                title = form.cleaned_data['title'],
+                contents = form.cleaned_data['contents'],
+                author = user
             )
-        return redirect('/')
-    return render(request,'write.html')
+            new_Post.save()
+        return redirect('/board')
+    return render(request, 'board_write.html', {'form':form})

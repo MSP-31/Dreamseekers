@@ -62,6 +62,7 @@ def login(request):
         form = LoginForm(request.POST)
         if form.is_valid():
             request.session['user'] = form.user_id
+            request.session['username'] = form.user_name
             return redirect('/')
     return render(request, 'login.html', {'form':form})
 

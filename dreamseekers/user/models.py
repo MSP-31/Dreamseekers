@@ -7,17 +7,5 @@ class Users(models.Model):
     created_dt = models.DateTimeField(auto_now_add=True, verbose_name='등록일')
     updated_dt = models.DateTimeField(auto_now=True, verbose_name='수정일')
     
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username', 'password']
-
-    # 익명사용자 x
-    @property
-    def is_anonymous(self):
-        return False
-    
-    @property
-    def is_authenticated(self):
-        return True
-    
     def __str__(self): 
         return self.username

@@ -127,6 +127,3 @@ MEDIA_URL = '/media/'
 #로그인/아웃 성공시 이동하는 URL
 LOGIN_REDIRECT_URL ='/'
 LOGOUT_REDIRECT_URL = '/'
-
-# 로그인 모델
-AUTH_USER_MODEL = 'user.Users'
