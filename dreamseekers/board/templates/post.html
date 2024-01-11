@@ -11,7 +11,11 @@
     <br>
     <div>
         {% if request.session.user == post.author_id %}
-        <button>삭제</button>
+        <form action="{% url 'post_delete' post.pk  %}"
+        method="POST" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
+            {% csrf_token %}
+            <input type="submit" value="삭제">
+        </form>
         {% endif %}
     </div>
     <br>

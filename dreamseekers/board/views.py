@@ -38,7 +38,7 @@ def posting(request, pk):
     return render(request, 'post.html',{'post':post})
 
 # 글쓰기
-def board_write(request):
+def post_write(request):
     # 로그인 여부 확인
     if not request.session.get('user'):
         return redirect('/user/login')
@@ -61,5 +61,13 @@ def board_write(request):
     else:
         form = BoardForm()
         
-    return render(request, 'board_write.html', {'form':form})
+    return render(request, 'post_write.html', {'form':form})
 
+# 글 삭제
+def post_delete(request,pk):
+    post = Post.objects.get(pk=pk)
+    print(request.method)
+    if request.method == 'POST':
+        post.delete()
+        return redirect('/board')
+    return render(request, 'post.html',{'post':post})
