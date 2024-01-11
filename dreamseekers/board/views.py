@@ -1,5 +1,4 @@
 from django.shortcuts import redirect, render
-
 from user.models import Users
 from .models import Post
 from .forms import BoardForm
@@ -43,9 +42,6 @@ def board_write(request):
     # 로그인 여부 확인
     if not request.session.get('user'):
         return redirect('/user/login')
-    
-    if request.method == 'GET':
-        form = BoardForm()
 
     elif request.method == 'POST':
         form = BoardForm(request.POST)
@@ -58,5 +54,12 @@ def board_write(request):
                 author = user
             )
             new_Post.save()
-        return redirect('/board')
+            return redirect('/board')
+        else:
+            # 폼이 유효하지 않을 경우, 사용자가 입력한 데이터를 폼에 다시 채워 넣습니다.
+            form = BoardForm(request.POST)
+    else:
+        form = BoardForm()
+        
     return render(request, 'board_write.html', {'form':form})
+

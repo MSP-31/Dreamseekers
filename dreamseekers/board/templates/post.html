@@ -7,6 +7,17 @@
     <p>제목 | {{post.title}}</p>
     <p>{{post.contents}}</p>
     <p>{{post.created_dt}}</p>
+
+    <br>
+    <div>
+        {% if request.session.user == post.author_id %}
+        <button>삭제</button>
+        {% endif %}
+    </div>
+    <br>
+    
+    <br>
+    <br>
     <a href="/board">목록</a>
 </div>
 

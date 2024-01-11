@@ -13,11 +13,11 @@
                 {{ field.field.widget.name }}
 
                 {% if field.name == 'contents' %}
-                <textarea class = "form-control" name = "{{ field.name }}" placeholder = "{{field.label}}"></textarea>
+                <textarea class = "form-control" name = "{{ field.name }}" placeholder = "{{field.label}}">{{ field.value|default:'' }}</textarea>
 
                 {% else %}
                 <input type = "{{ field.field.widget.input_type }}" class ="form-control" id ="{{field.id_for_label}}" 
-                placeholder = "{{field.label}}" name = "{{field.name}}">
+                placeholder = "{{field.label}}" name = "{{field.name}}" value="{{ field.value|default:'' }}">
                 {% endif %}
             </div>
             {% if field.errors %}
