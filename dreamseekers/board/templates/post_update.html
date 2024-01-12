@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="main-content">
+    <h1>방명록 수정</h1>
+    <div>
+        <form method = "POST" action=".">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class ="form-group">
+                <label for = "{{ field.id_for_label }}">{{field.label}}</label>
+                {{ field }}
+                {% if field.errors %}
+                <span style = "color:red">{{field.errors}}</span>
+                {% endif %}
+            </div>
+            {% endfor %}
+            <input type="submit" value="작성">
+        </form>
+    </div>
+    <br>
+    <br>
+    <a href="/board">목록</a>
+</div>
+
+{% endblock %}

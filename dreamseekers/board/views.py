@@ -54,7 +54,7 @@ def post_write(request):
                 author = user
             )
             new_Post.save()
-            return redirect('/board')
+            return redirect(posting,pk=new_Post.pk)
         else:
             # 폼이 유효하지 않을 경우, 사용자가 입력한 데이터를 폼에 다시 채워 넣습니다.
             form = BoardForm(request.POST)
@@ -62,6 +62,23 @@ def post_write(request):
         form = BoardForm()
         
     return render(request, 'post_write.html', {'form':form})
+
+# 글 수정
+def post_update(request,pk):
+    post = Post.objects.get(pk=pk)
+    
+    if request.method == 'POST':
+        form = BoardForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect(posting,pk=post.pk)
+        else:
+            # 폼이 유효하지 않을 경우, 사용자가 입력한 데이터를 폼에 다시 채워 넣습니다.
+            form = BoardForm(request.POST)
+        return redirect('/board')
+    else:
+        form = BoardForm(instance=post)
+    return render(request, 'post_update.html', {'form': form, 'post': post})
 
 # 글 삭제
 def post_delete(request,pk):
