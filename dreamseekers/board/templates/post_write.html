@@ -5,7 +5,7 @@
 <div class="main-content">
     <h1>방명록 작성</h1>
     <div>
-        <form method = "POST" action=".">
+        <form method = "POST" action="." enctype="multipart/form-data">
             {% csrf_token %}
             {% for field in form %}
             <div class ="form-group">
@@ -15,10 +15,16 @@
                 {% if field.name == 'contents' %}
                 <textarea class = "form-control" name = "{{ field.name }}" placeholder = "{{field.label}}">{{ field.value|default:'' }}</textarea>
 
+                {% elif field.name == 'photo' %}
+                <input type="file" class="form-control" id="photo" name="photo">
+
                 {% else %}
                 <input type = "{{ field.field.widget.input_type }}" class ="form-control" id ="{{field.id_for_label}}" 
                 placeholder = "{{field.label}}" name = "{{field.name}}" value="{{ field.value|default:'' }}">
+
                 {% endif %}
+
+                
             </div>
             {% if field.errors %}
             <span style = "color:red">{{field.errors}}</span>

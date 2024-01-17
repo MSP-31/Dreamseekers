@@ -11,11 +11,16 @@
     <p>등록 시간: {{ post.created_dt }}</p>
     
     {% if post.created_dt != post.updated_dt%}
-    <p>수정 시간: {{ post.updated_dt }}</p>
+        <p>수정 시간: {{ post.updated_dt }}</p>
     {% endif %}
     
     <div>
         <p>{{post.contents}}</p>
+
+        {% if post.photo %}
+            <img src = "{{post.photo.url}}" alt="" height = "300">
+            <br>
+        {% endif %}
     </div>
     
     <br>

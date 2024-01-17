@@ -4,7 +4,7 @@ from board.models import Post
 class BoardForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'contents']
+        fields = ['title', 'contents','photo']
         error_messages = {
             'title' : {
                 'required' : '제목을 입력해주세요',

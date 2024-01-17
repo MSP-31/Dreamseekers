@@ -1,3 +1,6 @@
+import os
+from django.conf import settings
+
 from django.shortcuts import redirect, render
 from user.models import Users
 from .models import Post
@@ -44,17 +47,20 @@ def post_write(request):
         return redirect('/user/login')
 
     elif request.method == 'POST':
-        form = BoardForm(request.POST)
+        form = BoardForm(request.POST,request.FILES)
         if form.is_valid():
             user_id = request.session.get('user')
             user = Users.objects.get(pk = user_id)
-            new_Post = Post(
-                title = form.cleaned_data['title'],
-                contents = form.cleaned_data['contents'],
-                author = user
+
+            new_post = Post.objects.create(
+                title=form.cleaned_data['title'],
+                contents=form.cleaned_data['contents'],
+                photo=form.cleaned_data['photo'],
+                author=user
             )
-            new_Post.save()
-            return redirect(posting,pk=new_Post.pk)
+
+            new_post.save()
+            return redirect(posting,pk=new_post.pk)
         else:
             # 폼이 유효하지 않을 경우, 사용자가 입력한 데이터를 폼에 다시 채워 넣습니다.
             form = BoardForm(request.POST)
@@ -66,10 +72,17 @@ def post_write(request):
 # 글 수정
 def post_update(request,pk):
     post = Post.objects.get(pk=pk)
-    
+    original_photo = post.photo
+
     if request.method == 'POST':
-        form = BoardForm(request.POST, instance=post)
+        form = BoardForm(request.POST,request.FILES, instance=post)
         if form.is_valid():
+            # 이미지를 삭제
+            if(original_photo == ""):
+                pass
+            # 이미지를 수정
+            elif original_photo != post.photo:
+                os.remove(os.path.join(settings.MEDIA_ROOT, 'board/images/{}/'.format(post.pk), original_photo.path))
             form.save()
             return redirect(posting,pk=post.pk)
         else:
