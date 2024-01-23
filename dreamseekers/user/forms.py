@@ -3,21 +3,21 @@ from .models import Users
 from django.contrib.auth.hashers import check_password
 
 class LoginForm(forms.Form):
-    email = forms.EmailField(error_messages={"required" : "이메일을 입력해주세요"},
-                               max_length=32, label="이메일")
+    username = forms.CharField(error_messages={"required" : "아이디를 입력해주세요"},
+                               max_length=32, label="아이디")
     password = forms.CharField(error_messages={"required" : "비밀번호를 입력해주세요."},
                                max_length=64, label="비밀번호", widget=forms.PasswordInput)
     
     def clean(self):
         cleand_data = super().clean()
-        email = cleand_data.get('email')
+        username = cleand_data.get('username')
         password = cleand_data.get('password')
 
-        if password and email:
+        if password and username:
             try:
-                user = Users.objects.get(email=email)
+                user = Users.objects.get(username=username)
             except Users.DoesNotExist:
-                self.add_error("email","이메일이 존재하지 않습니다.")
+                self.add_error("username","아이디가 존재하지 않습니다.")
                 return
             if not check_password(password,user.password):
                 self.add_error("password", "비밀번호가 일치하지 않습니다.")

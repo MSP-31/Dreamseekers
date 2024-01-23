@@ -14,7 +14,7 @@ def index(request):
     page = request.GET.get('page') # 페이지
 
     # 출력하는 Post수 제한
-    paginator = Paginator(post_list,5)
+    paginator = Paginator(post_list,10)
 
     try:
         page_obj = paginator.page(page)

@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Post
 
 class BoardAdmin(admin.ModelAdmin):
-    list_display = ('title','author',)
+    list_display = ('title','author','created_dt','is_private',)
 
 admin.site.register(Post,BoardAdmin)
 
