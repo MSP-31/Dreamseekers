@@ -1,5 +1,6 @@
 import os
 from django.conf import settings
+from django.http import Http404
 
 from django.shortcuts import redirect, render
 from user.models import Users
@@ -38,7 +39,15 @@ def index(request):
 def post_detail(request, pk):
     # 게시글에서 pk(primary_key)로 해당 게시글 검색
     post = Post.objects.get(pk=pk)
-    return render(request, 'post_detail.html',{'post':post})
+    user_id = request.session.get('user')
+
+    if post.is_private:
+        if (user_id == post.author.id) or request.user.is_authenticated and (request.user.is_staff):
+            return render(request, 'post_detail.html',{'post':post})
+        else:
+            raise Http404('비밀글입니다.')
+    else:
+        return render(request, 'post_detail.html',{'post':post})
 
 # 글쓰기
 def post_write(request):
@@ -56,6 +65,7 @@ def post_write(request):
                 title=form.cleaned_data['title'],
                 contents=form.cleaned_data['contents'],
                 photo=form.cleaned_data['photo'],
+                is_private=form.cleaned_data['is_private'],
                 author=user
             )
 
