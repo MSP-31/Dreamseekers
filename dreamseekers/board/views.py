@@ -35,10 +35,10 @@ def index(request):
 
     return render(request, 'index.html',{'page_obj':page_obj, 'paginator':paginator, 'custom_range':custom_range})
 
-def posting(request, pk):
+def post_detail(request, pk):
     # 게시글에서 pk(primary_key)로 해당 게시글 검색
     post = Post.objects.get(pk=pk)
-    return render(request, 'post.html',{'post':post})
+    return render(request, 'post_detail.html',{'post':post})
 
 # 글쓰기
 def post_write(request):
@@ -60,7 +60,7 @@ def post_write(request):
             )
 
             new_post.save()
-            return redirect(posting,pk=new_post.pk)
+            return redirect(post_detail,pk=new_post.pk)
         else:
             # 폼이 유효하지 않을 경우, 사용자가 입력한 데이터를 폼에 다시 채워 넣습니다.
             form = BoardForm(request.POST)
@@ -84,7 +84,7 @@ def post_update(request,pk):
             elif original_photo != post.photo:
                 os.remove(os.path.join(settings.MEDIA_ROOT, 'board/images/{}/'.format(post.pk), original_photo.path))
             form.save()
-            return redirect(posting,pk=post.pk)
+            return redirect(post_detail,pk=post.pk)
         else:
             # 폼이 유효하지 않을 경우, 사용자가 입력한 데이터를 폼에 다시 채워 넣습니다.
             form = BoardForm(request.POST)
@@ -100,4 +100,4 @@ def post_delete(request,pk):
     if request.method == 'POST':
         post.delete()
         return redirect('/board')
-    return render(request, 'post.html',{'post':post})
+    return render(request, 'post_detail.html',{'post':post})

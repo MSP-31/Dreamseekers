@@ -12,11 +12,14 @@
                 <label for = "{{ field.id_for_label }}">{{field.label}}</label>
                 {{ field.field.widget.name }}
 
-                {% if field.name == 'contents' %}
+                {% if field.name == "contents" %}
                 <textarea class = "form-control" name = "{{ field.name }}" placeholder = "{{field.label}}">{{ field.value|default:'' }}</textarea>
 
-                {% elif field.name == 'photo' %}
-                <input type="file" class="form-control" id="photo" name="photo">
+                {% elif field.name == "photo" %}
+                <input type="file" class="form-control" id="{{ field.id_for_label}}" name="photo">
+
+                {% elif field.name == "is_private" %}
+                <input type="checkbox" class="form-control" id="{{ field.id_for_label}}" name="{{field.name}}">
 
                 {% else %}
                 <input type = "{{ field.field.widget.input_type }}" class ="form-control" id ="{{field.id_for_label}}" 

@@ -12,6 +12,7 @@ class Post(models.Model):
     photo      = models.ImageField(upload_to=upload_path, blank=True, null=True, verbose_name='이미지')
     created_dt = models.DateTimeField(auto_now_add=True, verbose_name='등록일')
     updated_dt = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name='수정일')
+    is_private = models.BooleanField(default=False, verbose_name='비밀글')
     
     def __str__(self):
         return self.title
