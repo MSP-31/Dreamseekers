@@ -8,14 +8,15 @@
         <p>제목 | {{post.title}}</p>
     </div>
 
-    <p>등록 시간: {{ post.created_dt }}</p>
-    
-    {% if post.created_dt != post.updated_dt%}
-        <p>수정 시간: {{ post.updated_dt }}</p>
+    <p>등록 시간: {{ post.created_at }}</p>
+
+    {% if post.created_at != post.updated_at%}
+        <p>수정 시간: {{ post.updated_at }}</p>
     {% endif %}
-    
+
     <div>
-        <p>{{post.contents}}</p>
+        <br>
+        <p>{{post.contents|linebreaksbr}}</p>
 
         {% if post.photo %}
             <img src = "{{post.photo.url}}" alt="" height = "300">
@@ -24,6 +25,7 @@
     </div>
     
     <br>
+    <!--게시글 수정 / 삭제-->
     <div>
         {% if request.session.user == post.author_id %}
         <button><a href="{% url 'post_update' post.pk  %}">수정</a></button>
@@ -37,8 +39,45 @@
     </div>
     <br>
     
-    <br>
-    <br>
+    <!--댓글-->
+    <div>
+        {% if comments %}
+            <p><b>{{ comments|length }}개의 댓글이 있습니다.</b></p>
+        {% endif %}
+        <ul>
+        {% for comment in comments %}
+        <li>
+
+        <hr>
+        {{ comment.user }} | {{ comment.created_at }}<br>
+        {{ comment.content }}
+        
+        <!--삭제 / 수정-->
+        {% if request.session.user == comment.user.id %}
+            <a href="{% url 'comments_update' post.pk comment.pk %}">수정</a>
+            <form action="{% url 'comments_delete' post.pk comment.pk %}" method = "POST">
+                {% csrf_token %}
+                <input type="submit" value="삭제">
+            </form>
+        {% endif %}
+        </li>
+        {% empty %}
+        <p>댓글이 없습니다.</p>
+        {% endfor %}
+        </ul>
+        
+        {% if request.session.user %}
+            <form action="{% url 'comments_create' post.pk %}" method="POST">
+                {% csrf_token %}
+                {{ comment_form }}
+                <input type="submit" value="작성">
+            </form>
+        {% else %}
+            <a href="{% url 'accounts:login' %}">[로그인 후 댓글작성이 가능합니다.]</a>
+        {% endif %}
+    </div>
+
+    
     <a href="/board">목록</a>
 </div>
 

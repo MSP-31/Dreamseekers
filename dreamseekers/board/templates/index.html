@@ -27,7 +27,7 @@
           {% if post.is_private %} <span>🔒</span> {% endif %}
         </td>
         <td>{{post.author}}</td>
-        <td>{{post.created_dt | date:"Y.m.d" }}</td>
+        <td>{{post.created_at | date:"Y.m.d" }}</td>
       </tr>
     </tbody>
     {% endfor %}
