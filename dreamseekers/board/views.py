@@ -3,11 +3,13 @@ from django.conf import settings
 from django.http import Http404
 
 from django.shortcuts import get_object_or_404, redirect, render
+from board.serializers import CommentSerializer
 from user.models import Users
 from .models import Comment, Post
 from .forms import BoardForm, CommentForm
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
+# 게시글 목록
 def index(request):
     # 모든 Post를 불러오고 페이지에 가져옴
     post_list = Post.objects.order_by('-created_at')
@@ -36,13 +38,10 @@ def index(request):
 
     return render(request, 'index.html',{'page_obj':page_obj, 'paginator':paginator, 'custom_range':custom_range})
 
-#게시글 자세히 보기
+# 게시글 자세히 보기
 def post_detail(request, pk):
     # 게시글에서 pk(primary_key)로 해당 게시글 검색
     post = Post.objects.get(pk=pk)
-    comments = Comment.objects.filter(article=pk)
-    comment_form = CommentForm()
-    
     user_id = request.session.get('user')
 
     # 비밀글 확인
@@ -51,7 +50,15 @@ def post_detail(request, pk):
             pass
         else:
             raise Http404('비밀글입니다.')
-    return render(request, 'post_detail.html',{'post':post, 'comments':comments, 'comment_form':comment_form,})
+    
+    comments = Comment.objects.filter(article=pk,parent=None)
+    comment_form = CommentForm()
+
+    # 댓글 직렬화
+    serializer = CommentSerializer(comments, many=True)
+    serialized_comments = serializer.data
+
+    return render(request, 'post_detail.html',{'post':post, 'comments':serialized_comments, 'comment_form':comment_form,})
 
 # 게시글 작성
 def post_write(request):
@@ -151,3 +158,30 @@ def comments_delete(request, post_pk ,comment_pk):
         if request.session.get('user') == comment.user.id:
             comment.delete()
     return redirect('post_detail',post_pk)
+
+# 대댓글 작성
+def comments_nested(request, post_pk, comment_pk):
+    if request.session.get('user'):
+        article = get_object_or_404(Post, pk=post_pk)
+        comment_form = CommentForm(request.POST)
+
+        user_id = request.session.get('user')
+        user = Users.objects.get(pk = user_id)
+
+        # 부모 댓글 여부
+        comments = Comment.objects.get(pk=comment_pk)
+        parents = comments.parent
+        
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.article = article
+            comment.user = user
+            # 부모 댓글값이 없다면 새로 추가
+            if parents is None:
+                comment.parent = comments
+            # 부모 댓글값이 있다면 상속
+            else:
+                comment.parent = parents
+            comment.save()
+        return redirect('post_detail',article.pk)
+    return redirect('accounts:login')

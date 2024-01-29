@@ -39,7 +39,8 @@ class Post(models.Model):
 class Comment(models.Model):
     article = models.ForeignKey(Post, on_delete=models.CASCADE)
     user = models.ForeignKey('user.Users',on_delete=models.CASCADE)
-    content = models.CharField(max_length=200)
+    content = models.TextField(max_length=200)
+    parent = models.ForeignKey('self',related_name='reply',on_delete=models.CASCADE,null=True,blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
 

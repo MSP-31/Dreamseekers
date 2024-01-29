@@ -46,38 +46,59 @@
         {% endif %}
         <ul>
         {% for comment in comments %}
-        <li>
+            <li>
+            <hr> <!-- 부모 댓글 -->
+            {{ comment.user }} | {{ comment.created_at }}<br>
+            {{ comment.content }}
+            
+            {% for reply in comment.reply %}
+                <ul>
+                    <li>
+                    <p>▼</p>
+                    {{ reply.user }} | {{ reply.created_at}}<br>
+                    {{ reply.content }}
+                    </li>
+                </ul>
+            {% endfor %}
 
-        <hr>
-        {{ comment.user }} | {{ comment.created_at }}<br>
-        {{ comment.content }}
+            {% if request.session.user %}
+                <form action="{% url 'comments_nested' post.pk comment.id%}" method="POST">
+                    {% csrf_token %}
+                    {{ comment_form }}
+                    <input type="submit" value="대댓글 작성">
+                </form>
+            {% else %}
+                <a href="{% url 'accounts:login' %}">[로그인 후 댓글작성이 가능합니다.]</a>
+            {% endif %}
         
         <!--삭제 / 수정-->
-        {% if request.session.user == comment.user.id %}
-            <a href="{% url 'comments_update' post.pk comment.pk %}">수정</a>
-            <form action="{% url 'comments_delete' post.pk comment.pk %}" method = "POST"
+        {% if request.session.username == comment.user %}
+            <a href="{% url 'comments_update' post.pk comment.id %}">수정</a>
+            <form action="{% url 'comments_delete' post.pk comment.id %}" method = "POST"
             onsubmit="return confirm('댓글을 삭제하시겠습니까?');">
                 {% csrf_token %}
                 <input type="submit" value="삭제">
             </form>
         {% endif %}
-        </li>
+            </li>
             {% empty %}
                 <p>댓글이 없습니다.</p>
             {% endfor %}
         </ul>
-        
-        {% if request.session.user %}
-            <form action="{% url 'comments_create' post.pk %}" method="POST">
-                {% csrf_token %}
-                {{ comment_form }}
-                <input type="submit" value="작성">
-            </form>
-        {% else %}
-            <a href="{% url 'accounts:login' %}">[로그인 후 댓글작성이 가능합니다.]</a>
-        {% endif %}
-    </div>
 
+        <hr>
+        <div> <!-- 댓글 입력 -->
+            {% if request.session.user %}
+                <form action="{% url 'comments_create' post.pk %}" method="POST">
+                    {% csrf_token %}
+                    {{ comment_form }}
+                    <input type="submit" value="작성">
+                </form>
+            {% else %}
+                <a href="{% url 'accounts:login' %}">[로그인 후 댓글작성이 가능합니다.]</a>
+            {% endif %}
+        </div>
+    </div>
     
     <a href="/board">목록</a>
 </div>
