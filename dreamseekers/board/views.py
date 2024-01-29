@@ -138,10 +138,8 @@ def comments_update(request, post_pk, comment_pk):
     if request.session.get('user'):
         comments = Comment.objects.get(pk=comment_pk)
         comment_form = CommentForm(instance = comments)
-        print("야호")
         if request.method == "POST":
             update_form = CommentForm(request.POST,instance = comments)
-            print("야야")
             update_form.save()
             return redirect('post_detail',post_pk)
     return render(request,'comments_update.html',{'comment_form':comment_form})

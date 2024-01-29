@@ -55,15 +55,16 @@
         <!--삭제 / 수정-->
         {% if request.session.user == comment.user.id %}
             <a href="{% url 'comments_update' post.pk comment.pk %}">수정</a>
-            <form action="{% url 'comments_delete' post.pk comment.pk %}" method = "POST">
+            <form action="{% url 'comments_delete' post.pk comment.pk %}" method = "POST"
+            onsubmit="return confirm('댓글을 삭제하시겠습니까?');">
                 {% csrf_token %}
                 <input type="submit" value="삭제">
             </form>
         {% endif %}
         </li>
-        {% empty %}
-        <p>댓글이 없습니다.</p>
-        {% endfor %}
+            {% empty %}
+                <p>댓글이 없습니다.</p>
+            {% endfor %}
         </ul>
         
         {% if request.session.user %}
