@@ -11,14 +11,10 @@
 
 <style>
     @media screen and (max-width: 1140px){
-        .nav_menu .menu_list{display: none;}
+        .nav-menu .menu-list{display: none;}
     }
     @media screen and (min-width: 1140px){
-        .nav_menu .menu_list{display: flex;}
-    }
-
-    footer{
-        background-color: black;
+        .nav-menu .menu-list{display: flex;}
     }
 </style>
 
@@ -28,46 +24,67 @@
 {% block script %}
 {% endblock %}
 <header>
-    <nav class="nav_menu">
-        <div class="nav_logo">
-            <a href="/"><img class="logo_img" src = {% static "img/logo.jpg" %}></a>
+    <div class="top-header">
+        <div class="login">
+            {% if request.session.user %} <!--로그인 여부 확인-->
+            <b>{{ request.session.username}}</b>님
+            <span></span>
+            <a href="{% url 'accounts:logout' %}">로그아웃</a>
+            {% else %}
+            <a href="{% url 'accounts:login' %}">로그인</a>
+            <span></span>
+            <a href="{% url 'accounts:signup' %}">회원가입</a>
+            {% endif %}
+        </div>
+    </div>
+    <hr>
+    <nav class="nav-menu">
+        <div class="nav-logo">
+            <a href="/">
+                <img class="logo-img" src = {% static "img/logo.jpg" %}>
+            </a>
         </div>
         
-        <ul class="menu_list">
+        <ul class="menu-list">
             <li class="menu"><a href="#">교육원 소개</a>
                 <div class="menu-bar"><span></span></div>
-                <div class="submenu_bg">
-                    <ul class="menu1_s submenu">
-                        <li><a href="/intro/lecture">주요 강의</a></li>
-                        <li><a href="#">대표 강사</a></li>
+                <div class="submenu-container">
+                    <div class="sub-bg1" aria-hidden="true"></div>
+                    <ul class="submenu">
+                        <li><a href="/intro/lecture">인사말</a></li>
+                        <li><a href="#">강사 소개</a></li>
                         <li><a href="#">오시는 길</a></li>
+                        <li><a href="#">추가 항목들...</a></li>
                     </ul>
                 </div>
             </li>
-            <li class="menu"><a href="#">주요 소식</a>
+
+            <li class="menu"><a href="#">주요 강의</a>
                 <div class="menu-bar"><span></span></div>
-                <div class="submenu_bg">
-                    <ul class="menu2_s submenu">
-                        <li><a href="#">SNS</a></li>
+            </li>
+            
+            <li class="menu"><a href="#">소통 마당</a>
+                <div class="menu-bar"><span></span></div>
+                <div class="submenu-container">
+                    <ul class="submenu">
+                        <li><a href="#">공지사항</a></li>
+                        <li><a href="#">자료실</a></li>
                         <li><a href="/board">방명록</a></li>
+                        <li><a href="#">SNS</a></li>
+                        
                     </ul>
                 </div>
             </li>
-            <li class="menu"><a href="#">문의 및 예약</a>
+            <li class="menu"><a href="#">강의 문의</a>
                 <div class="menu-bar"><span></span></div>
-                <div class="submenu_bg">
-                    <ul class="menu3_s submenu">
-                        <li><a href="#">일정 예약 확인</a></li>
+                <div class="submenu-container">
+                    <ul class="submenu">
                         <li><a href="#">강의 상담 문의</a></li>
+                        <li><a href="#">내 문의 내역</a></li>
+                        <li><a href="#">강의 일정표</a></li>
+                        <li><a href="#">추가 항목들...</a></li>
                     </ul>
                 </div>
-            </li>
-            <li class="menu">
-                {% if request.session.user %} <!--로그인 여부 확인-->
-                <a href="{% url 'accounts:logout' %}">{{ request.session.username}}님 로그아웃</a>
-                {% else %}
-                <a href="{% url 'accounts:login' %}">로그인</a>
-                {% endif %}
             </li>
         </ul>
         <div id="menuToggle">

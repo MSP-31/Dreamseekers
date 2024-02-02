@@ -1,5 +1,32 @@
-/*--------헤더 부분--------*/
-.nav_menu {
+/* top header*/
+.top-header{
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-bottom: 5px;
+  height: 30px;
+  align-items: center;
+}
+.top-header .login{
+  padding-right: 30px;
+}
+
+.top-header .login span{
+  width: 1px;
+  height: 12px;
+  margin: 0 5px;
+  background-color: #000000;
+  vertical-align: middle;
+  display:inline-block;
+}
+
+header hr{
+  background: #dddddd;
+  height:1px;
+  border:0;
+}
+/*--------헤더 메뉴--------*/
+.nav-menu {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -10,74 +37,68 @@
 }
 
 /* 메뉴 글꼴 스타일 */
-.nav_menu , li > a{
+.nav-menu , li > a{
     text-decoration: none;
     font-weight: bold;
     font-size: 25px;
     color: black;
 }
 
-.nav_menu .menu_list{
+.nav-menu .menu-list{
     display: flex;
 }
 
-/* 첫번째 메뉴 조정 */
-.menu_list li{
+/* 메인 메뉴 조정 */
+.menu-list li.menu{
     padding: 40px 12px;
     margin-right: 60px;
 }
 
-/* 메뉴에 마우스가 올라갔을때 */
-ul.menu_list > li.menu a:hover ,
+/* 메뉴에 마우스가 올라갔을때 색변경 */
+ul.menu-list > li.menu a:hover ,
 ul.submenu > li:hover{
   color: #126EB1;
   transition: color 0.2s ease-in-out
 }
 
-ul.menu_list > li.menu a:not(:hover) ,
+ul.menu-list > li.menu a:not(:hover) ,
 ul.submenu > li:not(:hover){
   color: black;
   transition: color 0.2s ease-in-out
 }
 
-  /* 서브메뉴 숨겨짐 */
-ul.menu_list > li ul.submenu {
-  display: none;
-  position: absolute;
-  top: 4px;
-  padding: 10px;
-  width: 100%;
-}
-
-/* 서브메뉴 배경 */
-ul.menu_list > li div.submenu_bg {
-  display: block;
+/* 서브메뉴 기본상태 */
+.submenu-container {
+  height: 0;
+  overflow:hidden;
   position: absolute;
   top: 105px;
-  padding: 0px;
   width: 100%;
-  left: 0;
-  background-color: white;
-}
-  
-/* 마우스가 올라갔을때 */
-ul.menu_list > li:hover ul.submenu {
-  display: block;
-  z-index: 2;
+  background-color: #e4e4e4;
 }
 
 /* 마우스가 올라갔을때 (sbg) */
-ul.menu_list > li:hover div.submenu_bg {
+ul.menu-list:hover .submenu-container {
+  height: 300px;
   z-index: 1;
-  padding: 30px;
-  transition: padding 0.3s ease-in-out
+  transition-duration: 0.5s;
 }
 
 /* 마우스가 때졌을때 (sbg)*/
-ul.menu_list > li:not(:hover) div.submenu_bg {
+ul.menu-list:not(:hover) div.submenu-container {
   z-index: 1;
-  padding: 0px;
-  transition: padding 0.2s ease-in-out
+  transition-duration: 0.5s;
+}
+
+/* 서브메뉴 배경 그림*/
+.sub-bg1{
+  background-image: url(../img/temp.jpg);
+  background-size: contain;
+  position: absolute;
+  width:25rem;
+  height: 20rem;
+  left:0;
+  z-index: -1;
 }
 
 /* 메뉴 선택 바*/
@@ -100,28 +121,31 @@ ul.menu_list > li:not(:hover) .menu-bar span {
   width: 0%;
   transition: width 0.2s ease-in-out
 }
-  
+
+/* 마우스가 올라갔을때 (sbg) */
+ul.menu_list > li:hover div.submenu_bg {
+  z-index: 1;
+  padding: 30px;
+  transition: padding 0.3s ease-in-out
+}
+/* 마우스가 때졌을때 (sbg)*/
+ul.menu-list > li:not(:hover) div.submenu-container {
+  z-index: 1;
+  transition-duration: 0.5s;
+}
+
+/* 서브메뉴 설정*/
+.submenu{
+  border: 1px solid #ddd;
+  max-width: 300px;
+}
+
 /* 서브메뉴 속성 */
 ul.menu_list > li ul.submenu > li {
   display: inline-block;
   width: auto;
   padding: 5px 10px;
   text-align: center;
-}
-
-/* 첫번째 서브메뉴 위치 설정*/
-.menu1_s{
-  left: 30%;
-}
-
-/* 두번째 서브메뉴 위치 설정*/
-.menu2_s{
-  left: 45%;
-}
-
-/* 세번째 서브메뉴 위치 설정*/
-.menu3_s{
-  left: 40%;
 }
 
   /* 햄버거 버튼*/
