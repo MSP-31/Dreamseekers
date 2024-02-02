@@ -25,7 +25,8 @@
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="{% static 'js/header.js'%}"></script>
-
+{% block script %}
+{% endblock %}
 <header>
     <nav class="nav_menu">
         <div class="nav_logo">
@@ -99,6 +100,5 @@
 </footer>
 -->
 <!-- 자바스크립트 시작 -->
-{% block script %}
-{% endblock %}
+
 <!-- 자바스크립트 끝 -->

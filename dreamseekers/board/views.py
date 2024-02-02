@@ -2,6 +2,7 @@ import os
 from django.conf import settings
 from django.http import Http404
 
+from datetime import timedelta
 from django.shortcuts import get_object_or_404, redirect, render
 from board.serializers import CommentSerializer
 from user.models import Users
@@ -58,7 +59,13 @@ def post_detail(request, pk):
     serializer = CommentSerializer(comments, many=True)
     serialized_comments = serializer.data
 
-    return render(request, 'post_detail.html',{'post':post, 'comments':serialized_comments, 'comment_form':comment_form,})
+    # 시간 차이 측정
+    time_difference = post.updated_at - post.created_at
+    show_updated_at = time_difference > timedelta(seconds=1)
+
+    return render(request, 'post_detail.html',
+                  {'post':post, 'comments':serialized_comments,
+                   'comment_form':comment_form, 'show_updated_at':show_updated_at})
 
 # 게시글 작성
 def post_write(request):
@@ -79,8 +86,6 @@ def post_write(request):
                 is_private= form.cleaned_data['is_private'],
                 author    = user
             )
-
-            new_post.save()
             return redirect(post_detail,pk=new_post.pk)
         else:
             # 폼이 유효하지 않을 경우, 사용자가 입력한 데이터를 폼에 다시 채워 넣습니다.
@@ -94,7 +99,6 @@ def post_write(request):
 def post_update(request,pk):
     post = Post.objects.get(pk=pk)
     original_photo = post.photo
-
     if request.method == 'POST':
         form = BoardForm(request.POST,request.FILES, instance=post)
         if form.is_valid():
