@@ -5,7 +5,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{% static 'css/style.css'%}?after">
+<link rel="stylesheet" href="{% static 'css/reset.css'%}?after">
 <link rel="stylesheet" href="{% static 'css/main.css'%}">
 <link rel="stylesheet" href="{% static 'css/header.css'%}">
 
@@ -24,21 +24,21 @@
 {% block script %}
 {% endblock %}
 <header>
-    <div class="top-header">
-        <div class="login">
-            {% if request.session.user %} <!--로그인 여부 확인-->
-            <b>{{ request.session.username}}</b>님
-            <span></span>
-            <a href="{% url 'accounts:logout' %}">로그아웃</a>
-            {% else %}
-            <a href="{% url 'accounts:login' %}">로그인</a>
-            <span></span>
-            <a href="{% url 'accounts:signup' %}">회원가입</a>
-            {% endif %}
-        </div>
-    </div>
-    <hr>
     <nav class="nav-menu">
+        <div class="top-header">
+            <div class="login">
+                {% if request.session.user %} <!--로그인 여부 확인-->
+                <b>{{ request.session.username}}</b>님
+                <span></span>
+                <a href="{% url 'accounts:logout' %}">로그아웃</a>
+                {% else %}
+                <a href="{% url 'accounts:login' %}">로그인</a>
+                <span></span>
+                <a href="{% url 'accounts:signup' %}">회원가입</a>
+                {% endif %}
+            </div>
+        </div>
+
         <div class="nav-logo">
             <a href="/">
                 <img class="logo-img" src = {% static "img/logo.jpg" %}>
@@ -88,7 +88,7 @@
             </li>
         </ul>
         <div id="menuToggle">
-            <a class="menu-trigger" href="#">
+            <a class="menu-trigger burger-toggle" href="#">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -97,25 +97,37 @@
     </nav>
 </header>
 
+<!-- 사이드바 -->
+<div id="sidebar" style="display: none;">
+    <div class="background"></div>
+    <div class="inner">
+        <div id="sidebarToggle ">
+            <a class="side-trigger burger-toggle" href="#">
+                <span></span>
+                <span></span>
+            </a>
+        </div>
+    </div>
+</div>
+
 {% block content %}
 <!--본문 위치-->
 {% endblock %}
-<!-- 푸터 임시 제거 
-<div style="clear:both;"></div>
+
 <footer>
     <div>
-        <br>
-        <p>꿈을찾는사람들교육원</p>
-        <p>홍의섭</p>
-        <p>경남 창원시 성산구 용지로70.1029호 (중앙동/성원그랜드 오피스텔)</p>
-        <p>사업자등록번호 : 102-27-75425</p>
-        <p>전화번호 : 055-601-0451</p>
-        <p>이메일 : jhs9747@naver.com</p>
-        <p>기타 : (강의접수)010-9371-0450</p>
-        <br>
+        <ul>
+            <li>꿈을찾는사람들교육원</li>
+            <li>홍의섭</li>
+            <li>경남 창원시 성산구 용지로70.1029호 (중앙동/성원그랜드 오피스텔)</li>
+            <li>사업자등록번호 : 102-27-75425</li>
+            <li>전화번호 : 055-601-0451</li>
+            <li>이메일 : jhs9747@naver.com</li>
+            <li>기타 : (강의접수)010-9371-0450</li>
+        </ul>
+        <p><small>2024 꿈을찾는사람들교육원</small></p>
     </div>
 </footer>
--->
 <!-- 자바스크립트 시작 -->
 
 <!-- 자바스크립트 끝 -->

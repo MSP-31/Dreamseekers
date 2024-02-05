@@ -1,47 +1,58 @@
-/* top header*/
-.top-header{
-  display: flex;
-  justify-content: flex-end;
+header{
+  position: fixed;
   width: 100%;
-  margin-bottom: 5px;
-  height: 30px;
-  align-items: center;
+  z-index: 3;
 }
-.top-header .login{
+/* -----top header------ */
+.top-header{
+  position: absolute;
+  right: 2%;
+  top: 12px;
   padding-right: 30px;
+  color: rgb(228, 228, 228);
+  z-index: 2;
 }
 
+/* 기본 글자색 */
+header.on .top-header,
+.nav-menu:hover .top-header{
+  color: rgb(63, 63, 63);
+}
+
+/* 로그인 경계선 */
 .top-header .login span{
   width: 1px;
   height: 12px;
   margin: 0 5px;
-  background-color: #000000;
+  background-color: rgb(228, 228, 228);
   vertical-align: middle;
   display:inline-block;
-}
-
-header hr{
-  background: #dddddd;
-  height:1px;
-  border:0;
 }
 /*--------헤더 메뉴--------*/
 .nav-menu {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: white;
     position: relative;
+    padding-top: 20px;
+    height: 110px;
+    background-color: rgba(255, 255, 255, 0);
+    transition: background-color 0.2s ease;
     width: 100%;
-    z-index: 0;
+    z-index: 1;
+}
+
+/* 스크롤시 메뉴 배경 */
+header.on .nav-menu,
+.nav-menu:hover{
+  background-color: rgba(255, 255, 255, 1);
 }
 
 /* 메뉴 글꼴 스타일 */
-.nav-menu , li > a{
+.nav-menu li > a{
     text-decoration: none;
     font-weight: bold;
     font-size: 25px;
-    color: black;
 }
 
 .nav-menu .menu-list{
@@ -61,10 +72,18 @@ ul.submenu > li:hover{
   transition: color 0.2s ease-in-out
 }
 
-ul.menu-list > li.menu a:not(:hover) ,
-ul.submenu > li:not(:hover){
-  color: black;
+ul.menu-list > li.menu a,
+ul.submenu > li{
+  color: rgb(255, 255, 255);
   transition: color 0.2s ease-in-out
+}
+
+/* 스크롤시 메뉴 글꼴색*/
+.nav-menu:hover ul.menu-list > li.menu a,
+.nav-menu:hover ul.submenu > li,
+header.on ul.menu-list > li.menu a,
+header.on ul.submenu > li {
+    color: rgb(0, 0, 0);
 }
 
 /* 서브메뉴 기본상태 */
@@ -148,68 +167,130 @@ ul.menu_list > li ul.submenu > li {
   text-align: center;
 }
 
-  /* 햄버거 버튼*/
-  .menu-trigger {
-    margin-right: 70px;
-    margin-bottom: 50px;
-  }
-  .menu-trigger,
-  .menu-trigger span {
-    display: inline-block;
-    transition: all .4s;
-    box-sizing: border-box;
-  }
-  
-  .menu-trigger {
-    position: relative;
-    top: 25px;
-    width: 50px;
-    height: 44px;
-  }
-  
-  .menu-trigger span {
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background-color: #000000;
-    border-radius: 4px;
-  }
-  
-  .menu-trigger span:nth-of-type(1) {
-    top: 0;
-  }
-  
-  .menu-trigger span:nth-of-type(2) {
-    top: 20px;
-  }
-  
-  .menu-trigger span:nth-of-type(3) {
-    bottom: 0;
-  }
-  
-  /* type-01 
-  /* 중앙 라인이 고정된 자리에서 투명하게 사라지며 상하라인 회전하며 엑스자 만들기 */
-  .menu-trigger.active-1 span:nth-of-type(1) {
-    -webkit-transform: translateY (20px) rotate (-45deg);
-    transform: translateY(20px) rotate(-45deg);
-  }
-  
-  .menu-trigger.active-1 span:nth-of-type(2) {
-    opacity: 0;
-  }
-  
-  .menu-trigger.active-1 span:nth-of-type(3) {
-    -webkit-transform: translateY(-20px) rotate(45deg);
-    transform: translateY(-20px) rotate(45deg);
-  }
-  
-  /*-------- footer ----------*/
-  footer{
-    position : relative;
-    transform : translateY(-100%);
+/*----햄버거 버튼----*/
+.menu-trigger {
+  margin-right: 70px;
+  margin-bottom: 50px;
 
-    text-align:center;
-    color: white;
-    background-color: #000000;
-  }
+  position: relative;
+  top: 25px;
+  width: 50px;
+  height: 44px;
+}
+
+/* 햄버거 레이아웃 설정 */
+.menu-trigger,
+.menu-trigger span {
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+/* 햄버거 줄 스타일링 */
+.menu-trigger span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: white;
+  border-radius: 4px;
+}
+
+/* 햄버거 줄 색 변경 */
+header.on .menu-trigger span,
+.nav-menu:hover .menu-trigger span{
+  background-color: black;
+}
+
+/* 햄버거 줄 세부위치 */
+.menu-trigger span:nth-of-type(1) {
+  top: 10px;
+}
+.menu-trigger span:nth-of-type(2) {
+  top: 25px;
+}
+.menu-trigger span:nth-of-type(3) {
+  bottom: 0;
+}
+
+/* ---- 사이드바 ------ */
+#sidebar .background {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0, 0, 0);
+  opacity: 0;
+  z-index: 4;
+  transition: opacity 0.5s ease;
+}
+
+/* 햄버거 위치*/
+.side-trigger {
+  position: relative;
+  top: 60px;
+  width: 50px;
+  height: 44px;
+  left: 52%;
+}
+
+/* 햄버거 레이아웃 설정 */
+.side-trigger,
+.side-trigger span {
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+/* 햄버거 줄 스타일링 */
+.side-trigger span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: white;
+  border-radius: 4px;
+}
+
+/* 햄버거 줄 세부위치 */
+.side-trigger span:nth-of-type(1) {
+  top: 10px;
+}
+.side-trigger span:nth-of-type(2) {
+  top: 25px;
+}
+
+.side-trigger span:nth-of-type(1) {
+  -webkit-transform: translateY (0px) rotate (-45deg);
+  transform: translateY(0px) rotate(-45deg);
+}
+
+.side-trigger span:nth-of-type(2) {
+  -webkit-transform: translateY(-15px) rotate(45deg);
+  transform: translateY(-15px) rotate(45deg);
+}
+
+/* 사이드바 설정*/
+.inner{
+  position: fixed;
+  right: -500px;
+  width: 500px;
+  height: 100%;
+  background-color: #04ABDD;
+  z-index: 4;
+  transition: right .3s ease-out;
+}
+
+/* 펼침 */
+.inner.active{
+  right: 0;
+}
+  
+/*-------- footer ----------*/
+footer{
+  position : relative;
+  padding: 2rem;
+
+  text-align:center;
+  color: white;
+  background-color: #1d1d1d;
+}
