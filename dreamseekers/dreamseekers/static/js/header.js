@@ -1,5 +1,28 @@
 $(document).ready(function() {
-  /* 햄버거 버튼 동작  */
+
+  /* 서브 메뉴 */
+  $('.menu-list').each(function(){
+    var blind = $('#blind')
+    var submenu = $(this).find('.submenu-container');
+    var menu = $(this).find('.menu');
+
+    menu.each(function(){
+      $(this).hover(
+        function(){
+          blind.height('180px');
+          submenu.height('180px');
+          $(this).addClass('on');
+        },
+        function(){
+          blind.height('0');
+          submenu.height('0');
+          $(this).removeClass('on');
+        }
+      );
+    });
+  });
+
+  /* (햄버거)사이드 동작  */
   $('.burger-toggle').on('click', function() {
     var sidebar = document.getElementById("sidebar");
     var background = document.querySelector('#sidebar .background');

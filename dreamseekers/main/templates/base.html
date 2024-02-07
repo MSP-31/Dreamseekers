@@ -6,6 +6,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{% static 'css/reset.css'%}?after">
+<link rel="stylesheet" href="{% static 'css/style.css'%}">
 <link rel="stylesheet" href="{% static 'css/main.css'%}">
 <link rel="stylesheet" href="{% static 'css/header.css'%}">
 
@@ -41,15 +42,18 @@
 
         <div class="nav-logo">
             <a href="/">
-                <img class="logo-img" src = {% static "img/logo.jpg" %}>
+                <img class="logo-img" src = {% static "img/logo.png" %}>
             </a>
         </div>
-        
+
+        <div id="blind">
+            <span></span>
+        </div>
+
         <ul class="menu-list">
             <li class="menu"><a href="#">교육원 소개</a>
                 <div class="menu-bar"><span></span></div>
                 <div class="submenu-container">
-                    <div class="sub-bg1" aria-hidden="true"></div>
                     <ul class="submenu">
                         <li><a href="/intro/lecture">인사말</a></li>
                         <li><a href="#">강사 소개</a></li>
@@ -58,11 +62,17 @@
                     </ul>
                 </div>
             </li>
-
             <li class="menu"><a href="#">주요 강의</a>
                 <div class="menu-bar"><span></span></div>
+                <div class="submenu-container">
+                    <ul class="submenu">
+                        <li><a href="/intro/lecture">인사말</a></li>
+                        <li><a href="#">강사 소개</a></li>
+                        <li><a href="#">오시는 길</a></li>
+                        <li><a href="#">추가 항목들...</a></li>
+                    </ul>
+                </div>
             </li>
-            
             <li class="menu"><a href="#">소통 마당</a>
                 <div class="menu-bar"><span></span></div>
                 <div class="submenu-container">

@@ -9,14 +9,14 @@ header{
   right: 2%;
   top: 12px;
   padding-right: 30px;
-  color: rgb(228, 228, 228);
+  color: #e4e4e4;
   z-index: 2;
 }
 
 /* 기본 글자색 */
 header.on .top-header,
 .nav-menu:hover .top-header{
-  color: rgb(63, 63, 63);
+  color: #3f3f3f;
 }
 
 /* 로그인 경계선 */
@@ -24,7 +24,7 @@ header.on .top-header,
   width: 1px;
   height: 12px;
   margin: 0 5px;
-  background-color: rgb(228, 228, 228);
+  background-color: var(--header-line-color);
   vertical-align: middle;
   display:inline-block;
 }
@@ -36,45 +36,44 @@ header.on .top-header,
     position: relative;
     padding-top: 20px;
     height: 110px;
-    background-color: rgba(255, 255, 255, 0);
-    transition: background-color 0.2s ease;
+    transition: background-color 0.5s ease;
     width: 100%;
     z-index: 1;
 }
 
 /* 스크롤시 메뉴 배경 */
-header.on .nav-menu,
+header.on .nav-menu{
+  background-color: rgba(255, 255, 255, 0.7);
+}
+header.on .nav-menu:hover,
 .nav-menu:hover{
-  background-color: rgba(255, 255, 255, 1);
+  background-color: var(--main-header-color);
 }
 
 /* 메뉴 글꼴 스타일 */
-.nav-menu li > a{
-    text-decoration: none;
+.nav-menu li.menu > a{
     font-weight: bold;
     font-size: 25px;
 }
 
-.nav-menu .menu-list{
-    display: flex;
-}
-
 /* 메인 메뉴 조정 */
 .menu-list li.menu{
-    padding: 40px 12px;
-    margin-right: 60px;
+  position: relative;
+  text-align: center;
+  width: 170px;
+  padding: 40px 12px 13px 12px;
 }
 
 /* 메뉴에 마우스가 올라갔을때 색변경 */
 ul.menu-list > li.menu a:hover ,
 ul.submenu > li:hover{
-  color: #126EB1;
+  color: var(--main-color);
   transition: color 0.2s ease-in-out
 }
 
 ul.menu-list > li.menu a,
 ul.submenu > li{
-  color: rgb(255, 255, 255);
+  color: var(--main-header-color);
   transition: color 0.2s ease-in-out
 }
 
@@ -83,88 +82,80 @@ ul.submenu > li{
 .nav-menu:hover ul.submenu > li,
 header.on ul.menu-list > li.menu a,
 header.on ul.submenu > li {
-    color: rgb(0, 0, 0);
+    color: var(--main-header-re);
+}
+
+/* 서브 메뉴 배경 */
+#blind{
+  background-color: #fafafa;
+  width: 100%;
+  transition-duration: 0.4s;
+}
+
+/* 서브메뉴 배경 그림 */
+#blind span{
+  display:flex;
+  width: 200px;
+  height: 180px;
+  background-image: url(../img/temp.jpg);
+  background-size: contain;
+  left:0;
+}
+
+.submenu-container{
+  width: 170px;
+  border-right: 1px solid var(--header-line-color);
+  border-left: 1px solid var(--header-line-color);
+  transition-duration: 0.4s;
+}
+
+.submenu-container:nth-child(2) {
+  border: none;
+}
+.submenu-container:nth-child(3) {
+  border-left: none;
 }
 
 /* 서브메뉴 기본상태 */
-.submenu-container {
+.submenu-container,
+#blind{
+  position: absolute;
   height: 0;
   overflow:hidden;
-  position: absolute;
-  top: 105px;
-  width: 100%;
-  background-color: #e4e4e4;
-}
-
-/* 마우스가 올라갔을때 (sbg) */
-ul.menu-list:hover .submenu-container {
-  height: 300px;
+  top: 100%;
   z-index: 1;
-  transition-duration: 0.5s;
 }
 
-/* 마우스가 때졌을때 (sbg)*/
-ul.menu-list:not(:hover) div.submenu-container {
-  z-index: 1;
-  transition-duration: 0.5s;
+/* 마우스가 hover시 서브 메뉴 배경색 */
+.menu.on .submenu-container{
+  background-color: var(--main-header-color);
 }
 
-/* 서브메뉴 배경 그림*/
-.sub-bg1{
-  background-image: url(../img/temp.jpg);
-  background-size: contain;
-  position: absolute;
-  width:25rem;
-  height: 20rem;
-  left:0;
-  z-index: -1;
+/* 서브메뉴 설정*/
+.submenu{
+  max-width: 300px;
+  padding-left: 0;
+  text-align: center;
+  font-weight: bold;
 }
 
 /* 메뉴 선택 바*/
 .menu-bar span {
   position: absolute;
-  top: 80%;
+  width: 0;
+  top: 100%;
+  left: 0;
   height: 2px;
-  background-color: #126EB1;
+  margin-left: 12;
+  background-color: var(--main-color);
   border-radius: 4px;
+  z-index: 2;
 }
 
 /* 마우스가 올라갔을때 (bar) */
-ul.menu_list > li:hover .menu-bar span {
-  width: 15vh;
-  transition: width 0.2s ease-in-out
-}
-
-/* 마우스가 때졌을때 (bar)*/
-ul.menu_list > li:not(:hover) .menu-bar span {
-  width: 0%;
-  transition: width 0.2s ease-in-out
-}
-
-/* 마우스가 올라갔을때 (sbg) */
-ul.menu_list > li:hover div.submenu_bg {
-  z-index: 1;
-  padding: 30px;
-  transition: padding 0.3s ease-in-out
-}
-/* 마우스가 때졌을때 (sbg)*/
-ul.menu-list > li:not(:hover) div.submenu-container {
-  z-index: 1;
-  transition-duration: 0.5s;
-}
-
-/* 서브메뉴 설정*/
-.submenu{
-  border: 1px solid #ddd;
-  max-width: 300px;
-}
-
-/* 서브메뉴 속성 */
-ul.menu_list > li ul.submenu > li {
-  display: inline-block;
-  width: auto;
-  padding: 5px 10px;
-  text-align: center;
+.menu.on .menu-bar span {
+  width: 170px;
+  transition: width 0.4s ease-in-out
 }
 
 /*----햄버거 버튼----*/
@@ -191,14 +182,14 @@ ul.menu_list > li ul.submenu > li {
   left: 0;
   width: 100%;
   height: 4px;
-  background-color: white;
+  background-color: var(--main-header-color);
   border-radius: 4px;
 }
 
 /* 햄버거 줄 색 변경 */
 header.on .menu-trigger span,
 .nav-menu:hover .menu-trigger span{
-  background-color: black;
+  background-color: var(--main-header-re);
 }
 
 /* 햄버거 줄 세부위치 */
@@ -210,19 +201,6 @@ header.on .menu-trigger span,
 }
 .menu-trigger span:nth-of-type(3) {
   bottom: 0;
-}
-
-/* ---- 사이드바 ------ */
-#sidebar .background {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgb(0, 0, 0);
-  opacity: 0;
-  z-index: 4;
-  transition: opacity 0.5s ease;
 }
 
 /* 햄버거 위치*/
@@ -247,7 +225,7 @@ header.on .menu-trigger span,
   left: 0;
   width: 100%;
   height: 4px;
-  background-color: white;
+  background-color: var(--main-header-color);
   border-radius: 4px;
 }
 
@@ -278,6 +256,19 @@ header.on .menu-trigger span,
   background-color: #04ABDD;
   z-index: 4;
   transition: right .3s ease-out;
+}
+
+/* ---- 사이드바 ------ */
+#sidebar .background {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--main-header-re);
+  opacity: 0;
+  z-index: 4;
+  transition: opacity 0.5s ease;
 }
 
 /* 펼침 */
