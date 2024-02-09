@@ -11,14 +11,11 @@
 
 .main-content {
     text-align: center;
-    color: rgb(0, 0, 0);
+    color: black;
     font-family: 'Noto Sans KR', sans-serif;
-    
-    /* margin-top: 6rem; */
-
     flex:1;
-
-    margin-bottom: 10%;
+    margin: 0 10%;
+    padding: 5% 5%;
 }
 
 /*--------게시판--------*/

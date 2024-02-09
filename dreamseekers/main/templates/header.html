@@ -26,23 +26,9 @@
 {% endblock %}
 <header>
     <nav class="nav-menu">
-        <div class="top-header">
-            <div class="login">
-                {% if request.session.user %} <!--로그인 여부 확인-->
-                <b>{{ request.session.username}}</b>님
-                <span></span>
-                <a href="{% url 'accounts:logout' %}">로그아웃</a>
-                {% else %}
-                <a href="{% url 'accounts:login' %}">로그인</a>
-                <span></span>
-                <a href="{% url 'accounts:signup' %}">회원가입</a>
-                {% endif %}
-            </div>
-        </div>
-
         <div class="nav-logo">
             <a href="/">
-                <img class="logo-img" src = {% static "img/logo.png" %}>
+                <img class="logo-img" src = {% static "img/logo.png" %} alt="꿈을 찾는 사람들 교육원" title="꿈을 찾는 사람들 교육원">
             </a>
         </div>
 
@@ -66,9 +52,17 @@
                 <div class="menu-bar"><span></span></div>
                 <div class="submenu-container">
                     <ul class="submenu">
-                        <li><a href="/intro/lecture">인사말</a></li>
-                        <li><a href="#">강사 소개</a></li>
-                        <li><a href="#">오시는 길</a></li>
+                        <li><a href="/intro/lecture">주요 강의</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="menu"><a href="#">강의 문의</a>
+                <div class="menu-bar"><span></span></div>
+                <div class="submenu-container">
+                    <ul class="submenu">
+                        <li><a href="#">강의 상담 문의</a></li>
+                        <li><a href="#">내 문의 내역</a></li>
+                        <li><a href="#">강의 일정</a></li>
                         <li><a href="#">추가 항목들...</a></li>
                     </ul>
                 </div>
@@ -80,19 +74,8 @@
                         <li><a href="#">공지사항</a></li>
                         <li><a href="#">자료실</a></li>
                         <li><a href="/board">방명록</a></li>
-                        <li><a href="#">SNS</a></li>
+                        <li><a href="#">활동 소식</a></li>
                         
-                    </ul>
-                </div>
-            </li>
-            <li class="menu"><a href="#">강의 문의</a>
-                <div class="menu-bar"><span></span></div>
-                <div class="submenu-container">
-                    <ul class="submenu">
-                        <li><a href="#">강의 상담 문의</a></li>
-                        <li><a href="#">내 문의 내역</a></li>
-                        <li><a href="#">강의 일정표</a></li>
-                        <li><a href="#">추가 항목들...</a></li>
                     </ul>
                 </div>
             </li>
@@ -120,9 +103,26 @@
     </div>
 </div>
 
-{% block content %}
-<!--본문 위치-->
+{% block topContent %}
+<!-- 본문 헤더 -->
+<div id="top-content">
+    <div class="top-img">
+        {% block topImg %}
+        <img src = {% static "img/1.jpg" %} alt="예제이미지">
+        <h1>예제 텍스트</h1>
+        {% endblock %}
+    </div>
+    <div class="menu-tab">
+        
+    </div>
+</div>
 {% endblock %}
+
+<!-- 본문 -->
+{% block content %}
+{% endblock %}
+
+
 
 <footer>
     <div>
@@ -138,6 +138,3 @@
         <p><small>2024 꿈을찾는사람들교육원</small></p>
     </div>
 </footer>
-<!-- 자바스크립트 시작 -->
-
-<!-- 자바스크립트 끝 -->

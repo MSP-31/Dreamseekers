@@ -1,9 +1,19 @@
-{% extends 'base.html' %}
+{% extends 'header.html' %}
 {% load static %}
 {% load dr_filter %}
+
+{% block topImg %}
+    <img src = {% static "img/forum.jpg" %} alt="예제이미지">
+    <h1>소통 마당</h1>
+{% endblock %}
+
 {% block content %}
 
 <div class="main-content">
+  <div class="location-con">
+    dfaa
+  </div>
+
   <h1>방명록</h1>
 
   <table class="board-table">

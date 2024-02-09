@@ -3,47 +3,26 @@ header{
   width: 100%;
   z-index: 3;
 }
-/* -----top header------ */
-.top-header{
-  position: absolute;
-  right: 2%;
-  top: 12px;
-  padding-right: 30px;
-  color: #e4e4e4;
-  z-index: 2;
-}
 
-/* 기본 글자색 */
-header.on .top-header,
-.nav-menu:hover .top-header{
-  color: #3f3f3f;
-}
-
-/* 로그인 경계선 */
-.top-header .login span{
-  width: 1px;
-  height: 12px;
-  margin: 0 5px;
-  background-color: var(--header-line-color);
-  vertical-align: middle;
-  display:inline-block;
-}
 /*--------헤더 메뉴--------*/
 .nav-menu {
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
-    padding-top: 20px;
     height: 110px;
     transition: background-color 0.5s ease;
     width: 100%;
+    top: 0;
     z-index: 1;
+
+    transition: top 1s
 }
 
-/* 스크롤시 메뉴 배경 */
+/* 스크롤시 헤더 사라짐 */
 header.on .nav-menu{
-  background-color: rgba(255, 255, 255, 0.7);
+  top: -110;
+  transition: top 0.2s
 }
 header.on .nav-menu:hover,
 .nav-menu:hover{
@@ -79,9 +58,7 @@ ul.submenu > li{
 
 /* 스크롤시 메뉴 글꼴색*/
 .nav-menu:hover ul.menu-list > li.menu a,
-.nav-menu:hover ul.submenu > li,
-header.on ul.menu-list > li.menu a,
-header.on ul.submenu > li {
+.nav-menu:hover ul.submenu > li{
     color: var(--main-header-re);
 }
 
@@ -187,7 +164,6 @@ header.on ul.submenu > li {
 }
 
 /* 햄버거 줄 색 변경 */
-header.on .menu-trigger span,
 .nav-menu:hover .menu-trigger span{
   background-color: var(--main-header-re);
 }
@@ -275,6 +251,62 @@ header.on .menu-trigger span,
 .inner.active{
   right: 0;
 }
+
+/*-------- 본문헤더 ----------*/
+#top-content{
+  width: 100%;
+  position: relative;
+}
+
+/* 이미지 */
+#top-content .top-img{
+  position: relative;
+  mix-blend-mode: multiply;
+  background-color: rgba(0, 0, 0, 0.205);
+}
+#top-content .top-img img{
+  object-fit: cover;
+  width: 100%;
+  height: 300px;
+  mix-blend-mode: multiply;
+  background-color: rgba(0, 0, 0, 0.205);
+}
+
+/* 제목 */
+#top-content .top-img h1{
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  color: white;
+  
+}
+
+/* 메뉴 탭 */
+#top-content .menu-tab{
+  margin: 0 10%;
+  padding: 2% 5%;
+}
+
+#top-content .menu-btn{
+  display: inline-block;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+
+  width: 80px;
+  height: 30px;
+  margin: 5px;
+  background-color: var(--header-line-color);
+  border-radius: 25px;
+}
+
+.active.menu-btn{
+  background-color: black !important;
+  color: white;
+}
+
   
 /*-------- footer ----------*/
 footer{
