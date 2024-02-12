@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'course',
     'user',
     'board',
+    'lecture_inquiry',
     'rest_framework',
     'corsheaders',
 ]

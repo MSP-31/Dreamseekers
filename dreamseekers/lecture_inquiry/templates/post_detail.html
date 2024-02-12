@@ -1,0 +1,128 @@
+{% extends 'header.html' %}
+{% load static %}
+
+{% block topImg %}
+    <img src = {% static "img/forum.jpg" %} alt="예제이미지">
+    <h1>소통 마당</h1>
+{% endblock %}
+
+{% block content %}
+
+<div class="board-box">
+    <h1>방명록</h1>
+    <div class="board-title">
+        <h3>{{post.title}}</h3>
+
+        {% if show_updated_at %}
+        <span>*{{ post.updated_at }}</span>
+        {% else %}
+        <span>{{ post.created_at }}</span>
+        {% endif %}
+    </div>
+
+    <div class="board-content">
+        <p>{{post.contents|linebreaksbr}}</p>
+
+        {% if post.photo %}
+            <img src = "{{post.photo.url}}" alt="" height = "300">
+            <br>
+        {% endif %}
+    </div>
+    
+    <br>
+    
+    <!--댓글-->
+    <div class="board-comment">
+        <div class="comment-count">
+            <span>댓글</span>
+            {% if comments %}
+                <b>{{ comments|length }}</b>
+            {% else %}
+                <b>0</b>
+            {% endif %}
+            <br>
+        </div>
+
+        <div class="comment-list">
+            <ul>
+                {% for comment in comments %}
+                    <li>
+                    <!-- 부모 댓글 -->
+                    <div></div>
+                    {{ comment.user }}<br>
+                    <div id="comment_{{comment.id}}" class = "comment" data-comment-id="{{comment.id}}">
+                        {{ comment.content }}
+                    </div>
+                    {{ comment.created_at }}
+        
+                    {% if request.session.user %}
+                        <div id="reply_write_{{comment.id}}" class="reply_write" style="display:none" data-comment-id="{{comment.id}}">
+                            <form action="{% url 'comments_nested' post.pk comment.id%}" method="POST">
+                                {% csrf_token %}
+                                {{ comment_form }}
+                                <input class="btn" type="submit" value="대댓글 작성">
+                            </form>
+                        </div>
+                    {% endif %}
+                    
+                    {% for reply in comment.reply %}
+                        <ul>
+                            <li>
+                            <p>▼</p>
+                            {{ reply.user }}<br>
+                            {{ reply.content }}<br>
+                            {{ reply.created_at}}
+                            </li>
+                        </ul>
+                    {% endfor %}
+                
+                <!--삭제 / 수정-->
+                {% if request.session.username == comment.user %}
+                    <a class="btn" href="{% url 'comments_update' post.pk comment.id %}">수정</a>
+                    <form action="{% url 'comments_delete' post.pk comment.id %}" method = "POST"
+                    onsubmit="return confirm('댓글을 삭제하시겠습니까?');">
+                        {% csrf_token %}
+                        <input class="btn" type="submit" value="삭제">
+                    </form>
+                {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+        
+                <br>
+        
+                <div> <!-- 댓글 입력 -->
+                    {% if request.session.user %}
+                        <form action="{% url 'comments_create' post.pk %}" method="POST">
+                            {% csrf_token %}
+                            {{ comment_form }}
+                            <input class="btn" type="submit" value="작성">
+                        </form>
+                    {% else %}
+                        <a class="btn" href="{% url 'accounts:login' %}">[로그인 후 댓글작성이 가능합니다.]</a>
+                    {% endif %}
+                </div>
+        </div>
+    </div>
+
+    <!--게시글 수정 / 삭제-->
+    <div>
+        {% if request.session.user == post.author_id %}
+        <a class="btn" href="{% url 'post_update' post.pk  %}">수정</a>
+
+        <form action="{% url 'post_delete' post.pk  %}"
+        method="POST" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
+            {% csrf_token %}
+            <input class="btn" type="submit" value="삭제">
+        </form>
+        {% endif %}
+    </div>
+
+    <a class="btn" href="/board">목록</a>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script src="{% static "js/board/post_detail.js" %}"></script>
+{% endblock %}

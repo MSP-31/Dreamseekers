@@ -1,0 +1,68 @@
+{% extends 'header.html' %}
+{% load static %}
+{% load dr_filter %}
+
+{% block topImg %}
+    <img src = {% static "img/forum.jpg" %} alt="예제이미지">
+    <h1>소통 마당</h1>
+{% endblock %}
+
+{% block content %}
+
+<div class="main-content">
+
+  <h1>방명록</h1>
+
+  <table class="board-table">
+    <thead class>
+      <tr class="table-head">
+        <th style="width: 10%;" scope="col">번호</th>
+        <th style="width: 80%;" scope="col">제목</th>
+        <th style="width: 15%;"scope="col">글쓴이</th>
+        <th style="width: 15%;" scope="col">작성일</th>
+      </tr>
+    </thead>
+
+    {% for post in page_obj %}
+    <tbody>
+      <tr>
+        <td>
+          <!-- 번호 = 전체건수 - 시작인덱스 - 현재인덱스 + 1 -->
+          {{ page_obj.paginator.count|sub:page_obj.start_index|sub:forloop.counter0|add:1 }}
+        </td>
+        <td style="text-align: left;"><a href="{{post.pk}}/">{{post.title}}
+          {% if post.is_private %} <span>🔒</span> {% endif %}
+        </td>
+        <td>{{post.author}}</td>
+        <td>{{post.created_at | date:"Y.m.d" }}</td>
+      </tr>
+    </tbody>
+    {% endfor %}
+    
+  </table>
+  <br/>
+  <a class="btn-active" href="write">글쓰기</a>
+  <br/>
+
+  <!--페이지 네비-->
+  <div class="paging-navi">
+    {% if page_obj.has_other_pages %}
+    <ul>
+      {% if page_obj.has_previous %}
+      <li><a class="btn" style="text-decoration:none; color: black;" href="?page={{page_obj.previous_page_number}}">&#10094;</a></li>
+      {% endif %}
+
+      {% for page in custom_range %}
+        <li class="{% if page == page_obj.number %}active{% endif %}">
+          <a class="btn" href="?page={{page}}">{{page}}</a></li>
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+      <li><a class="btn" style="text-decoration:none; color: black;" href="?page={{page_obj.next_page_number}}">&#10095;</a></li>
+      {% endif %}
+    </ul>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}

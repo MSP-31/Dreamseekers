@@ -12,6 +12,7 @@ urlpatterns = [
     path('/', include('main.urls')),
     path('user/',include('user.urls')),
     path('board/',include('board.urls')),
+    path('lecture/',include('lecture_inquiry.urls')),
 ]
 
 # 이미지 url 설정

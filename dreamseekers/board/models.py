@@ -7,7 +7,7 @@ from django.core.files.base import ContentFile
 
 # 게시글
 class Post(models.Model):
-    author     = models.ForeignKey('user.Users', on_delete=models.CASCADE, verbose_name='글쓴이')
+    author     = models.ForeignKey('user.Users', on_delete=models.CASCADE,related_name='board_posts', verbose_name='글쓴이')
     title      = models.CharField(max_length=50, verbose_name='제목')
     contents   = models.TextField(max_length=3000, verbose_name='내용')
     photo      = models.ImageField(upload_to='img', blank=True, null=True, verbose_name='이미지')

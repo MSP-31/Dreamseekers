@@ -1,0 +1,37 @@
+{% extends 'header.html' %}
+{% load static %}
+
+{% block topImg %}
+    <img src = {% static "img/inquiry.jpg" %} alt="예제이미지">
+    <h1>강의 문의</h1>
+{% endblock %}
+
+{% block content %}
+
+<div class="main-content">
+    <h1>강의 상담 문의</h1>
+    <hr>
+    <div>
+        <form method = "POST" action="">
+            {% csrf_token %}
+            <div class ="form-group">
+                <span>작성자: </span>{{users.username}}<br>
+                <span>이메일: </span>{{users.email}}<br>
+                <span>전화번호: </span>{{phon_num}}<br>
+            </div>
+
+            {% for field in form %}
+            <div class ="form-group">
+                <label for = "{{ field.id_for_label }}">{{field.label}}</label>
+                {{ field }}
+                {% if field.errors %}
+                <span style = "color:red">{{field.errors}}</span>
+                {% endif %}
+            </div>
+            {% endfor %}
+            <input class="btn" type="submit" value="등록">
+        </form>
+    </div>
+</div>
+
+{% endblock %}

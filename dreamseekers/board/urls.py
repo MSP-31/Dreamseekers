@@ -5,7 +5,7 @@ from .views import comments_create, comments_update, comments_delete, comments_n
 #app_name = 'boards'
 
 urlpatterns = [
-    path('',index, name="index"),
+    path('',index, name='index'),
     path('<int:pk>/',post_detail,name='post_detail'),
     path('write/',post_write, name='post_write'),
     path('<int:pk>/update/',post_update, name='post_update'),
