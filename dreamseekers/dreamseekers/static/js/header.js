@@ -22,7 +22,7 @@ $(document).ready(function() {
             var a = document.createElement('a');
             a.textContent = submenu.textContent;
             a.href = url;
-            a.className = 'menu-btn';
+            a.className = 'btn';
 
             // 임시
             console.log(j +"번째");
@@ -31,7 +31,7 @@ $(document).ready(function() {
 
             // 현재 페이지와 같다면
             if(window.location.href == url){
-              a.className += ' active';
+              a.className = 'btn-active';
             }
             menuTab.appendChild(a);
           }
@@ -98,11 +98,7 @@ $(document).ready(function() {
 /* header에 on클래스 추가 (스크롤시 변경) */
 window.onscroll = function(){
   var header = document.querySelector('header');
-  var nav_menu = document.querySelector('.nav-menu');
   var scrollPosition = window.scrollY;
-  var headerTimeout;
-
-  clearTimeout(headerTimeout); // 기존 타이머 초기화
   
   if (scrollPosition > 50){
     header.classList.add('on');

@@ -10,19 +10,16 @@
 {% block content %}
 
 <div class="main-content">
-  <div class="location-con">
-    dfaa
-  </div>
 
   <h1>방명록</h1>
 
   <table class="board-table">
     <thead class>
       <tr class="table-head">
-        <th scope="col">번호</th>
+        <th style="width: 10%;" scope="col">번호</th>
         <th style="width: 80%;" scope="col">제목</th>
-        <th scope="col">글쓴이</th>
-        <th scope="col">작성일</th>
+        <th style="width: 15%;"scope="col">글쓴이</th>
+        <th style="width: 15%;" scope="col">작성일</th>
       </tr>
     </thead>
 
@@ -44,7 +41,7 @@
     
   </table>
   <br/>
-  <button><a href="write">글쓰기</a></button>
+  <a class="btn-active" href="write">글쓰기</a>
   <br/>
 
   <!--페이지 네비-->
@@ -52,16 +49,16 @@
     {% if page_obj.has_other_pages %}
     <ul>
       {% if page_obj.has_previous %}
-      <li><a style="text-decoration:none; color: black;" href="?page={{page_obj.previous_page_number}}">&#10094;</a></li>
+      <li><a class="btn" style="text-decoration:none; color: black;" href="?page={{page_obj.previous_page_number}}">&#10094;</a></li>
       {% endif %}
 
       {% for page in custom_range %}
         <li class="{% if page == page_obj.number %}active{% endif %}">
-          <a href="?page={{page}}">{{page}}</a></li>
+          <a class="btn" href="?page={{page}}">{{page}}</a></li>
       {% endfor %}
 
       {% if page_obj.has_next %}
-      <li><a style="text-decoration:none; color: black;" href="?page={{page_obj.next_page_number}}">&#10095;</a></li>
+      <li><a class="btn" style="text-decoration:none; color: black;" href="?page={{page_obj.next_page_number}}">&#10095;</a></li>
       {% endif %}
     </ul>
     {% endif %}

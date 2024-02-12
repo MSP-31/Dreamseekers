@@ -3,5 +3,35 @@
     --main-color: #126EB1;
     --main-header-color: #ffffff;
     --main-header-re: #000000;
-    --header-line-color: #cfcfcf;
+    --line-color: #ebebeb;
+}
+
+.btn{
+    display: inline-block;
+    text-align: center;
+  
+    width: auto;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    margin: 5px;
+    background-color: var(--line-color);
+    border-radius: 5px;
+
+    /* 테두리 제거 */
+    border: none;
+}
+
+.btn-active{
+    display: inline-block;
+    text-align: center;
+  
+    width: auto;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    margin: 5px;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
 }

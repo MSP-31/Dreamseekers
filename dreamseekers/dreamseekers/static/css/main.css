@@ -15,7 +15,7 @@
     font-family: 'Noto Sans KR', sans-serif;
     flex:1;
     margin: 0 10%;
-    padding: 5% 5%;
+    padding-bottom: 5%;
 }
 
 /*--------게시판--------*/
@@ -65,4 +65,41 @@ table{
   
 .paging-navi li.active a {
     color: red;
+}
+
+/*--------------------*/
+/* 제목 */
+.board-box {
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 0 10%;
+    padding-bottom: 5%;
+}
+.board-box h1{
+    text-align: center;
+}
+
+.board-title{
+    position: relative;
+    overflow: hidden;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--line-color);
+}
+.board-title h3{
+    float: left;
+}
+.board-title span{
+    float: right;
+}
+
+.board-content{
+    min-height: 200px;
+}
+
+.board-comment .comment-count{
+    margin-bottom: 10px;
+}
+.board-comment .comment-list{
+    padding: 30px;
+    border-top: 1px solid var(--line-color);
+    background-color: #f8f8f8;
 }

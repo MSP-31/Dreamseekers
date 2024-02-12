@@ -81,8 +81,8 @@ ul.submenu > li{
 
 .submenu-container{
   width: 170px;
-  border-right: 1px solid var(--header-line-color);
-  border-left: 1px solid var(--header-line-color);
+  border-right: 1px solid var(--line-color);
+  border-left: 1px solid var(--line-color);
   transition-duration: 0.4s;
 }
 
@@ -287,26 +287,6 @@ ul.submenu > li{
   margin: 0 10%;
   padding: 2% 5%;
 }
-
-#top-content .menu-btn{
-  display: inline-block;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-
-  width: 80px;
-  height: 30px;
-  margin: 5px;
-  background-color: var(--header-line-color);
-  border-radius: 25px;
-}
-
-.active.menu-btn{
-  background-color: black !important;
-  color: white;
-}
-
   
 /*-------- footer ----------*/
 footer{
