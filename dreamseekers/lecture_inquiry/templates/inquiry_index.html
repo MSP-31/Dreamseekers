@@ -3,15 +3,14 @@
 {% load dr_filter %}
 
 {% block topImg %}
-    <img src = {% static "img/forum.jpg" %} alt="예제이미지">
-    <h1>소통 마당</h1>
+    <img src = {% static "img/inquiry.jpg" %} alt="예제이미지">
+    <h1>강의 문의</h1>
 {% endblock %}
 
 {% block content %}
 
 <div class="main-content">
-
-  <h1>방명록</h1>
+    <h1>내 문의 내역</h1>
 
   <table class="board-table">
     <thead class>
@@ -30,7 +29,7 @@
           <!-- 번호 = 전체건수 - 시작인덱스 - 현재인덱스 + 1 -->
           {{ page_obj.paginator.count|sub:page_obj.start_index|sub:forloop.counter0|add:1 }}
         </td>
-        <td style="text-align: left;"><a href="{{post.pk}}/">{{post.title}}
+        <td style="text-align: left;"><a href="list/{{post.pk}}/">{{post.title}}
           {% if post.is_private %} <span>🔒</span> {% endif %}
         </td>
         <td>{{post.author}}</td>
@@ -41,7 +40,7 @@
     
   </table>
   <br/>
-  <a class="btn-active" href="write">글쓰기</a>
+  <a class="btn-active" href="../inquiry">문의하기</a>
   <br/>
 
   <!--페이지 네비-->

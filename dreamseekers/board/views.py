@@ -1,14 +1,14 @@
 import os
 from django.conf import settings
-from django.http import Http404
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
 
 from datetime import timedelta
-from django.shortcuts import get_object_or_404, redirect, render
 from board.serializers import CommentSerializer
 from user.models import Users
 from .models import Comment, Post
 from .forms import BoardForm, CommentForm
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 # 게시글 목록
 def index(request):
@@ -47,10 +47,10 @@ def post_detail(request, pk):
 
     # 비밀글 확인
     if post.is_private:
-        if (user_id == post.author.id) or request.user.is_authenticated and (request.user.is_staff):
+        if (user_id == post.author.id) or (request.user.is_authenticated and request.user.is_staff):
             pass
         else:
-            raise Http404('비밀글입니다.')
+            return HttpResponse('<script>alert("비밀글입니다. 접근 권한이 없습니다.");history.back();</script>')
     
     comments = Comment.objects.filter(article=pk,parent=None)
     comment_form = CommentForm()

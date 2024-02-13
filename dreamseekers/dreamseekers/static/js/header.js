@@ -91,8 +91,6 @@ $(document).ready(function() {
       document.body.style.overflow = 'auto';
     }
   });
-
-
 });
 
 /* header에 on클래스 추가 (스크롤시 변경) */
