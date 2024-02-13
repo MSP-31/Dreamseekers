@@ -1,10 +1,14 @@
+from datetime import timedelta
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+
+from comment.forms import CommentForm
+from comment.models import Comment, PostCommetns
+from comment.serializers import CommentSerializer
+
 from .models import Inquiry
-
 from user.models import Users
-
 from .forms import InquiryForm
 
 # 강의 상담 문의 작성
@@ -84,13 +88,26 @@ def inquiry_index(request):
 # 문의 내역 자세히 보기
 def inquiry_detail(request,pk):
     # pk로 해당 문의내역 검색
-    post = Inquiry.objects.get(pk=pk)
+    inquiry = Inquiry.objects.get(pk=pk)
     user_id = request.session.get('user')
 
+    print(inquiry.pk)
+    # 모델 명
+    board_name = "inquiry"
+
     # 해당유저인지 확인 & 관리자는 접근가능
-    if (user_id == post.author.id) or (request.user.is_authenticated and request.user.is_staff):
+    if (user_id == inquiry.author.id) or (request.user.is_authenticated and request.user.is_staff):
         pass
     else:
         return HttpResponse('<script>alert("접근 권한이 없습니다.");history.back();</script>')
+    
+    post_comments = PostCommetns.objects.filter(inquiry=inquiry)
+    comments = Comment.objects.filter(postcommetns__in=post_comments, parent=None)
+    comment_form = CommentForm()
 
-    return render(request, 'inquiry_detail.html',{'post':post,})
+    # 댓글 직렬화
+    serializer = CommentSerializer(comments, many=True)
+    serialized_comments = serializer.data
+
+    return render(request, 'inquiry_detail.html',{'post':inquiry, 'comments':serialized_comments,
+                            'comment_form':comment_form,'board_name':board_name})

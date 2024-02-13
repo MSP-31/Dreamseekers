@@ -2,13 +2,18 @@ import os
 from django.conf import settings
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import redirect, render
 
 from datetime import timedelta
-from board.serializers import CommentSerializer
+
+from django.urls import reverse
+from comment.forms import CommentForm
+from comment.models import Comment
+from comment.serializers import CommentSerializer
+
 from user.models import Users
-from .models import Comment, Post
-from .forms import BoardForm, CommentForm
+from .models import Post
+from .forms import BoardForm
 
 # 게시글 목록
 def index(request):
@@ -45,6 +50,9 @@ def post_detail(request, pk):
     post = Post.objects.get(pk=pk)
     user_id = request.session.get('user')
 
+    # 모델 명
+    board_name = "post"
+
     # 비밀글 확인
     if post.is_private:
         if (user_id == post.author.id) or (request.user.is_authenticated and request.user.is_staff):
@@ -52,7 +60,7 @@ def post_detail(request, pk):
         else:
             return HttpResponse('<script>alert("비밀글입니다. 접근 권한이 없습니다.");history.back();</script>')
     
-    comments = Comment.objects.filter(article=pk,parent=None)
+    comments = Comment.objects.filter(postcommetns__post=post,parent=None)
     comment_form = CommentForm()
 
     # 댓글 직렬화
@@ -64,8 +72,8 @@ def post_detail(request, pk):
     show_updated_at = time_difference > timedelta(seconds=1)
 
     return render(request, 'post_detail.html',
-                  {'post':post, 'comments':serialized_comments,
-                   'comment_form':comment_form, 'show_updated_at':show_updated_at})
+                  {'post':post, 'comments':serialized_comments,'comment_form':comment_form,
+                   'show_updated_at':show_updated_at,'board_name':board_name})
 
 # 게시글 작성
 def post_write(request):
@@ -127,65 +135,3 @@ def post_delete(request,pk):
         return redirect('/board')
     return render(request, 'post_detail.html',{'post':post})
 
-# 댓글 작성
-def comments_create(request,pk):
-    if request.session.get('user'):
-        article = get_object_or_404(Post, pk=pk)
-        comment_form = CommentForm(request.POST)
-
-        user_id = request.session.get('user')
-        user = Users.objects.get(pk = user_id)
-        
-        if comment_form.is_valid():
-            comment = comment_form.save(commit=False)
-            comment.article = article
-            comment.user = user
-            comment.save()
-        return redirect('post_detail',article.pk)
-    return redirect('accounts:login')
-
-# 댓글 수정
-def comments_update(request, post_pk, comment_pk):
-    if request.session.get('user'):
-        comments = Comment.objects.get(pk=comment_pk)
-        comment_form = CommentForm(instance = comments)
-        if request.method == "POST":
-            update_form = CommentForm(request.POST,instance = comments)
-            update_form.save()
-            return redirect('post_detail',post_pk)
-    return render(request,'comments_update.html',{'comment_form':comment_form})
-
-# 댓글 삭제
-def comments_delete(request, post_pk ,comment_pk):
-    if request.session.get('user'):
-        comment = get_object_or_404(Comment,pk=comment_pk)
-        if request.session.get('user') == comment.user.id:
-            comment.delete()
-    return redirect('post_detail',post_pk)
-
-# 대댓글 작성
-def comments_nested(request, post_pk, comment_pk):
-    if request.session.get('user'):
-        article = get_object_or_404(Post, pk=post_pk)
-        comment_form = CommentForm(request.POST)
-
-        user_id = request.session.get('user')
-        user = Users.objects.get(pk = user_id)
-
-        # 부모 댓글 여부
-        comments = Comment.objects.get(pk=comment_pk)
-        parents = comments.parent
-        
-        if comment_form.is_valid():
-            comment = comment_form.save(commit=False)
-            comment.article = article
-            comment.user = user
-            # 부모 댓글값이 없다면 새로 추가
-            if parents is None:
-                comment.parent = comments
-            # 부모 댓글값이 있다면 상속
-            else:
-                comment.parent = parents
-            comment.save()
-        return redirect('post_detail',article.pk)
-    return redirect('accounts:login')

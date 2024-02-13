@@ -25,6 +25,21 @@
 {% block script %}
 {% endblock %}
 <header>
+    <div class="top-header">
+        <div class="login">
+            {% if request.session.user %} <!--로그인 여부 확인-->
+            <b>{{ request.session.username}}</b>님
+            <span></span>
+            <a href="{% url 'accounts:logout' %}">로그아웃</a>
+            {% else %}
+            <a href="{% url 'accounts:login' %}">로그인</a>
+            <span></span>
+            <a href="{% url 'accounts:signup' %}">회원가입</a>
+            {% endif %}
+        </div>
+    </div>
+    <hr>
+    
     <nav class="nav-menu">
         <div class="nav-logo">
             <a href="/">

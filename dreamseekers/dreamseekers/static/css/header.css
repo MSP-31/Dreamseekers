@@ -3,6 +3,31 @@ header{
   width: 100%;
   z-index: 3;
 }
+/* -----top header------ */
+.top-header{
+  position: absolute;
+  right: 2%;
+  top: 12px;
+  padding-right: 30px;
+  color: rgb(228, 228, 228);
+  z-index: 2;
+}
+
+/* 기본 글자색 */
+header.on .top-header,
+.nav-menu:hover .top-header{
+  color: rgb(63, 63, 63);
+}
+
+/* 로그인 경계선 */
+.top-header .login span{
+  width: 1px;
+  height: 12px;
+  margin: 0 5px;
+  background-color: rgb(228, 228, 228);
+  vertical-align: middle;
+  display:inline-block;
+}
 
 /*--------헤더 메뉴--------*/
 .nav-menu {

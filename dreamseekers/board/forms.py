@@ -1,5 +1,5 @@
 from django import forms
-from board.models import Post, Comment
+from board.models import Post
 
 class BoardForm(forms.ModelForm):
     class Meta:
@@ -15,9 +15,3 @@ class BoardForm(forms.ModelForm):
                 'max_length' : '내용은 3000 글자 이하로 입력해야 합니다.',
             },
         }
-
-class CommentForm(forms.ModelForm):
-    class Meta:
-        model = Comment
-        #fields = '__all__'
-        exclude = ('article', 'user','parent',)

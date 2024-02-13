@@ -1,5 +1,4 @@
 import os ,shutil
-from django.conf import settings
 from django.db import models
 
 from django.core.files.storage import default_storage
@@ -26,9 +25,6 @@ class Post(models.Model):
         if self.photo:
             old_file_path = self.photo.path
             new_file_path = f'board/{self.pk}/{self.photo.name}'
-            
-            print(old_file_path)
-            print(new_file_path)
 
             if not default_storage.exists(new_file_path):
                 # 파일을 새 위치로 복사
@@ -65,20 +61,3 @@ class Post(models.Model):
         db_table = "community_board"
         verbose_name = "게시물"
         verbose_name_plural = "게시물"
-
-# 댓글
-class Comment(models.Model):
-    article = models.ForeignKey(Post, on_delete=models.CASCADE)
-    user = models.ForeignKey('user.Users',on_delete=models.CASCADE)
-    content = models.TextField(max_length=200)
-    parent = models.ForeignKey('self',related_name='reply',on_delete=models.CASCADE,null=True,blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
-
-    def __str__ (self):
-        return self.content
-    
-    class Meta:
-        db_table = "community_comment"
-        verbose_name = "댓글"
-        verbose_name_plural = "댓글"

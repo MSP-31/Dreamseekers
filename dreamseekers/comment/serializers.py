@@ -11,7 +11,6 @@ class RecursiveSerializer(serializers.Serializer):
 class CommentSerializer(serializers.ModelSerializer):
     reply = serializers.SerializerMethodField()
     user = serializers.SlugRelatedField(read_only=True, slug_field='username')
-    article = serializers.SlugRelatedField(queryset = Comment.objects.all(),slug_field='title')
     created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M")
     updated_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M")
 
