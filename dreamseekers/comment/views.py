@@ -9,7 +9,6 @@ from .forms import CommentForm
 # 댓글 작성
 def comments_create(request,pk,board_name):
     if request.session.get('user'):
-        print(board_name)
         # 해당 모델 찾기
         content_type = ContentType.objects.get(model=board_name)
         ModelClass = content_type.model_class()
@@ -31,7 +30,10 @@ def comments_create(request,pk,board_name):
             setattr(post_comment, board_name, post)
             post_comment.save()
 
-        return redirect('post_detail',post.pk)
+        if board_name == 'post':
+            return redirect('post_detail', post.pk)
+        else:
+            return redirect('inquiry:inquiry_detail', post.pk)
     return redirect('accounts:login')
 
 # 댓글 수정
@@ -42,16 +44,18 @@ def comments_update(request, post_pk, comment_pk):
         if request.method == "POST":
             update_form = CommentForm(request.POST,instance = comments)
             update_form.save()
-            return redirect('post_detail',post_pk)
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+            #return redirect('post_detail',post_pk)
     return render(request,'comments_update.html',{'comment_form':comment_form})
 
 # 댓글 삭제
-def comments_delete(request, post_pk ,comment_pk):
+def comments_delete(request, comment_pk):
     if request.session.get('user'):
         comment = get_object_or_404(Comment,pk=comment_pk)
         if request.session.get('user') == comment.user.id:
             comment.delete()
-    return redirect('post_detail',post_pk)
+    # 삭제후 이전 페이지로 돌아감
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 # 대댓글 작성
 def comments_nested(request, post_pk, comment_pk, board_name):
@@ -81,5 +85,9 @@ def comments_nested(request, post_pk, comment_pk, board_name):
             else:
                 comment.parent = parents
             comment.save()
-        return redirect('post_detail',post.pk)
+            
+        if board_name == 'post':
+            return redirect('post_detail', post.pk)
+        else:
+            return redirect('inquiry:inquiry_detail', post.pk)
     return redirect('accounts:login')

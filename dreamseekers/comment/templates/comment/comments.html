@@ -45,7 +45,7 @@
             <!--삭제 / 수정-->
             {% if request.session.username == comment.user %}
                 <a class="btn" href="{% url 'comment:comments_update' post.pk comment.id %}">수정</a>
-                <form action="{% url 'comment:comments_delete' post.pk comment.id %}" method = "POST"
+                <form action="{% url 'comment:comments_delete' comment.id %}" method = "POST"
                 onsubmit="return confirm('댓글을 삭제하시겠습니까?');">
                     {% csrf_token %}
                     <input class="btn" type="submit" value="삭제">

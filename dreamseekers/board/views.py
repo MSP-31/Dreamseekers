@@ -129,7 +129,6 @@ def post_update(request,pk):
 # 게시글 삭제
 def post_delete(request,pk):
     post = Post.objects.get(pk=pk)
-    print(request.method)
     if request.method == 'POST':
         post.delete()
         return redirect('/board')

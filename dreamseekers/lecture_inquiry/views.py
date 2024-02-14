@@ -90,8 +90,7 @@ def inquiry_detail(request,pk):
     # pk로 해당 문의내역 검색
     inquiry = Inquiry.objects.get(pk=pk)
     user_id = request.session.get('user')
-
-    print(inquiry.pk)
+    
     # 모델 명
     board_name = "inquiry"
 
