@@ -1,6 +1,9 @@
 import re
 from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth import login, logout
+from django.contrib.auth.backends import ModelBackend
+
 from .models import Users
 from .forms import LoginForm
 
@@ -14,48 +17,49 @@ def signup(request):
         password = request.POST.get('password', None)
         repassword = request.POST.get('re-password', None)
         email = request.POST.get('email', None)
-        phone = request.POST.get('phone', None)
 
-        errorMsg = error_form(username,password,repassword,email,phone)
+        errorMsg = error_form(username,password,repassword,email)
 
         if errorMsg:
             return render(request,'signup.html',errorMsg)
         
         else:
-            phone = is_valid_phone(phone)
             user = Users(
                 username = username,
                 password = make_password(password),
                 email = email,
-                phone = phone,
             )
             user.save()
+
+            # 바로 로그인
+            backend = ModelBackend()
+            user.backend = f'{backend.__module__}.{backend.__class__.__name__}'
+            login(request,user)
+
             return redirect('/')
     return render(request,'signup.html',errorMsg)
 
 # 로그인
-def login(request):
-    if request.method == 'GET':
-        form = LoginForm()
-    elif request.method == 'POST':
+def login_view(request):
+    if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
-            request.session['user'] = form.user_id
-            request.session['username'] = form.user_name
+            login(request,form.user)
             return redirect('/')
+    else:
+        form = LoginForm()
     return render(request, 'login.html', {'form':form})
 
 # 로그아웃
-def logout(request):
-    if request.session.get('user'):
-        del(request.session['user'])
+def logout_view(request):
+    logout(request)
     return redirect('/')
 
 # 유효성 검사 폼
-def error_form(username, password, repassword, email, phone):
+def error_form(username, password, repassword, email):
     errorMsg = {}
 
-    if not (username and email and password and repassword and phone):
+    if not (username and email and password and repassword):
         errorMsg['error'] = '모든 값을 입력해야 합니다.'
     
     username_error = is_valid_username(username)
@@ -69,9 +73,6 @@ def error_form(username, password, repassword, email, phone):
     emaill_error = is_valid_email(email)
     if emaill_error:
         errorMsg['emaill_error'] = emaill_error
-        
-    if not is_valid_phone(phone):
-        errorMsg['phone_error'] = '전화번호의 형식이 잘못되었습니다.'
 
     return errorMsg
 
@@ -103,8 +104,3 @@ def is_valid_email(email):
     if Users.objects.filter(email=email).exists():
         return '이미 존재하는 이메일입니다.'
     return None
-
-# 전화번호 유효성 검사
-def is_valid_phone(phone_number):
-    pattern = r'^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$'
-    return bool(re.match(pattern, phone_number))

@@ -20,8 +20,9 @@
                     {{ comment.content }}
                 </div>
                 {{ comment.created_at }}
-    
-                {% if request.session.user %}
+                
+                <!-- 대댓글 -->
+                {% if request.user.is_authenticated %}
                     <div id="reply_write_{{comment.id}}" class="reply_write" style="display:none" data-comment-id="{{comment.id}}">
                         <form action="{% url 'comment:comments_nested' board_name post.pk comment.id%}" method="POST">
                             {% csrf_token %}
@@ -41,9 +42,9 @@
                         </li>
                     </ul>
                 {% endfor %}
-            
+
             <!--삭제 / 수정-->
-            {% if request.session.username == comment.user %}
+            {% if user.username == comment.user %}
                 <a class="btn" href="{% url 'comment:comments_update' post.pk comment.id %}">수정</a>
                 <form action="{% url 'comment:comments_delete' comment.id %}" method = "POST"
                 onsubmit="return confirm('댓글을 삭제하시겠습니까?');">
@@ -58,7 +59,7 @@
             <br>
     
             <div> <!-- 댓글 입력 -->
-                {% if request.session.user %}
+                {% if request.user.is_authenticated %}
                     <form action="{% url 'comment:comments_create' board_name post.pk %}" method="POST">
                         {% csrf_token %}
                         {{ comment_form }}

@@ -1,12 +1,13 @@
 from django import forms
-from .models import Users
-from django.contrib.auth.hashers import check_password
+from django.contrib.auth import authenticate
 
 class LoginForm(forms.Form):
-    username = forms.CharField(error_messages={"required" : "아이디를 입력해주세요"},
-                               max_length=32, label="아이디")
-    password = forms.CharField(error_messages={"required" : "비밀번호를 입력해주세요."},
-                               max_length=64, label="비밀번호", widget=forms.PasswordInput)
+    username = forms.CharField(
+        error_messages={'required' : '아이디를 입력해주세요'},
+        max_length=32, label='아이디')
+    password = forms.CharField(
+        error_messages={'required' : '비밀번호를 입력해주세요.'},
+        max_length=64, label='비밀번호', widget=forms.PasswordInput)
     
     def clean(self):
         cleand_data = super().clean()
@@ -14,13 +15,6 @@ class LoginForm(forms.Form):
         password = cleand_data.get('password')
 
         if password and username:
-            try:
-                user = Users.objects.get(username=username)
-            except Users.DoesNotExist:
-                self.add_error("username","아이디가 존재하지 않습니다.")
-                return
-            if not check_password(password,user.password):
-                self.add_error("password", "비밀번호가 일치하지 않습니다.")
-            else:
-                self.user_id = user.id
-                self.user_name = user.username
+            self.user = authenticate(username=username, password=password)
+            if self.user is None:
+                raise forms.ValidationError('아이디 또는 비밀번호가 일치하지 않습니다.')

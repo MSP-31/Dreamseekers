@@ -1,11 +1,16 @@
+import re
 from django import forms
 from lecture_inquiry.models import Inquiry
+from django.core.exceptions import ValidationError
 
 class InquiryForm(forms.ModelForm):
     class Meta:
         model = Inquiry
-        fields = ['title', 'contents']
+        fields = ['phone', 'title', 'contents']
         error_messages = {
+            'phone' : {
+                'required' : '연락처를 입력해주세요',
+            },
             'title' : {
                 'required' : '제목을 입력해주세요',
                 'max_length' : '제목은 50 글자 이하로 입력해야 합니다.',
@@ -15,3 +20,13 @@ class InquiryForm(forms.ModelForm):
                 'max_length' : '내용은 3000 글자 이하로 입력해야 합니다.',
             },
         }
+        
+    # 전화번호 검증
+    def clean_phone(self):
+        phone = self.cleaned_data.get('phone')
+        # 전화번호 형식을 검증하는 정규 표현식
+        phone_regex = r'^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$'
+        
+        if not re.match(phone_regex, phone):
+            raise ValidationError('올바른 전화번호 형식이 아닙니다.')
+        return phone

@@ -48,7 +48,7 @@ def index(request):
 def post_detail(request, pk):
     # 게시글에서 pk(primary_key)로 해당 게시글 검색
     post = Post.objects.get(pk=pk)
-    user_id = request.session.get('user')
+    user_id = request.user.id
 
     # 모델 명
     board_name = "post"
@@ -78,13 +78,13 @@ def post_detail(request, pk):
 # 게시글 작성
 def post_write(request):
     # 로그인 여부 확인
-    if not request.session.get('user'):
+    if not request.user.is_authenticated:
         return redirect('accounts:login')
 
     elif request.method == 'POST':
         form = BoardForm(request.POST,request.FILES)
         if form.is_valid():
-            user_id = request.session.get('user')
+            user_id = request.user.id
             user = Users.objects.get(pk = user_id)
 
             new_post = Post.objects.create(

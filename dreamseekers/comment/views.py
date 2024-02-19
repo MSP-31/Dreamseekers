@@ -8,7 +8,7 @@ from .forms import CommentForm
 
 # 댓글 작성
 def comments_create(request,pk,board_name):
-    if request.session.get('user'):
+    if request.user.is_authenticated:
         # 해당 모델 찾기
         content_type = ContentType.objects.get(model=board_name)
         ModelClass = content_type.model_class()
@@ -17,8 +17,7 @@ def comments_create(request,pk,board_name):
         
         comment_form = CommentForm(request.POST)
 
-        user_id = request.session.get('user')
-        user = Users.objects.get(pk = user_id)
+        user = request.user
         
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
@@ -38,7 +37,7 @@ def comments_create(request,pk,board_name):
 
 # 댓글 수정
 def comments_update(request, post_pk, comment_pk):
-    if request.session.get('user'):
+    if request.user.is_authenticated:
         comments = Comment.objects.get(pk=comment_pk)
         comment_form = CommentForm(instance = comments)
         if request.method == "POST":
@@ -50,16 +49,16 @@ def comments_update(request, post_pk, comment_pk):
 
 # 댓글 삭제
 def comments_delete(request, comment_pk):
-    if request.session.get('user'):
+    if request.user.is_authenticated:
         comment = get_object_or_404(Comment,pk=comment_pk)
-        if request.session.get('user') == comment.user.id:
+        if request.user.id == comment.user.id:
             comment.delete()
     # 삭제후 이전 페이지로 돌아감
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 # 대댓글 작성
 def comments_nested(request, post_pk, comment_pk, board_name):
-    if request.session.get('user'):
+    if request.user.is_authenticated:
         # 해당 모델 찾기
         content_type = ContentType.objects.get(model=board_name)
         ModelClass = content_type.model_class()
@@ -68,8 +67,7 @@ def comments_nested(request, post_pk, comment_pk, board_name):
 
         comment_form = CommentForm(request.POST)
 
-        user_id = request.session.get('user')
-        user = Users.objects.get(pk = user_id)
+        user = request.user
 
         # 부모 댓글 여부
         comments = Comment.objects.get(pk=comment_pk)

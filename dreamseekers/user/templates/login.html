@@ -1,11 +1,23 @@
 {% extends 'header.html' %}
 {% load static %}
+
+{% block script %}
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+{% endblock %}
+
 {% block content %}
 
 <div class="main-content">
+    <!-- 임시로 대충 연결해놓음 -->
+    <a href="http://127.0.0.1:8000/social/naver/login">
+        <img src = {% static "user/img/naver_btnG.png" %}>
+    </a>
+
     <div class="container my-3">
         <h1>로그인</h1>
-        {{ error }}
+        {% if form.non_field_errors %}
+        <span style = "color:red">{{ form.non_field_errors }}</span>
+        {% endif %}
         <form method="post" action=".">
             {% csrf_token %}
             {% for field in form %}
@@ -22,6 +34,8 @@
         </form>
     </div>
     <a href="/user/signup"><p>회원가입</p></a>
+    
+    <a href="http://nid.naver.com/nidlogin.logout">로그아웃 테스트</a>
 </div>
 
 {% endblock %}

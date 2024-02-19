@@ -11,6 +11,7 @@ urlpatterns = [
     path('', main),
     path('/', include('main.urls')),
     path('user/',include('user.urls')),
+    path('social/',include('user.API.urls')),
     path('board/',include('board.urls')),
     path('lecture/',include('lecture_inquiry.urls')),
 ]

@@ -22,11 +22,6 @@
 
     <div class="board-content">
         <p>{{post.contents|linebreaksbr}}</p>
-
-        {% if post.photo %}
-            <img src = "{{post.photo.url}}" alt="" height = "300">
-            <br>
-        {% endif %}
     </div>
     
     <br>
@@ -34,20 +29,7 @@
     <!--댓글-->
     {% include "comment/comments.html" %}
 
-    <!--게시글 수정 / 삭제-->
-    <div>
-        {% if request.session.user == post.author_id %}
-        <a class="btn" href="{% url 'post_update' post.pk  %}">수정</a>
-
-        <form action="{% url 'post_delete' post.pk  %}"
-        method="POST" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
-            {% csrf_token %}
-            <input class="btn" type="submit" value="삭제">
-        </form>
-        {% endif %}
-    </div>
-
-    <a class="btn" href="/board">목록</a>
+    <a class="btn" href="/lecture/inquiry/list">목록</a>
 </div>
 
 {% endblock %}
