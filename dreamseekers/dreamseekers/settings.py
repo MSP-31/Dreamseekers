@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'board',
     'comment',
     'lecture_inquiry',
+    'blog',
     
     'corsheaders',
 

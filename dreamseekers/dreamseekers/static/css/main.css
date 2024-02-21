@@ -103,3 +103,47 @@ table{
     border-top: 1px solid var(--line-color);
     background-color: #f8f8f8;
 }
+
+/*------------------------------*/
+/* 활동 소식 */
+.sns_box li{
+    display: inline-block;
+    position: relative;
+    width: 400px;
+    height: 300px;
+    margin: 0 0 30px 10px;
+}
+.sns_box .sns_content{
+    padding: 40px 40px 40px;
+    max-height: 280px;
+    min-height: 250px;
+    text-align: left;
+    background-color: #f8f8f8;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+/* 글자 빠져나옴 방지 */
+.sns_box .sns_title{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.sns_box .sns_description{
+    margin-top: 10px;
+    overflow: hidden;
+}
+.sns_box .sns_description a{
+    display: block;
+    height: 150px;
+}
+.sns_form{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+.sns_form span:not(:last-child)::after {
+    content: "|";
+    margin-left: 5px;
+}

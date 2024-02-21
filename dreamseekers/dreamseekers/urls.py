@@ -13,6 +13,7 @@ urlpatterns = [
     path('user/',include('user.urls')),
     path('social/',include('user.API.urls')),
     path('board/',include('board.urls')),
+    path('board/news/',include('blog.urls')),
     path('lecture/',include('lecture_inquiry.urls')),
 ]
 

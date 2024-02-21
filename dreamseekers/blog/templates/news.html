@@ -1,0 +1,39 @@
+{% extends 'header.html' %}
+{% load static %}
+{% load dr_filter %}
+
+{% block topImg %}
+    <img src = {% static "img/forum.jpg" %} alt="예제이미지">
+    <h1>소통 마당</h1>
+{% endblock %}
+
+{% block content %}
+
+<div class="main-content">
+
+  <h1>활동 소식</h1>
+
+  <ul class="sns_box">
+    {% for item in data %}
+      <li>
+        <div class="sns_content">
+          <h3 class="sns_title">
+            <a href="{{ item.link }}">{{ item.title }}</a>
+          </h3>
+          <p class="sns_description">
+            <a href="{{ item.link }}">{{ item.description }}</a>
+          </p>
+        </div>
+        <div class="sns_form">
+          <span>
+            <a href="http://blog.naver.com/jhs9747">네이버 블로그</a>
+          </span>
+          <span>{{ item.postdate }}</span>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+
+</div>
+
+{% endblock %}
