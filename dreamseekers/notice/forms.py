@@ -1,10 +1,13 @@
 from django import forms
-from board.models import Post
+from .models import Notice
 
-class BoardForm(forms.ModelForm):
+class NoticeForm(forms.ModelForm):
     class Meta:
-        model = Post
-        fields = ['title', 'contents','is_private']
+        model = Notice
+        fields = ['title', 'contents','photo']
+        widgets = {
+            'photo': forms.FileInput(attrs={'required': False}),
+        }
         error_messages = {
             'title' : {
                 'required' : '제목을 입력해주세요',

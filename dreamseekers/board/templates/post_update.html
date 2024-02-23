@@ -14,20 +14,15 @@
         <form method = "POST" action="." enctype="multipart/form-data">
             {% csrf_token %}
             {% for field in form %}
-            <div class ="form-group">
-                <label for = "{{ field.id_for_label }}">{{field.label}}</label>
                 {{ field }}
-                {% if field.errors %}
-                <span style = "color:red">{{field.errors}}</span>
-                {% endif %}
-            </div>
             {% endfor %}
-            <input type="submit" value="작성">
+
+            <button type="submit">수정</button>
         </form>
     </div>
     <br>
     <br>
-    <a href="/board">목록</a>
+    <a href="/board/guest/">목록</a>
 </div>
 
 {% endblock %}

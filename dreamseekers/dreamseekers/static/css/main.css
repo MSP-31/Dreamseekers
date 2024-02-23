@@ -106,14 +106,14 @@ table{
 
 /*------------------------------*/
 /* 활동 소식 */
-.sns_box li{
+.sns-box li{
     display: inline-block;
     position: relative;
     width: 400px;
     height: 300px;
     margin: 0 0 30px 10px;
 }
-.sns_box .sns_content{
+.sns-box .sns-content{
     padding: 40px 40px 40px;
     max-height: 280px;
     min-height: 250px;
@@ -125,25 +125,25 @@ table{
 }
 
 /* 글자 빠져나옴 방지 */
-.sns_box .sns_title{
+.sns-box .sns-title{
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
 }
-.sns_box .sns_description{
+.sns-box .sns-description{
     margin-top: 10px;
     overflow: hidden;
 }
-.sns_box .sns_description a{
+.sns-box .sns-description a{
     display: block;
     height: 150px;
 }
-.sns_form{
+.sns-form{
     position: absolute;
     left: 0;
     bottom: 0;
 }
-.sns_form span:not(:last-child)::after {
+.sns-form span:not(:last-child)::after {
     content: "|";
     margin-left: 5px;
 }

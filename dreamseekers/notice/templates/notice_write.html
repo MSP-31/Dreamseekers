@@ -9,7 +9,7 @@
 {% block content %}
 
 <div class="main-content">
-    <h1>방명록</h1>
+    <h1>공지사항</h1>
     <div>
         <form method = "POST" action="." enctype="multipart/form-data">
             {% csrf_token %}
@@ -20,6 +20,9 @@
 
                 {% if field.name == "contents" %}
                 <textarea class = "form-control" name = "{{ field.name }}" placeholder = "{{field.label}}">{{ field.value|default:'' }}</textarea>
+
+                {% elif field.name == "photo" %}
+                <input type="file" class="form-control" id="{{ field.id_for_label}}" name="photo" multiple>
 
                 {% elif field.name == "is_private" %}
                 <input type="checkbox" class="form-control" id="{{ field.id_for_label}}" name="{{field.name}}">
@@ -41,7 +44,7 @@
     </div>
     <br>
     <br>
-    <a href="/board/guest/">목록</a>
+    <a href="/board/notice/">목록</a>
 </div>
 
 {% endblock %}

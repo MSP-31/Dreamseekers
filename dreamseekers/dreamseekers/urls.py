@@ -12,9 +12,14 @@ urlpatterns = [
     path('/', include('main.urls')),
     path('user/',include('user.urls')),
     path('social/',include('user.API.urls')),
-    path('board/',include('board.urls')),
-    path('board/news/',include('blog.urls')),
+
+    # 강의 문의
     path('lecture/',include('lecture_inquiry.urls')),
+
+    # 소통마당
+    path('board/notice/',include('notice.urls')),
+    path('board/guest/',include('board.urls')),
+    path('board/news/',include('blog.urls')),
 ]
 
 # 이미지 url 설정

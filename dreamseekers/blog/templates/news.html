@@ -13,18 +13,18 @@
 
   <h1>활동 소식</h1>
 
-  <ul class="sns_box">
+  <ul class="sns-box">
     {% for item in data %}
       <li>
-        <div class="sns_content">
-          <h3 class="sns_title">
+        <div class="sns-content">
+          <h3 class="sns-title">
             <a href="{{ item.link }}">{{ item.title }}</a>
           </h3>
-          <p class="sns_description">
+          <p class="sns-description">
             <a href="{{ item.link }}">{{ item.description }}</a>
           </p>
         </div>
-        <div class="sns_form">
+        <div class="sns-form">
           <span>
             <a href="http://blog.naver.com/jhs9747">네이버 블로그</a>
           </span>

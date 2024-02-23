@@ -1,0 +1,39 @@
+{% extends 'header.html' %}
+{% load static %}
+
+{% block topImg %}
+    <img src = {% static "img/forum.jpg" %} alt="예제이미지">
+    <h1>소통 마당</h1>
+{% endblock %}
+
+{% block content %}
+
+<div class="main-content">
+    <h1>공지사항 수정</h1>
+    <div>
+        <form method = "POST" action="." enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in form %}
+                {% if field.name == 'photo' %}
+                    <input type="file" name="photo" multiple>
+                {% else %}
+                    {{ field }}
+                {% endif %}
+            {% endfor %}
+            
+            {% for image in post.photo.all %}
+                <input type="checkbox" name="images" value="{{ image.id }}" initial="checked">
+                <label for="{{ image.id }}">
+                    <img src="{{ image.image.url }}" alt="{{ image.image.name }}" style="width: 50px; height: 50px;">
+                </label>
+            {% endfor %}
+
+            <button type="submit">수정</button>
+        </form>
+    </div>
+    <br>
+    <br>
+    <a href="/board/notice/">목록</a>
+</div>
+
+{% endblock %}

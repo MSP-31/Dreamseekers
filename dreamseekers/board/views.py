@@ -1,12 +1,9 @@
-import os
-from django.conf import settings
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 
 from datetime import timedelta
 
-from django.urls import reverse
 from comment.forms import CommentForm
 from comment.models import Comment
 from comment.serializers import CommentSerializer
@@ -82,7 +79,7 @@ def post_write(request):
         return redirect('accounts:login')
 
     elif request.method == 'POST':
-        form = BoardForm(request.POST,request.FILES)
+        form = BoardForm(request.POST)
         if form.is_valid():
             user_id = request.user.id
             user = Users.objects.get(pk = user_id)
@@ -90,7 +87,6 @@ def post_write(request):
             new_post = Post.objects.create(
                 title     = form.cleaned_data['title'],
                 contents  = form.cleaned_data['contents'],
-                photo     = form.cleaned_data['photo'],
                 is_private= form.cleaned_data['is_private'],
                 author    = user
             )
@@ -105,23 +101,21 @@ def post_write(request):
 
 # 게시글 수정
 def post_update(request,pk):
+    # 로그인 여부 확인
+    if not request.user.is_authenticated:
+        return redirect('accounts:login')
+
     post = Post.objects.get(pk=pk)
-    original_photo = post.photo
+
+    # 작성자가 아닌 경우 접근 불가
+    if request.user != post.author:
+        return redirect('post_detail', pk=pk)
+    
     if request.method == 'POST':
-        form = BoardForm(request.POST,request.FILES, instance=post)
+        form = BoardForm(request.POST, instance=post)
         if form.is_valid():
-            # 이미지를 삭제
-            if(original_photo == ""):
-                pass
-            # 이미지를 수정
-            elif original_photo != post.photo:
-                os.remove(os.path.join(settings.MEDIA_ROOT, 'board/images/{}/'.format(post.pk), original_photo.path))
-            form.save()
-            return redirect(post_detail,pk=post.pk)
-        else:
-            # 폼이 유효하지 않을 경우, 사용자가 입력한 데이터를 폼에 다시 채워 넣습니다.
-            form = BoardForm(request.POST)
-        return redirect('/board')
+            post.save()
+            return redirect(post_detail, pk=post.pk)
     else:
         form = BoardForm(instance=post)
     return render(request, 'post_update.html', {'form': form, 'post': post})
@@ -131,6 +125,6 @@ def post_delete(request,pk):
     post = Post.objects.get(pk=pk)
     if request.method == 'POST':
         post.delete()
-        return redirect('/board')
+        return redirect('/board/guest/')
     return render(request, 'post_detail.html',{'post':post})
 

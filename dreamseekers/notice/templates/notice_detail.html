@@ -9,7 +9,7 @@
 {% block content %}
 
 <div class="board-box">
-    <h1>방명록</h1>
+    <h1>공지사항</h1>
     <div class="board-title">
         <h3>{{post.title}}</h3>
 
@@ -18,30 +18,31 @@
 
     <div class="board-content">
         <p>{{post.contents|linebreaksbr}}</p>
+        
+        {% for image in post.photo.all %}
+            <img src = "{{image.image.url}}" alt="" height = "300">
+            <br>
+        {% endfor %}
     </div>
     
     <br>
-    
-    <!--댓글-->
-    {% include "comment/comments.html" %}
 
     <!--게시글 수정 / 삭제-->
     <div>
         {% if request.user.id == post.author_id %}
-        <a class="btn" href="{% url 'post_update' post.pk  %}">수정</a>
+        <a class="btn" href="{% url 'notice:update' post.pk  %}">수정</a>
 
-        <form action="{% url 'post_delete' post.pk  %}"
+        <form action="{% url 'notice:delete' post.pk  %}"
         method="POST" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
             {% csrf_token %}
             <input class="btn" type="submit" value="삭제">
         </form>
         {% endif %}
     </div>
-    <a class="btn" href="/board/guest/">목록</a>
+    <a class="btn" href="/board/notice/">목록</a>
 </div>
 
 {% endblock %}
 
 {% block script %}
-<script src="{% static "js/board/post_detail.js" %}"></script>
 {% endblock %}

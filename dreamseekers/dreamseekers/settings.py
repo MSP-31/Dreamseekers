@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'comment',
     'lecture_inquiry',
     'blog',
+    'notice',
     
     'corsheaders',
 
@@ -203,3 +204,8 @@ SIMPLE_JWT = {
     # 토큰을 만드는데 사용할 secret key
     'SIGNING_KEY': SECRET_KEY,
 }
+
+# 이미지 최대 용량 (MB)
+MAX_IMAGE_SIZE = 20
+# 사용자별 최대 이미지 개수
+MAX_IMAGE_COUNT = 5
