@@ -8,10 +8,14 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', main),
-    path('/', include('main.urls')),
+    path('', include('main.urls')),
+
+    # 로그인
     path('user/',include('user.urls')),
     path('social/',include('user.API.urls')),
+
+    # 교육원 소개
+    #path()
 
     # 강의 문의
     path('lecture/',include('lecture_inquiry.urls')),

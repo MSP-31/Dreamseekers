@@ -4,10 +4,12 @@ from .models import Notice
 class NoticeForm(forms.ModelForm):
     class Meta:
         model = Notice
-        fields = ['title', 'contents','photo']
+        fields = ['title', 'contents','image','files']
         widgets = {
-            'photo': forms.FileInput(attrs={'required': False}),
+            'image': forms.FileInput(attrs={'required': False}),
+            'files': forms.FileInput(attrs={'required': False}),
         }
+        
         error_messages = {
             'title' : {
                 'required' : '제목을 입력해주세요',

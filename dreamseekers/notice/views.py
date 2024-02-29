@@ -1,12 +1,16 @@
-from django.conf import settings
+import os
+import uuid
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.http import HttpResponseBadRequest
+from django.core.files.storage import default_storage
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
+from django.views.decorators.csrf import csrf_exempt
+from django.db import transaction
 
 from datetime import timedelta
 
 from user.models import Users
-from .models import Image, Notice
+from .models import File, Image, Notice
 from .forms import NoticeForm
 
 # 게시글 목록
@@ -66,10 +70,17 @@ def write(request):
                 contents  = form.cleaned_data['contents'],
                 author    = user
             )
-            # 여러 개의 이미지를 처리합니다.
-            for f in request.FILES.getlist('photo'):
-                    image = Image.objects.create(image=f)
-                    new_post.photo.add(image)
+            # 여러개의 이미지 처리
+            for image in request.FILES.getlist('image'):
+                image = Image.objects.create(image=image)
+                new_post.image.add(image)
+
+            # 여러개의 파일 처리
+            for file in request.FILES.getlist('files'):
+                print(file)
+                files = File.objects.create(file=file)
+                new_post.files.add(files)
+            
             new_post.save()
 
             return redirect('notice:detail',pk=new_post.pk)
@@ -96,31 +107,18 @@ def update(request,pk):
     if request.method == 'POST':
         form = NoticeForm(request.POST, instance=post)
         if form.is_valid():
-            # 이미지 용량 제한
-            total_image_size = 0
-            for image in request.FILES.getlist('photo'):
-                total_image_size += image.size
-                print("이미지 용량")
-                print(total_image_size)
-            
-            # MB 단위로 변환
-            total_image_size_mb = total_image_size / 1048576
 
-            if total_image_size_mb > settings.MAX_IMAGE_SIZE:
-                return HttpResponseBadRequest('총 이미지 용량이 너무 큽니다.')
-            
             # 기존 이미지 삭제
             for image in Image.objects.filter(notice=post):
                 # 이미지 리스트 비교
-                if image.id in [int(id) for id in request.POST.getlist('images')]:
-                    # 체크된 파일은 삭제하지 않음
-                    continue
-                image.delete()
+                if image.id in [int(id) for id in request.POST.getlist('checkedImages')]:
+                    image.delete()
 
-            # 새 이미지 저장
-            for f in request.FILES.getlist('photo'):
-                image = Image.objects.create(image=f)
-                post.photo.add(image)
+            # 새 이미지 추가
+            for image in request.FILES.getlist('image'):
+                image = Image.objects.create(image=image)
+                post.image.add(image)
+
             post.save()
             return redirect('notice:detail', pk=post.pk)
         
@@ -135,4 +133,3 @@ def delete(request,pk):
         post.delete()
         return redirect('notice:index')
     return render(request, 'notice_detail.html',{'post':post})
-

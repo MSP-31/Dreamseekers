@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'lecture_inquiry',
     'blog',
     'notice',
+    'intro',
     
     'corsheaders',
 
