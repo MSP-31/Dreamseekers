@@ -1,11 +1,5 @@
-import os
-import uuid
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.core.files.storage import default_storage
-from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from django.views.decorators.csrf import csrf_exempt
-from django.db import transaction
 
 from datetime import timedelta
 

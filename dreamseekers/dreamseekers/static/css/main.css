@@ -228,3 +228,75 @@ table{
     line-height:1;
     user-select: none;
 }
+
+/*----------- 강사 소개 --------------*/
+.instrs-box li{
+    display: inline-block;
+    position: relative;
+    width: 500px;
+    height: 300px;
+    margin: 0 0 30px 10px;
+}
+
+/* 강사 이미지 */
+.instrs-box li img{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+/*-----모달--------*/
+.modal{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content{
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px dotted #888;
+    width: 80%;
+    border-radius: 25px;
+}
+
+.modal-close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+#modal-open{
+    border: 2px dashed black;
+    border-radius: 10%;
+    font-size: 100px;
+    padding: 50px;
+    margin: 0 20%;
+}

@@ -15,7 +15,7 @@ urlpatterns = [
     path('social/',include('user.API.urls')),
 
     # 교육원 소개
-    #path()
+    path('intro/',include('intro.urls')),
 
     # 강의 문의
     path('lecture/',include('lecture_inquiry.urls')),

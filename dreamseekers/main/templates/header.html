@@ -20,8 +20,9 @@
 </style>
 
 </head>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="{% static 'js/header.js'%}"></script>
+
 <header>
     <div class="top-header">
         <div class="login">
@@ -50,12 +51,12 @@
         </div>
 
         <ul class="menu-list">
-            <li class="menu"><a href="#">교육원 소개</a>
+            <li class="menu"><a href="/intro/greeting">교육원 소개</a>
                 <div class="menu-bar"><span></span></div>
                 <div class="submenu-container">
                     <ul class="submenu">
-                        <li><a href="/intro/lecture">인사말</a></li>
-                        <li><a href="#">강사 소개</a></li>
+                        <li><a href="/intro/greeting">인사말</a></li>
+                        <li><a href="/intro/instructors">강사 소개</a></li>
                         <li><a href="#">오시는 길</a></li>
                         <li><a href="#">추가 항목들...</a></li>
                     </ul>
@@ -135,9 +136,6 @@
 {% block content %}
 {% endblock %}
 
-{% block script %}
-{% endblock %}
-
 <footer>
     <div>
         <ul>
@@ -152,3 +150,7 @@
         <p><small>2024 꿈을찾는사람들교육원</small></p>
     </div>
 </footer>
+
+{% block script %}
+{% endblock %}
+<script src="{% static 'js/header.js'%}"></script>

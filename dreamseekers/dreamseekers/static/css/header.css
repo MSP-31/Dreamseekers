@@ -46,10 +46,10 @@ header.on .top-header,
 
 /* 스크롤시 헤더 사라짐 */
 header.on .nav-menu{
-  top: -110;
+  top: -110px;
+  height: 0px;
   transition: top 0.2s
 }
-header.on .nav-menu:hover,
 .nav-menu:hover{
   background-color: var(--main-header-color);
 }

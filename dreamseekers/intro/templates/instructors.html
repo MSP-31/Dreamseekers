@@ -1,0 +1,69 @@
+{% extends 'header.html' %}
+{% load static %}
+
+{% block topImg %}
+    <img src = {% static "img/top_header/intro.jpg" %} alt="예제이미지">
+    <h1>교육원 소개</h1>
+{% endblock %}
+
+{% block content %}
+
+<div class="main-content">
+    <h1>강사 소개</h1>
+
+    <ul class="instrs-box">
+        {% for instructor in list %}
+            <li>
+                <div class="member-img">
+                    {% if instructor.image %}
+                        <img src = "{{instructor.image.url}}" alt="">
+                        <br>
+                    {% endif %}
+                </div>
+                
+                <div>
+                    {{instructor.name}}
+                    {{instructor.contents}}
+                </div>
+                {% if request.user.is_staff %}
+                <div>
+                    <form action="{% url 'intro:instrs_del' instructor.pk  %}"
+                        method="POST" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
+                        {% csrf_token %}
+                        <input class="btn" type="submit" value="삭제">
+                    </form>
+                </div>
+                {% endif %}                
+            </li>
+        {% endfor %}
+
+        {% if request.user.is_staff %}
+        <div id="instrs-modal" class ="modal">
+            <div class="modal-content">
+                <span class="modal-close">&times;</span>
+                <form method = "POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div>
+                            <label>{{ field.label }}</label>
+                            {{ field }}
+                        </div>
+                    {% endfor %}
+        
+                    <input class="btn" type="submit" value="등록">
+                </form>
+            </div>
+        </div>
+        <li>
+            <div id="modal-open">+</div>
+        </li>
+        {% endif %}
+    </ul>
+
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script src="{% static "js/intro/instructors.js" %}"></script>
+{% endblock %}

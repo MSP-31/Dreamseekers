@@ -1,10 +1,11 @@
 from django.urls import path
-from .views import index, detail, write, update, delete
+from .views import greeting, instructors, instrs_delete
+
+app_name = 'intro'
 
 urlpatterns = [
-    path('',index, name='index'),
-    path('<int:pk>/',detail,name='detail'),
-    path('write/',write, name='write'),
-    path('<int:pk>/update/',update, name='update'),
-    path('<int:pk>/remove/',delete, name='delete'),
+    path('greeting/',greeting, name='greeting'),
+
+    path('instructors/',instructors,name='instructors'),
+    path('instructors/delete/<int:pk>',instrs_delete,name="instrs_del"),
 ]
