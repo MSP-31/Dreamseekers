@@ -300,3 +300,30 @@ table{
     padding: 50px;
     margin: 0 20%;
 }
+
+/* 오시는 길 */
+.map_address{
+    position: relative;
+    text-align: left;
+    padding: 40px 0;
+}
+
+/* 주소 */
+.map_address h2{
+    color: var(--main-color);
+}
+
+.map_address a{
+    position: absolute;
+    right: 0;
+    top: 5px;
+}
+
+.list_info{
+    border-top: 1px solid black;
+    padding: 25px;
+}
+
+.list_info .item_title{
+    float: left;
+}

@@ -1,27 +1,29 @@
 {%load static %}
 <head>
-<title>꿈을 찾는 사람들 교육원</title>
-<link rel="icon" href="{% static 'img/logo.svg'%}">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{% static 'css/reset.css'%}?after">
-<link rel="stylesheet" href="{% static 'css/style.css'%}">
-<link rel="stylesheet" href="{% static 'css/main.css'%}">
-<link rel="stylesheet" href="{% static 'css/header.css'%}">
+    <title>꿈을 찾는 사람들 교육원</title>
+    <link rel="icon" href="{% static 'img/logo.svg'%}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/reset.css'%}?after">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <link rel="stylesheet" href="{% static 'css/main.css'%}">
+    <link rel="stylesheet" href="{% static 'css/header.css'%}">
 
-<style>
-    @media screen and (max-width: 1140px){
-        .nav-menu .menu-list{display: none;}
-    }
-    @media screen and (min-width: 1140px){
-        .nav-menu .menu-list{display: flex;}
-    }
-</style>
+    <style>
+        @media screen and (max-width: 1140px){
+            .nav-menu .menu-list{display: none;}
+        }
+        @media screen and (min-width: 1140px){
+            .nav-menu .menu-list{display: flex;}
+        }
+    </style>
 
 </head>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+{% block f_script %}
+{% endblock %}
 
 <header>
     <div class="top-header">
@@ -57,8 +59,7 @@
                     <ul class="submenu">
                         <li><a href="/intro/greeting">인사말</a></li>
                         <li><a href="/intro/instructors">강사 소개</a></li>
-                        <li><a href="#">오시는 길</a></li>
-                        <li><a href="#">추가 항목들...</a></li>
+                        <li><a href="/intro/contact">오시는 길</a></li>
                     </ul>
                 </div>
             </li>
@@ -77,7 +78,6 @@
                         <li><a href="/lecture/inquiry">강의 상담 문의</a></li>
                         <li><a href="/lecture/inquiry/list">내 문의 내역</a></li>
                         <li><a href="#">강의 일정</a></li>
-                        <li><a href="#">추가 항목들...</a></li>
                     </ul>
                 </div>
             </li>

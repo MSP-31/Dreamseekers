@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.shortcuts import redirect, render
 
 from .models import Instructors
@@ -35,3 +36,8 @@ def instrs_delete(request,pk):
     form = InstructorsForm()
     list = Instructors.objects.order_by()
     return render(request, 'instructors.html', {'form':form, 'list':list,})
+
+# 오시는 길
+def contact(request):
+    context = {'client_id': settings.NAVER_MAPS_CLIENT_ID}
+    return render(request, 'contact.html',context)

@@ -1,0 +1,52 @@
+{% extends 'header.html' %}
+{% load static %}
+
+{% block f_script %}
+<script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId={{ client_id }}"></script>
+{% endblock %}
+
+{% block topImg %}
+    <img src = {% static "img/top_header/intro.jpg" %} alt="예제이미지">
+    <h1>교육원 소개</h1>
+{% endblock %}
+
+{% block content %}
+
+<div class="main-content">
+    <h1>오시는 길</h1>
+    <div id="map" style="width:100%;height:400px;"></div>
+    <div class="map_address">
+        <h3>꿈을찾는사람들교육원</h3>
+        <h2>경상남도 창원시 성산구용지로 70 / 성원그랜드오피스텔 10층 1029호</h2>
+        <a class="btn" href="https://map.naver.com/p/entry/place/1605260808">지도에서 보기</a>
+    </div>
+    <div class="info_box">
+        <div class="list_info">
+            <div class="item_title">
+                오시는길
+            </div>
+        </div>
+        <div class="list_info">
+            <div class="item_title">
+                이용시간
+            </div>
+        </div>
+        <div class="list_info">
+            <div class="item_title">
+                전화번호
+            </div>
+        </div>
+        <div class="list_info">
+            <div class="item_title">
+                사업자 정보
+            </div>
+        </div>
+    </div>
+    <br>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'js/intro/contact.js'%}"></script>
+{% endblock %}
