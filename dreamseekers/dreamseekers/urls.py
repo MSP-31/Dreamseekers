@@ -18,7 +18,7 @@ urlpatterns = [
     path('intro/',include('intro.urls')),
 
     # 강의 문의
-    path('lecture/',include('lecture_inquiry.urls')),
+    path('lecture/',include('lecture.urls')),
 
     # 소통마당
     path('board/notice/',include('notice.urls')),

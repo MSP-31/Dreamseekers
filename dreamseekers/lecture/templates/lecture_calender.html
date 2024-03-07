@@ -1,0 +1,89 @@
+{% extends 'header.html' %}
+{% load static %}
+
+{% block topImg %}
+    <img src = {% static "img/top_header/inquiry.jpg" %} alt="예제이미지">
+    <h1>강의 문의</h1>
+{% endblock %}
+
+{% block content %}
+
+{% if user.is_staff %}
+<div id="admin-indicator" data-is-admin="true"></div>
+{% endif %}
+
+<div class="main-content">
+    <h1>강의 일정</h1>
+    <br>
+    <div class="sec_cal">
+        <div class="cal_nav">
+          <a href="javascript:;" class="nav-btn go-prev">prev</a>
+          <div class="year-month"></div>
+          <a href="javascript:;" class="nav-btn go-next">next</a>
+        </div>
+        <div class="cal_wrap">
+          <div class="days">
+            <div class="week">월요일</div>
+            <div class="week">화요일</div>
+            <div class="week">수요일</div>
+            <div class="week">목요일</div>
+            <div class="week">금요일</div>
+            <div class="week">토요일</div>
+            <div class="week">일요일</div>
+          </div>
+          <div class="dates"></div>
+        </div>
+      </div>
+    </div>
+    <div id="calender-modal" class ="modal">
+        <div class="modal-content">
+            <div class="modal-title">
+                <span class="modal-close">&times;</span>
+                <span class="selected-date title"></span>
+                <span class="selected-day title"></span>
+                {% if user.is_staff %}
+                <span class="add-sched btn-active">추가</span>
+                {% endif %}
+            </div>
+            <div class="modal-detail">
+                낫띵
+            </div>
+        </div>
+    </div>
+
+    <div id="add-calender" class ="modal"> 
+        <div class="modal-content">
+            <div class="modal-title">
+                <span class="modal-close">&times;</span>
+                <span class="title">일정 쓰기</span>
+            </div>
+            <div>
+                <form method = "POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div class="setDate">
+                        <input type="date" id="startDate" name="startDate" value="2024-01-01">
+                        <input type="time" id="startTime" name="startTime" step="1800" value="12:00">
+                        <span>~</span>
+                        <input type="time" id="endTime" name="endTime" step="1800" value="13:00">
+                    </div>
+                    <div>
+                        {{ field }}
+                    </div>
+                    {% endfor %}
+                <input class="btn" type="submit" value="등록">
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script>
+    var schedules = JSON.parse('{{ schedules|escapejs }}');
+</script>
+<script src="{% static 'js/lecture/calender.js'%}"></script>
+{% endblock %}

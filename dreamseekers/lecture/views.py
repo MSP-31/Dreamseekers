@@ -1,13 +1,15 @@
+from datetime import datetime
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.core import serializers
 
 from comment.forms import CommentForm
 from comment.models import Comment, PostCommetns
 from comment.serializers import CommentSerializer
 
-from .models import Inquiry
-from .forms import InquiryForm
+from .models import Inquiry, lectureCalender
+from .forms import CalenderForm, InquiryForm
 
 # 강의 상담 문의 작성
 def inquiry(request):
@@ -106,3 +108,29 @@ def inquiry_detail(request,pk):
 
     return render(request, 'inquiry_detail.html',{'post':inquiry, 'comments':serialized_comments,
                             'comment_form':comment_form,'board_name':board_name})
+
+def lecture_calender(request):
+    # DB에서 이벤트 데이터 가져오기
+    schedules = lectureCalender.objects.all()
+    schedules_json = serializers.serialize('json', schedules)
+
+    form = CalenderForm()
+    
+    if request.method == 'POST':
+        form = CalenderForm(request.POST)
+        print("POST")
+        if form.is_valid():
+            start_time_str = request.POST['startTime']
+            end_time_str = request.POST['endTime']
+            
+            start_time = datetime.strptime(start_time_str, '%H:%M').time()
+            end_time = datetime.strptime(end_time_str, '%H:%M').time()
+
+            new_calender = lectureCalender.objects.create(
+                contents   = form.cleaned_data['contents'],
+                date       = request.POST['startDate'],
+                start_time = start_time,
+                end_time   = end_time,
+            )
+            return redirect('inquiry:lecture_calender')
+    return render(request, 'lecture_calender.html', {'form':form, 'schedules': schedules_json})

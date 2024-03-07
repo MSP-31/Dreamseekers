@@ -1,8 +1,9 @@
 import re
 from django import forms
-from lecture_inquiry.models import Inquiry
+from lecture.models import Inquiry, lectureCalender
 from django.core.exceptions import ValidationError
 
+# 강의 문의 폼
 class InquiryForm(forms.ModelForm):
     class Meta:
         model = Inquiry
@@ -30,3 +31,15 @@ class InquiryForm(forms.ModelForm):
         if not re.match(phone_regex, phone):
             raise ValidationError('올바른 전화번호 형식이 아닙니다.')
         return phone
+
+# 강의 일정 폼
+class CalenderForm(forms.ModelForm):
+    class Meta:
+        model = lectureCalender
+        fields = ['contents']
+        error_messages = {
+            'contents' : {
+                'required' : '내용을 입력해주세요.',
+                'max_length' : '내용은 3000 글자 이하로 입력해야 합니다.',
+            },
+        }

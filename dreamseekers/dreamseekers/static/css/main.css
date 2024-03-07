@@ -249,8 +249,8 @@ table{
 .modal{
     display: none;
     position: fixed;
-    z-index: 1;
-    padding-top: 100px;
+    z-index: 3;
+    padding-top: 15%;
     left: 0;
     top: 0;
     height: 100%;
@@ -263,9 +263,17 @@ table{
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
-    border: 1px dotted #888;
-    width: 80%;
+    width: 50%;
     border-radius: 25px;
+}
+
+.modal-title{
+    padding-bottom: 25px;
+    border-bottom: 0.5px solid var(--line-color);
+}
+
+.modal-title .title{
+    font-size: 25px;
 }
 
 .modal-close {
@@ -326,4 +334,179 @@ table{
 
 .list_info .item_title{
     float: left;
+}
+
+
+/* section calendar */
+.sec_cal {
+    width: auto;
+    margin: 0 auto;
+}
+
+.sec_cal .cal_nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 78px;
+}
+
+.sec_cal .cal_nav .year-month {
+    width: 300px;
+    text-align: center;
+    line-height: 1;
+}
+
+.sec_cal .cal_nav .nav {
+    display: flex;
+    border: 1px solid #333333;
+    border-radius: 5px;
+}
+
+.sec_cal .cal_nav .go-prev,
+.sec_cal .cal_nav .go-next {
+    display: block;
+    width: 50px;
+    height: 78px;
+    font-size: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sec_cal .cal_nav .go-prev::before,
+.sec_cal .cal_nav .go-next::before {
+    content: "";
+    display: block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #000;
+    border-width: 3px 3px 0 0;
+    transition: border 0.1s;
+}
+
+.sec_cal .cal_nav .go-prev:hover::before,
+.sec_cal .cal_nav .go-next:hover::before {
+    border-color: #ed2a61;
+}
+
+.sec_cal .cal_nav .go-prev::before {
+    transform: rotate(-135deg);
+}
+
+.sec_cal .cal_nav .go-next::before {
+    transform: rotate(45deg);
+}
+
+.sec_cal .cal_wrap {
+    padding-top: 40px;
+    position: relative;
+    margin: 0 auto;
+}
+
+.sec_cal .cal_wrap .days {
+    display: flex;
+    
+}
+
+.sec_cal .cal_wrap::after {
+    top: 368px;
+}
+
+/* 요일 */
+.sec_cal .cal_wrap .week {
+    display:flex;
+    justify-content: center;
+    width: calc(100% / 7);
+    text-align: left;
+    color: black;
+    text-align: center;
+    border: 0.5px solid var(--line-color);
+    padding: 25px 0;
+}
+
+/* 일 */
+.sec_cal .cal_wrap .day {
+    display:flex;
+    width: calc(100% / 7);
+    position: relative;
+    border: 0.5px solid var(--line-color);
+    padding: 9px 11px 11px;
+}
+
+/* 선택시 */
+.sec_cal .cal_wrap .day:hover,
+.sec_cal .cal_wrap .selected {
+    border: 0.5px solid var(--main-color);
+}
+
+.current.today {background: rgb(242 242 242);}
+
+.sec_cal .cal_wrap .dates {
+    display: flex;
+    flex-flow: wrap;
+    height: 600px;
+}
+
+.sec_cal .cal_wrap .day:nth-child(7n -1) {
+    color: #3c6ffa;
+}
+
+.sec_cal .cal_wrap .day:nth-child(7n) {
+    color: #ed2a61;
+}
+
+.sec_cal .cal_wrap .day.disable {
+    color: #ddd;
+}
+
+/* 추가된 일정 */
+.sec_cal .cal_wrap .day .cell_con_area{
+    display: inline;
+}
+
+.sec_cal .cal_wrap .day .cell_con_area .cell_con_time{
+    display: inline-block;
+    margin-left: 5px;
+    font-size: 13px;
+    color: #333;
+    letter-spacing: -.4px;
+}
+
+.sec_cal .cal_wrap .day .cell_con_area .cell_con_text{
+    overflow: hidden;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    max-height: 38px;
+    margin: 15px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-size: 12px;
+    color: #666;
+    line-height: 1.67;
+    letter-spacing: -.7px;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+.sec_cal .cal_wrap .day .cell_con_area .cell_con_background{
+    display: block;
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    opacity: .05;
+    background-color: var(--main-color)
+}
+
+/* 달력 모달 */
+.modal .modal-title .selected-date{
+    color: var(--main-color);
+}
+
+#add-calender .setDate{
+    padding-bottom: 10px;
 }

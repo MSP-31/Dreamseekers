@@ -1,5 +1,5 @@
 from django.contrib import admin
-from lecture_inquiry.models import Inquiry
+from lecture.models import Inquiry
 
 class InquiryAdmin(admin.ModelAdmin):
     list_display = ('title','author','phone','created_at',)

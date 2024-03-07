@@ -1,7 +1,7 @@
 from django.db import models
 
 from board.models import Post
-from lecture_inquiry.models import Inquiry
+from lecture.models import Inquiry
 
 # 댓글
 class Comment(models.Model):
