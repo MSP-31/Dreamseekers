@@ -183,7 +183,7 @@ function showModal(fullDate){
     var spanText = document.getElementsByClassName('content_text')[0];
     var modalRevise = document.getElementsByClassName('modal_revise')[0];
     var modalReviseForm = modalRevise.getElementsByTagName('form')[0];
-    var modalReviseA = modalRevise.getElementsByTagName('a')[0];
+    var modalReviseUpdate = modalRevise.getElementsByTagName('span')[0];
 
     var dateString = fullDate.toISOString().split('T')[0];  // 'YYYY-MM-DD' 형식
     dateString = dateString.replace(/-/g, '.'); // '-'를 '.'으로 바꾸기
@@ -209,9 +209,13 @@ function showModal(fullDate){
     spanTime.textContent = timeText;
     spanText.textContent = contentText;
 
-    // 일정 삭제 주소
+    // 일정 삭제
     modalReviseForm.action = 'calender/del/'+schedulePK+'/';
-    modalReviseA.href = 'calender/update/'+schedulePK+'/';
+
+    // 일정 수정
+    modalReviseUpdate.onclick = function() {
+        updateCalender(fullDate,schedulePK);
+    }
 
     // 값이 비어있을땐 관리자만 열람가능
     if(!(contentText && timeText)){
@@ -235,21 +239,9 @@ function showModal(fullDate){
         }
     }
 
-    // 사용자가 모달창 외부를 클릭시 모달창 닫기
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = 'none';
-            if(contentText && timeText){
-                modalRevise.style.display = 'none';
-            }
-        }
-    }
-
     if (isAdmin) { // 관리자이고 일정 추가 버튼이 눌러졌을때
         var add_sched = document.getElementsByClassName('add-sched')[0];
         add_sched.addEventListener('click', function() {
-            console.log("관리자님 ㅎㅇ");
-            modal.style.display = 'none';
             createModal(fullDate);
         // 관리자인 경우에만 모달창 띄우기
         });
@@ -260,10 +252,25 @@ function showModal(fullDate){
 function createModal(fullDate){
     var modal = document.getElementById('add-calender');
     var closeBtn = document.getElementsByClassName('modal-close')[1];
+    var date = document.getElementById('startDate');
+    var startTime = document.getElementById('startTime');
+    var endTime = document.getElementById('endTime');
+    var contents = document.getElementById('id_contents');
+    var title = document.querySelector('#add-calender .modal-title .title');
+    var form = document.querySelector('#add-calender form');
+
     
     // 오늘날짜로 수정
-    document.getElementById('startDate').value = fullDate.toISOString().split('T')[0];
+    date.value = fullDate.toISOString().split('T')[0];
+    startTime.value = '12:00';
+    endTime.value = '13:00';
+    contents.value = '';
+
+    title.textContent = '일정 작성';
     
+    // action 속성 삭제
+    form.removeAttribute('action');
+
     // 모달창 열기
     modal.style.display = 'block';
 
@@ -271,12 +278,42 @@ function createModal(fullDate){
     closeBtn.onclick = function() {
         modal.style.display = 'none';
     }
+}
 
-    // 사용자가 모달창 외부를 클릭시 모달창 닫기
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = 'none';
-        }
+// 일정 수정
+function updateCalender(fullDate,schedulePK){
+    var modal = document.getElementById('add-calender');
+    var closeBtn = document.getElementsByClassName('modal-close')[1];
+    var date = document.getElementById('startDate');
+    var startTime = document.getElementById('startTime');
+    var endTime = document.getElementById('endTime');
+    var contents = document.getElementById('id_contents');
+    var title = document.querySelector('#add-calender .modal-title .title');
+    var form = document.querySelector('#add-calender form');
+
+    var dateString = fullDate.toISOString().split('T')[0];
+    // 'data-date' 속성이 일정의 날짜와 일치하는 셀을 찾습니다.
+    var cell = document.querySelector('.day[data-date="' + dateString + '"] > div.cell_con_area');
+    var timeRange = cell.querySelector('span.cell_con_time').textContent;  // 해당 시간
+    var times = timeRange.split('-');  // '-'을 기준으로 문자열을 분리합니다.
+    var text = cell.querySelector('span.cell_con_text').textContent;  // 해당 내용
+
+    // 오늘날짜로 수정
+    date.value = dateString;
+    startTime.value = times[0];
+    endTime.value = times[1];
+    contents.value = text;
+    title.textContent = '일정 수정';
+    
+    // action 속성 삭제
+    form.action = 'calender/update/'+schedulePK+'/';
+    
+    // 모달창 열기
+    modal.style.display = 'block';
+
+    // 'x' 버튼 클릭시 모달창 닫기
+    closeBtn.onclick = function() {
+        modal.style.display = 'none';
     }
 }
 
@@ -291,7 +328,6 @@ function addSchedules(){
         // 'data-date' 속성이 일정의 날짜와 일치하는 셀을 찾습니다.
         var cell = document.querySelector('.day[data-date="' + dateString + '"]');
         if (cell) { // 일치하는 셀이 있으면
-            console.log(schedule);
             // 시간
             var timeText = dateSchedules(schedule);
             // 일정 내용

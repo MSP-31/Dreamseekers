@@ -138,25 +138,42 @@ def lecture_calender(request):
 
 # 게시글 수정
 def calenderUpdate(request,pk):
+    # DB에서 이벤트 데이터 가져오기
+    schedules = lectureCalender.objects.all()
+    schedules_json = serializers.serialize('json', schedules)
+
     # 관리자 여부 확인
     if not request.user.is_staff:
         return redirect('accounts:login')
 
+    # 해당하는 일정 가져옴
     schedules = lectureCalender.objects.get(pk=pk)
 
     if request.method == 'POST':
         form = CalenderForm(request.POST, instance=schedules)
         if form.is_valid():
+            # 시간 가져옴
+            start_time_str = request.POST['startTime']
+            end_time_str = request.POST['endTime']
+
+            # 시간 형식으로 바꿈
+            start_time = datetime.strptime(start_time_str, '%H:%M').time()
+            end_time = datetime.strptime(end_time_str, '%H:%M').time()
+
+            schedules.date = request.POST['startDate']
+            schedules.start_time = start_time
+            schedules.end_time = end_time
+
             schedules.save()
             return redirect('inquiry:lecture_calender')
     else:
         form = CalenderForm(instance=schedules)
-    return render(request, 'post_update.html', {'form': form})
+    return render(request, 'lecture_calender.html', {'form': form, 'schedules': schedules_json})
 
 # 캘린더 삭제 
 def calenderDel(request,pk):
     schedules = lectureCalender.objects.get(pk=pk)
-    print(schedules)
+
     if request.method == 'POST':
         schedules.delete()
         return redirect('inquiry:lecture_calender')

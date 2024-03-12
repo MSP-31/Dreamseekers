@@ -50,10 +50,9 @@
                 <span class="content_text"></span>
                 {% if user.is_staff %}
                 <span class="modal_revise" style="display:none">
-                    <a class="btn" href="">수정</a>
+                    <span class="btn">수정</a>
 
-                    <form action=""
-                        method="POST" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
+                    <form action="" method="POST" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
                         {% csrf_token %}
                         <input class="btn" type="submit" value="삭제">
                     </form>
@@ -67,17 +66,17 @@
         <div class="modal-content">
             <div class="modal-title">
                 <span class="modal-close">&times;</span>
-                <span class="title">일정 쓰기</span>
+                <span class="title">일정 작성</span>
             </div>
             <div>
                 <form method = "POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {% for field in form %}
                     <div class="setDate">
-                        <input type="date" id="startDate" name="startDate" value="2024-01-01">
-                        <input type="time" id="startTime" name="startTime" step="1800" value="12:00">
+                        <input type="date" id="startDate" name="startDate">
+                        <input type="time" id="startTime" name="startTime" value="12:00">
                         <span>~</span>
-                        <input type="time" id="endTime" name="endTime" step="1800" value="13:00">
+                        <input type="time" id="endTime" name="endTime" value="13:00">
                     </div>
                     <div>
                         {{ field }}
@@ -88,7 +87,6 @@
             </div>
         </div>
     </div>
-
 </div>
 
 {% endblock %}
