@@ -75,10 +75,8 @@ function calendarInit() {
                 thisMonth = new Date(currentYear, currentMonth - 1, 1);
                 renderCalender(thisMonth);
                 
-                // 관리자인 경우에만 모달창 띄우기
-                if (isAdmin) {
-                    showModal(fullDate);
-                }
+                // 모달창 띄우기
+                showModal(fullDate);
             });
 
             calendar.appendChild(newDiv);
@@ -114,10 +112,8 @@ function calendarInit() {
                 // 클릭한 날짜 저장
                 var fullDate = new Date(this.dataset.date);
 
-                // 관리자인 경우에만 모달창 띄우기
-                if (isAdmin) {
-                    showModal(fullDate);
-                }
+                // 모달창 띄우기
+                showModal(fullDate);
             });
 
             calendar.appendChild(newDiv);
@@ -144,10 +140,8 @@ function calendarInit() {
                 thisMonth = new Date(currentYear, currentMonth + 1, 1);
                 renderCalender(thisMonth);
 
-                // 관리자인 경우에만 모달창 띄우기
-                if (isAdmin) {
-                    showModal(fullDate);
-                }
+                // 모달창 띄우기
+                showModal(fullDate);
             });
 
             calendar.appendChild(newDiv);
@@ -185,6 +179,11 @@ function showModal(fullDate){
     var closeBtn = document.getElementsByClassName('modal-close')[0];
     var date = document.getElementsByClassName('selected-date')[0];
     var day = document.getElementsByClassName('selected-day')[0];
+    var spanTime = document.getElementsByClassName('content_time')[0];
+    var spanText = document.getElementsByClassName('content_text')[0];
+    var modalRevise = document.getElementsByClassName('modal_revise')[0];
+    var modalReviseForm = modalRevise.getElementsByTagName('form')[0];
+    var modalReviseA = modalRevise.getElementsByTagName('a')[0];
 
     var dateString = fullDate.toISOString().split('T')[0];  // 'YYYY-MM-DD' 형식
     dateString = dateString.replace(/-/g, '.'); // '-'를 '.'으로 바꾸기
@@ -195,18 +194,54 @@ function showModal(fullDate){
     var dayInKorean = daysInKorean[fullDate.getDay()];
     day.textContent = dayInKorean+"요일";
 
-    // 모달창 열기
-    modal.style.display = 'block';
+    // 일정 내용 추가 부분
+    for (var i = 0; i < schedules.length; i++) {
+        var schedule = schedules[i]; // 일정의 날짜를 가져옵니다.
+        var date = new Date(schedule.fields.date); // 달력의 각 셀을 순회합니다.
+        if(JSON.stringify(date) === JSON.stringify(fullDate)){
+            var timeText = dateSchedules(schedule);
+            var contentText = schedule.fields.contents;
+            var schedulePK = schedule.pk;
+        }
+    }
+
+    // 일정의 날짜 / 내용 추가
+    spanTime.textContent = timeText;
+    spanText.textContent = contentText;
+
+    // 일정 삭제 주소
+    modalReviseForm.action = 'calender/del/'+schedulePK+'/';
+    modalReviseA.href = 'calender/update/'+schedulePK+'/';
+
+    // 값이 비어있을땐 관리자만 열람가능
+    if(!(contentText && timeText)){
+        if(isAdmin){
+            modal.style.display = 'block';
+        }
+    }
+    else{
+        // 수정 삭제 버튼 추가
+        if(isAdmin){
+            modalRevise.style.display = 'block';
+        }
+        modal.style.display = 'block';
+    }
 
     // 'x' 버튼 클릭시 모달창 닫기
     closeBtn.onclick = function() {
         modal.style.display = 'none';
+        if(contentText && timeText){
+            modalRevise.style.display = 'none';
+        }
     }
 
     // 사용자가 모달창 외부를 클릭시 모달창 닫기
     window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = 'none';
+            if(contentText && timeText){
+                modalRevise.style.display = 'none';
+            }
         }
     }
 
@@ -221,6 +256,7 @@ function showModal(fullDate){
     }
 }
 
+// 일정 추가 모달
 function createModal(fullDate){
     var modal = document.getElementById('add-calender');
     var closeBtn = document.getElementsByClassName('modal-close')[1];
@@ -244,6 +280,7 @@ function createModal(fullDate){
     }
 }
 
+// 달력에 해당하는 일정 표시
 function addSchedules(){
     for (var i = 0; i < schedules.length; i++) {
         var schedule = schedules[i]; // 일정의 날짜를 가져옵니다.
@@ -254,17 +291,12 @@ function addSchedules(){
         // 'data-date' 속성이 일정의 날짜와 일치하는 셀을 찾습니다.
         var cell = document.querySelector('.day[data-date="' + dateString + '"]');
         if (cell) { // 일치하는 셀이 있으면
-            // 시간 가져옴
-            var startTime = schedule.fields.start_time;
-            var endTime = schedule.fields.end_time;
+            console.log(schedule);
+            // 시간
+            var timeText = dateSchedules(schedule);
+            // 일정 내용
+            var contentText = schedule.fields.contents;
 
-            // 초 부분 제거
-            startTime = startTime.substring(0, 5);
-            endTime = endTime.substring(0, 5);
-
-            // 시작 시간과 종료 시간을 함께 표시
-            var timeText = startTime + '-' + endTime;
-            
             // 일정의 날짜 추가
             var time = document.createElement('span');
             time.textContent = timeText;
@@ -272,7 +304,7 @@ function addSchedules(){
             
             // 일정의 내용을 추가
             var content = document.createElement('span');
-            content.textContent = schedule.fields.contents;
+            content.textContent = contentText;
             content.className = 'cell_con_text';
 
             // 일정의 내용을 추가
@@ -290,4 +322,19 @@ function addSchedules(){
             cell.appendChild(div);
         }
     }
+}
+
+// 시간 변환 함수
+function dateSchedules(schedule){
+    // 시간 가져옴
+    var startTime = schedule.fields.start_time;
+    var endTime = schedule.fields.end_time;
+
+    // 초 부분 제거
+    startTime = startTime.substring(0, 5);
+    endTime = endTime.substring(0, 5);
+
+    // 시작 시간과 종료 시간을 함께 표시
+    var timeText = startTime + '-' + endTime;
+    return timeText;
 }

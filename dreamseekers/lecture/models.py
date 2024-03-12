@@ -28,6 +28,10 @@ class lectureCalender(models.Model):
     def __str__(self):
         return self.date.strftime('%Y-%m-%d')
     
+    # 게시글 삭제
+    def delete(self, *args, **kargs):
+        super(lectureCalender,self).delete(*args, **kargs)
+    
     class Meta:
         db_table = "lecture_calender"
         verbose_name = "강의일정"

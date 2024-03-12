@@ -109,6 +109,7 @@ def inquiry_detail(request,pk):
     return render(request, 'inquiry_detail.html',{'post':inquiry, 'comments':serialized_comments,
                             'comment_form':comment_form,'board_name':board_name})
 
+# 캘린더
 def lecture_calender(request):
     # DB에서 이벤트 데이터 가져오기
     schedules = lectureCalender.objects.all()
@@ -134,3 +135,29 @@ def lecture_calender(request):
             )
             return redirect('inquiry:lecture_calender')
     return render(request, 'lecture_calender.html', {'form':form, 'schedules': schedules_json})
+
+# 게시글 수정
+def calenderUpdate(request,pk):
+    # 관리자 여부 확인
+    if not request.user.is_staff:
+        return redirect('accounts:login')
+
+    schedules = lectureCalender.objects.get(pk=pk)
+
+    if request.method == 'POST':
+        form = CalenderForm(request.POST, instance=schedules)
+        if form.is_valid():
+            schedules.save()
+            return redirect('inquiry:lecture_calender')
+    else:
+        form = CalenderForm(instance=schedules)
+    return render(request, 'post_update.html', {'form': form})
+
+# 캘린더 삭제 
+def calenderDel(request,pk):
+    schedules = lectureCalender.objects.get(pk=pk)
+    print(schedules)
+    if request.method == 'POST':
+        schedules.delete()
+        return redirect('inquiry:lecture_calender')
+    return render(request)

@@ -1,5 +1,5 @@
 from django.urls import include,path
-from .views import inquiry,inquiry_index,inquiry_detail,lecture_calender
+from .views import inquiry,inquiry_index,inquiry_detail,lecture_calender,calenderUpdate,calenderDel
 
 app_name = 'inquiry'
 
@@ -10,4 +10,6 @@ urlpatterns = [
     path('inquiry/comments/', include('comment.urls')),
 
     path('calender',lecture_calender,name='lecture_calender'),
+    path('calender/update/<int:pk>/',calenderUpdate,name='calenderUpdate'),
+    path('calender/del/<int:pk>/',calenderDel,name='calenderDel'),
 ]

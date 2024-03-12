@@ -46,7 +46,19 @@
                 {% endif %}
             </div>
             <div class="modal-detail">
-                낫띵
+                <span class="content_time"></span>
+                <span class="content_text"></span>
+                {% if user.is_staff %}
+                <span class="modal_revise" style="display:none">
+                    <a class="btn" href="">수정</a>
+
+                    <form action=""
+                        method="POST" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
+                        {% csrf_token %}
+                        <input class="btn" type="submit" value="삭제">
+                    </form>
+                </span>
+                {% endif %}
             </div>
         </div>
     </div>
