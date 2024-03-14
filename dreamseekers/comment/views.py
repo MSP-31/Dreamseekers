@@ -32,7 +32,7 @@ def comments_create(request,pk,board_name):
         if board_name == 'post':
             return redirect('post_detail', post.pk)
         else:
-            return redirect('inquiry:inquiry_detail', post.pk)
+            return redirect('lecture:inquiry_detail', post.pk)
     return redirect('accounts:login')
 
 # 댓글 수정
@@ -87,5 +87,5 @@ def comments_nested(request, post_pk, comment_pk, board_name):
         if board_name == 'post':
             return redirect('post_detail', post.pk)
         else:
-            return redirect('inquiry:inquiry_detail', post.pk)
+            return redirect('lecture:inquiry_detail', post.pk)
     return redirect('accounts:login')

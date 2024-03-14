@@ -15,13 +15,13 @@
 <div class="main-content">
     <h1>강의 일정</h1>
     <br>
-    <div class="sec_cal">
-        <div class="cal_nav">
+    <div class="sec-cal">
+        <div class="cal-nav">
           <a href="javascript:;" class="nav-btn go-prev">prev</a>
           <div class="year-month"></div>
           <a href="javascript:;" class="nav-btn go-next">next</a>
         </div>
-        <div class="cal_wrap">
+        <div class="cal-wrap">
           <div class="days">
             <div class="week">월요일</div>
             <div class="week">화요일</div>
@@ -46,18 +46,10 @@
                 {% endif %}
             </div>
             <div class="modal-detail">
-                <span class="content_time"></span>
-                <span class="content_text"></span>
-                {% if user.is_staff %}
-                <span class="modal_revise" style="display:none">
-                    <span class="btn">수정</a>
-
-                    <form action="" method="POST" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
-                        {% csrf_token %}
-                        <input class="btn" type="submit" value="삭제">
-                    </form>
-                </span>
-                {% endif %}
+                <ul class="detail-list-area">
+                    
+                </ul>
+                
             </div>
         </div>
     </div>
@@ -77,6 +69,8 @@
                         <input type="time" id="startTime" name="startTime" value="12:00">
                         <span>~</span>
                         <input type="time" id="endTime" name="endTime" value="13:00">
+                        <input type="checkbox" id="allDay" name="allDay" value="1">
+                        <label for="allDay" class="btn">종일</label>
                     </div>
                     <div>
                         {{ field }}

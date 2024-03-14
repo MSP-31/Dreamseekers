@@ -20,7 +20,7 @@ header.on .top-header,
 }
 
 /* 로그인 경계선 */
-.top-header .login span{
+.span-contour{
   width: 1px;
   height: 12px;
   margin: 0 5px;

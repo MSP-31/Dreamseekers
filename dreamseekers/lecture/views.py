@@ -40,7 +40,7 @@ def inquiry(request):
                 contents  = form.cleaned_data['contents'],
                 author    = user
             )
-            return redirect('inquiry:inquiry_detail', new_inquiry.pk)
+            return redirect('lecture:inquiry_detail', new_inquiry.pk)
         else:
             print("실패")
             # 폼이 유효하지 않을 경우, 사용자가 입력한 데이터를 폼에 다시 채워 넣습니다.
@@ -117,26 +117,38 @@ def lecture_calender(request):
 
     form = CalenderForm()
     
+    # 일정 작성
     if request.method == 'POST':
         form = CalenderForm(request.POST)
-        print("POST")
+
         if form.is_valid():
-            start_time_str = request.POST['startTime']
-            end_time_str = request.POST['endTime']
+            allDay = request.POST.get('allDay')
+            if allDay is None:
+                print('논논노')
+                startTimeStr = request.POST['startTime']
+                endTimeStr = request.POST['endTime']
+                allDay = False
+                print(allDay)
+            else:
+                startTimeStr = '00:00'
+                endTimeStr = '00:00'
+                allDay = True
+                print(allDay)
             
-            start_time = datetime.strptime(start_time_str, '%H:%M').time()
-            end_time = datetime.strptime(end_time_str, '%H:%M').time()
+            startTime = datetime.strptime(startTimeStr, '%H:%M').time()
+            endTime = datetime.strptime(endTimeStr, '%H:%M').time()
 
             new_calender = lectureCalender.objects.create(
                 contents   = form.cleaned_data['contents'],
                 date       = request.POST['startDate'],
-                start_time = start_time,
-                end_time   = end_time,
+                startTime  = startTime,
+                endTime   = endTime,
+                allDay     = allDay,
             )
-            return redirect('inquiry:lecture_calender')
+            return redirect('lecture:lecture_calender')
     return render(request, 'lecture_calender.html', {'form':form, 'schedules': schedules_json})
 
-# 게시글 수정
+# 일정 수정
 def calenderUpdate(request,pk):
     # DB에서 이벤트 데이터 가져오기
     schedules = lectureCalender.objects.all()
@@ -152,29 +164,41 @@ def calenderUpdate(request,pk):
     if request.method == 'POST':
         form = CalenderForm(request.POST, instance=schedules)
         if form.is_valid():
+            allDay = request.POST.get('allDay')
+            
             # 시간 가져옴
-            start_time_str = request.POST['startTime']
-            end_time_str = request.POST['endTime']
+            if allDay is None:
+                print('논논노')
+                startTimeStr = request.POST['startTime']
+                endTimeStr = request.POST['endTime']
+                allDay = False
+                print(allDay)
+            else:
+                startTimeStr = '00:00'
+                endTimeStr = '00:00'
+                allDay = True
+                print(allDay)
 
             # 시간 형식으로 바꿈
-            start_time = datetime.strptime(start_time_str, '%H:%M').time()
-            end_time = datetime.strptime(end_time_str, '%H:%M').time()
+            startTime = datetime.strptime(startTimeStr, '%H:%M').time()
+            endTime = datetime.strptime(endTimeStr, '%H:%M').time()
 
-            schedules.date = request.POST['startDate']
-            schedules.start_time = start_time
-            schedules.end_time = end_time
+            schedules.date       = request.POST['startDate']
+            schedules.startTime  = startTime
+            schedules.endTime   = endTime
+            schedules.allDay     = allDay
 
             schedules.save()
-            return redirect('inquiry:lecture_calender')
+            return redirect('lecture:lecture_calender')
     else:
         form = CalenderForm(instance=schedules)
     return render(request, 'lecture_calender.html', {'form': form, 'schedules': schedules_json})
 
-# 캘린더 삭제 
+# 일정 삭제 
 def calenderDel(request,pk):
     schedules = lectureCalender.objects.get(pk=pk)
 
     if request.method == 'POST':
         schedules.delete()
-        return redirect('inquiry:lecture_calender')
+        return redirect('lecture:lecture_calender')
     return render(request)

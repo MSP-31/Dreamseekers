@@ -338,12 +338,12 @@ table{
 
 
 /* section calendar */
-.sec_cal {
+.sec-cal {
     width: auto;
     margin: 0 auto;
 }
 
-.sec_cal .cal_nav {
+.sec-cal .cal-nav {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -352,20 +352,20 @@ table{
     line-height: 78px;
 }
 
-.sec_cal .cal_nav .year-month {
+.sec-cal .cal-nav .year-month {
     width: 300px;
     text-align: center;
     line-height: 1;
 }
 
-.sec_cal .cal_nav .nav {
+.sec-cal .cal-nav .nav {
     display: flex;
     border: 1px solid #333333;
     border-radius: 5px;
 }
 
-.sec_cal .cal_nav .go-prev,
-.sec_cal .cal_nav .go-next {
+.sec-cal .cal-nav .go-prev,
+.sec-cal .cal-nav .go-next {
     display: block;
     width: 50px;
     height: 78px;
@@ -375,8 +375,8 @@ table{
     align-items: center;
 }
 
-.sec_cal .cal_nav .go-prev::before,
-.sec_cal .cal_nav .go-next::before {
+.sec-cal .cal-nav .go-prev::before,
+.sec-cal .cal-nav .go-next::before {
     content: "";
     display: block;
     width: 20px;
@@ -386,36 +386,36 @@ table{
     transition: border 0.1s;
 }
 
-.sec_cal .cal_nav .go-prev:hover::before,
-.sec_cal .cal_nav .go-next:hover::before {
+.sec-cal .cal-nav .go-prev:hover::before,
+.sec-cal .cal-nav .go-next:hover::before {
     border-color: #ed2a61;
 }
 
-.sec_cal .cal_nav .go-prev::before {
+.sec-cal .cal-nav .go-prev::before {
     transform: rotate(-135deg);
 }
 
-.sec_cal .cal_nav .go-next::before {
+.sec-cal .cal-nav .go-next::before {
     transform: rotate(45deg);
 }
 
-.sec_cal .cal_wrap {
+.sec-cal .cal-wrap {
     padding-top: 40px;
     position: relative;
     margin: 0 auto;
 }
 
-.sec_cal .cal_wrap .days {
+.sec-cal .cal-wrap .days {
     display: flex;
     
 }
 
-.sec_cal .cal_wrap::after {
+.sec-cal .cal-wrap::after {
     top: 368px;
 }
 
 /* 요일 */
-.sec_cal .cal_wrap .week {
+.sec-cal .cal-wrap .week {
     display:flex;
     justify-content: center;
     width: calc(100% / 7);
@@ -427,7 +427,7 @@ table{
 }
 
 /* 일 */
-.sec_cal .cal_wrap .day {
+.sec-cal .cal-wrap .day {
     display:flex;
     width: calc(100% / 7);
     position: relative;
@@ -436,37 +436,37 @@ table{
 }
 
 /* 선택시 */
-.sec_cal .cal_wrap .day:hover,
-.sec_cal .cal_wrap .selected {
+.sec-cal .cal-wrap .day:hover,
+.sec-cal .cal-wrap .selected {
     border: 0.5px solid var(--main-color);
 }
 
 .current.today {background: rgb(242 242 242);}
 
-.sec_cal .cal_wrap .dates {
+.sec-cal .cal-wrap .dates {
     display: flex;
     flex-flow: wrap;
     height: 600px;
 }
 
-.sec_cal .cal_wrap .day:nth-child(7n -1) {
+.sec-cal .cal-wrap .day:nth-child(7n -1) {
     color: #3c6ffa;
 }
 
-.sec_cal .cal_wrap .day:nth-child(7n) {
+.sec-cal .cal-wrap .day:nth-child(7n) {
     color: #ed2a61;
 }
 
-.sec_cal .cal_wrap .day.disable {
+.sec-cal .cal-wrap .day.disable {
     color: #ddd;
 }
 
 /* 추가된 일정 */
-.sec_cal .cal_wrap .day .cell_con_area{
+.sec-cal .cal-wrap .day .cell-con-area{
     display: inline;
 }
 
-.sec_cal .cal_wrap .day .cell_con_area .cell_con_time{
+.sec-cal .cal-wrap .day .cell-con-area .cell-con-time{
     display: inline-block;
     margin-left: 5px;
     font-size: 13px;
@@ -474,7 +474,7 @@ table{
     letter-spacing: -.4px;
 }
 
-.sec_cal .cal_wrap .day .cell_con_area .cell_con_text{
+.sec-cal .cal-wrap .day .cell-con-area .cell-con-text{
     overflow: hidden;
     display: block;
     position: absolute;
@@ -491,7 +491,7 @@ table{
     word-break: break-all;
     word-wrap: break-word;
 }
-.sec_cal .cal_wrap .day .cell_con_area .cell_con_background{
+.sec-cal .cal-wrap .day .cell-con-area .cell-con-background{
     display: block;
     position: absolute;
     top: -1px;
@@ -509,4 +509,9 @@ table{
 
 #add-calender .setDate{
     padding-bottom: 10px;
+}
+
+/* 종일 체크박스 */
+#allDay{
+    display: none;
 }
