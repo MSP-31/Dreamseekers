@@ -8,7 +8,7 @@ from comment.forms import CommentForm
 from comment.models import Comment, PostCommetns
 from comment.serializers import CommentSerializer
 
-from .models import Inquiry, lectureCalender
+from .models import Inquiry, lectureCalender, lectureTitle
 from .forms import CalenderForm, InquiryForm
 
 # 강의 상담 문의 작성
@@ -202,3 +202,10 @@ def calenderDel(request,pk):
         schedules.delete()
         return redirect('lecture:lecture_calender')
     return render(request)
+
+# 주요강의
+def lecture_list(request):
+    # 모든 강의 제목을 불러오고, 각각의 강의 제목에 연결된 강의 리스트를 쿼리합니다.
+    lectureTitles = lectureTitle.objects.all().prefetch_related('lecturelist_set')
+    
+    return render(request, 'lecture_list.html',{'titles':lectureTitles})

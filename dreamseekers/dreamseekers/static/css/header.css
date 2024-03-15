@@ -11,6 +11,8 @@ header{
   padding-right: 30px;
   color: rgb(228, 228, 228);
   z-index: 2;
+
+  transition: top 1s
 }
 
 /* 기본 글자색 */
@@ -45,6 +47,7 @@ header.on .top-header,
 }
 
 /* 스크롤시 헤더 사라짐 */
+header.on .top-header,
 header.on .nav-menu{
   top: -110px;
   height: 0px;
@@ -82,6 +85,7 @@ ul.submenu > li{
 }
 
 /* 스크롤시 메뉴 글꼴색*/
+header:hover .top-header a,
 .nav-menu:hover ul.menu-list > li.menu a,
 .nav-menu:hover ul.submenu > li{
     color: var(--main-header-re);

@@ -1,0 +1,30 @@
+{% extends 'header.html' %}
+{% load static %}
+
+{% block topImg %}
+    <img src = {% static "img/top_header/lecture.jpg" %} alt="예제이미지">
+    <h1>주요 강의</h1>
+{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <h1>내 문의 내역</h1>
+
+    <ul>
+        {% for title in titles %}
+        <li>
+          <h2>{{ title.title }}</h2>
+          <img src = "{{ title.image.url }}" alt="">
+          
+          {% for lecture in title.lecturelist_set.all %}
+          <h3>{{ lecture.title }}</h3>
+          {% endfor %}
+        </li>
+        {% endfor %}
+    </ul>
+
+</div>
+
+<!-- <img src = {% static "img/1.jpg" %}> -->
+
+{% endblock %}

@@ -34,7 +34,7 @@
             <a href="{% url 'accounts:logout' %}">로그아웃</a>
             {% else %}
             <a href="{% url 'accounts:login' %}">로그인</a>
-            <span></span>
+            <span class="span-contour"></span>
             <a href="{% url 'accounts:signup' %}">회원가입</a>
             {% endif %}
         </div>
@@ -53,21 +53,21 @@
         </div>
 
         <ul class="menu-list">
-            <li class="menu"><a href="/intro/greeting">교육원 소개</a>
+            <li class="menu"><a href="/intro/greeting/">교육원 소개</a>
                 <div class="menu-bar"><span></span></div>
                 <div class="submenu-container">
                     <ul class="submenu">
-                        <li><a href="/intro/greeting">인사말</a></li>
-                        <li><a href="/intro/instructors">강사 소개</a></li>
-                        <li><a href="/intro/contact">오시는 길</a></li>
+                        <li><a href="/intro/greeting/">인사말</a></li>
+                        <li><a href="/intro/instructors/">강사 소개</a></li>
+                        <li><a href="/intro/contact/">오시는 길</a></li>
                     </ul>
                 </div>
             </li>
-            <li class="menu"><a href="#">주요 강의</a>
+            <li class="menu"><a href="/lecture/list">주요 강의</a>
                 <div class="menu-bar"><span></span></div>
                 <div class="submenu-container">
                     <ul class="submenu">
-                        <li><a href="/intro/lecture">주요 강의</a></li>
+                        <li><a href="/lecture/list">주요 강의</a></li>
                     </ul>
                 </div>
             </li>
@@ -126,9 +126,7 @@
         <h1>예제 텍스트</h1>
         {% endblock %}
     </div>
-    <div class="menu-tab">
-        
-    </div>
+    <div class="menu-tab"></div>
 </div>
 {% endblock %}
 

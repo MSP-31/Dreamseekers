@@ -1,5 +1,7 @@
 from django.urls import include,path
-from .views import inquiry,inquiry_index,inquiry_detail,lecture_calender,calenderUpdate,calenderDel
+from .views import inquiry,inquiry_index,inquiry_detail
+from .views import lecture_calender,calenderUpdate,calenderDel
+from .views import lecture_list
 
 app_name = 'lecture'
 
@@ -14,4 +16,7 @@ urlpatterns = [
     path('calender',lecture_calender,name='lecture_calender'),
     path('calender/update/<int:pk>/',calenderUpdate,name='calenderUpdate'),
     path('calender/del/<int:pk>/',calenderDel,name='calenderDel'),
+
+    # 주요강의
+    path('list',lecture_list,name='lecture_list'),
 ]

@@ -22,6 +22,10 @@
     border: none;
 }
 
+.btn:hover{
+    background-color: yellow;
+}
+
 .btn-active{
     display: inline-block;
     text-align: center;
