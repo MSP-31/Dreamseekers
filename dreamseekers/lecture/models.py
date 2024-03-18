@@ -41,8 +41,9 @@ class lectureCalender(models.Model):
 
 # 주요강의
 class lectureTitle(models.Model):
-    title = models.CharField(max_length=50, verbose_name='제목')
-    image = models.ImageField(upload_to='lecture/list/img/',blank=True, null=True, verbose_name='이미지')
+    title    = models.CharField(max_length=50, verbose_name='제목')
+    contents = models.TextField(max_length=200, verbose_name='설명')
+    image    = models.ImageField(upload_to='lecture/list/img/',blank=True, null=True, verbose_name='이미지')
 
     def __str__(self):
         return self.title

@@ -1,6 +1,6 @@
 import re
 from django import forms
-from lecture.models import Inquiry, lectureCalender
+from lecture.models import Inquiry, lectureCalender, lectureTitle, lectureList
 from django.core.exceptions import ValidationError
 
 # 강의 문의 폼
@@ -43,3 +43,15 @@ class CalenderForm(forms.ModelForm):
                 'max_length' : '내용은 3000 글자 이하로 입력해야 합니다.',
             },
         }
+
+# 강의 추가 폼
+class lectureTitleForm(forms.ModelForm):
+    class Meta:
+        model = lectureTitle
+        fields = ['title','contents','image']
+
+# 강의 추가 폼
+class lectureListForm(forms.ModelForm):
+    class Meta:
+        model  = lectureList
+        fields = ['title']

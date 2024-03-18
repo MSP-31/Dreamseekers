@@ -312,6 +312,7 @@ header:hover .top-header a,
 }
 
 /* 메뉴 탭 */
+#top-content .lecture-menu-tab,
 #top-content .menu-tab{
   margin: 0 10%;
   padding: 2% 5%;

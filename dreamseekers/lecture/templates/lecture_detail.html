@@ -8,32 +8,25 @@
 
 {% block content %}
 <div class="main-content">
-    <h1>전체 강의</h1>
+    <div id="lecture-titles" style="display: none;">
+        {% for title in titles %}
+        <p class="lecture-title" data-id="{{title.pk}}">{{ title.title }}</p>
+        {% endfor %}
+    </div>
+
+    {% for list in list %}
+    <h1>{{list.title}}</h1>
 
     {% if request.user.is_staff %}
     <span id="modal-open" class="btn">추가</span>
     {% endif %}
 
-    <ul class="lecture-box">
-        {% for title in titles %}
-        <li class="lecture-content">
-            {% if request.user.is_staff %}
-            <span class="btn modal-edit" data-id="{{title.pk}}">수정</span>
-            <form action="{% url 'lecture:lecture_del' title.pk  %}"
-                method="POST" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
-                {% csrf_token %}
-                <input class="btn lecture-del" type="submit" value="삭제">
-            </form>
-            {% endif %}
-            <a href="list/{{ title.pk }}">
-                <h2 class="lecture-title" data-id="{{title.pk}}">{{ title.title }}</h2>
-                <p class="lecture-text">{{ title.contents|linebreaksbr }}</p>
-                <img src="{{ title.image.url }}" alt="{{title.title}}">
-            </a>
-        </li>
-        {% endfor %}
-    </ul>
+    {% for lecture in list.lecturelist_set.all %}
+    <h3>{{ lecture.title }}</h3>
+    {% endfor %}
 
+    {% endfor %}
+    
     {% if request.user.is_staff %}
     <div id="modal-box" class ="modal">
         <div class="modal-content">

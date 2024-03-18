@@ -10,29 +10,64 @@ $(document).ready(function() {
       for (var i = 0; i<menuItems.length; i++){
         var menuItem = menuItems[i];
         var title = menuItem.querySelector('a').textContent;
+        var submenus = menuItem.querySelectorAll('.submenu a');
 
-        // 메뉴 이름이 일치하는 경우
-        if (title === pageTitle){
-          var submenus = menuItem.querySelectorAll('.submenu a');
-      
+        // 메뉴 이름이 일치하고 주요강의가 아닐때
+        if (title === pageTitle && title !== '주요 강의'){
+          // 서브메뉴 개수만큼 반복
           for(var j = 0; j < submenus.length; j++){
             var submenu = submenus[j];
             var url = submenu.href;
             
+            // 버튼 생성
             var a = document.createElement('a');
             a.textContent = submenu.textContent;
             a.href = url;
             a.className = 'btn';
 
-            // 임시
-            console.log(j +"번째");
-            console.log(window.location.href);
-            console.log(url);
-
             // 현재 페이지와 같다면
             if(window.location.href == url){
               a.className = 'btn-active';
             }
+            menuTab.appendChild(a);
+          }
+        }
+        // 메뉴 이름이 일치하고 주요강의 일때
+        else if (title === pageTitle && title == '주요 강의'){
+          var lectures = document.querySelectorAll('.lecture-title');
+          
+          // 전체 강의 추가
+          var submenu = submenus[0];
+
+          var a = document.createElement('a');
+          a.textContent = '전체 강의';
+          a.href = submenu.href;
+          a.className = 'btn';
+
+          // 현재 페이지와 같다면
+          if(window.location.href == submenu.href){
+            a.className = 'btn-active';
+          }
+
+          menuTab.appendChild(a);
+
+          // 서브메뉴 개수만큼 반복
+          for(var j = 0; j < lectures.length; j++){
+            var lecture = lectures[j];
+            var lectureId = lecture.dataset.id;
+            var lectureHref = "/lecture/list/"+lectureId+"/"
+
+            // 버튼 생성
+            var a = document.createElement('a');
+            a.textContent = lecture.textContent;
+            a.href = lectureHref;
+            a.className = 'btn';
+
+            // 현재 페이지와 같다면
+            if(window.location.pathname == lectureHref){
+              a.className = 'btn-active';
+            }
+
             menuTab.appendChild(a);
           }
         }

@@ -8,7 +8,7 @@ class lectureCalenderAdmin(admin.ModelAdmin):
     list_display = ('date','contents','allDay')
 
 class lectureTitleAdmin(admin.ModelAdmin):
-    list_display = ('title','image',)
+    list_display = ('title','contents',)
 
 class lectureListAdmin(admin.ModelAdmin):
     list_display = ('title','lecture_list',)

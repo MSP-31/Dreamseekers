@@ -8,8 +8,8 @@ from comment.forms import CommentForm
 from comment.models import Comment, PostCommetns
 from comment.serializers import CommentSerializer
 
-from .models import Inquiry, lectureCalender, lectureTitle
-from .forms import CalenderForm, InquiryForm
+from .models import Inquiry, lectureCalender, lectureList, lectureTitle
+from .forms import CalenderForm, InquiryForm, lectureListForm, lectureTitleForm
 
 # 강의 상담 문의 작성
 def inquiry(request):
@@ -20,9 +20,7 @@ def inquiry(request):
     # GET요청시 회원정보 넘겨줌
     elif request.method == 'GET':
         form = InquiryForm()
-
         user = request.user
-
         phon_num = None
 
         return render(request, 'inquiry_write.html', {'form':form,'users':user,'phon_num':phon_num})
@@ -206,6 +204,62 @@ def calenderDel(request,pk):
 # 주요강의
 def lecture_list(request):
     # 모든 강의 제목을 불러오고, 각각의 강의 제목에 연결된 강의 리스트를 쿼리합니다.
-    lectureTitles = lectureTitle.objects.all().prefetch_related('lecturelist_set')
-    
-    return render(request, 'lecture_list.html',{'titles':lectureTitles})
+    lectureTitles = lectureTitle.objects.all()
+    form = lectureTitleForm()
+    if request.method == 'POST':
+        form = lectureTitleForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            print("성공")
+
+            new_lecture = lectureTitle.objects.create(
+                title     = form.cleaned_data['title'],
+                contents  = form.cleaned_data['contents'],
+                image     = request.FILES.get('image'),
+            )
+            return redirect('lecture:lecture_list')
+    return render(request, 'lecture_list.html',{'form': form,'titles':lectureTitles})
+
+# 주요강의 수정
+def lecture_update(request,pk):
+    # 관리자 여부 확인
+    if not request.user.is_staff:
+        return redirect('accounts:login')
+
+    lecture = lectureTitle.objects.get(pk=pk)
+
+    if request.method == 'POST':
+        form = lectureTitleForm(request.POST,instance=lecture)
+        if form.is_valid():
+            form.save()
+            return redirect('lecture:lecture_list')
+    return redirect('lecture:lecture_list')
+
+# 주요강의 삭제
+def lecture_del(request,pk):
+    lecture = lectureTitle.objects.get(pk=pk)
+
+    if request.method == 'POST':
+        lecture.delete()
+        return redirect('lecture:lecture_list')
+    return render(request)
+
+# 강의 상세보기
+def lecture_detail(request,pk):
+    titles = lectureTitle.objects.all().prefetch_related('lecturelist_set')
+    title_list = titles.filter(pk=pk)
+
+    form = lectureListForm()
+    if request.method == 'POST':
+        form = lectureListForm(request.POST)
+
+        if form.is_valid():
+            new_lectureList = lectureList.objects.create(
+                lecture_list_id = pk,
+                title           = form.cleaned_data['title'],
+            )
+            return redirect('lecture:lecture_detail', pk=pk)
+        
+    return render(request, 'lecture_detail.html',{'form': form,'titles':titles, 'list':title_list})
+
+

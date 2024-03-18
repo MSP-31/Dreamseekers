@@ -11,12 +11,16 @@
 <div class="main-content">
     <h1>강사 소개</h1>
 
+    {% if request.user.is_staff %}
+    <span id="modal-open" class="btn">추가</span>
+    {% endif %}
+
     <ul class="instrs-box">
         {% for instructor in list %}
             <li>
                 <div class="member-img">
                     {% if instructor.image %}
-                        <img src = "{{instructor.image.url}}" alt="">
+                        <img src = "{{instructor.image.url}}" alt="{{instructor.name}}">
                         <br>
                     {% endif %}
                 </div>
@@ -38,7 +42,7 @@
         {% endfor %}
 
         {% if request.user.is_staff %}
-        <div id="instrs-modal" class ="modal">
+        <div id="modal-box" class ="modal">
             <div class="modal-content">
                 <span class="modal-close">&times;</span>
                 <form method = "POST" enctype="multipart/form-data">
@@ -54,9 +58,6 @@
                 </form>
             </div>
         </div>
-        <li>
-            <div id="modal-open">+</div>
-        </li>
         {% endif %}
     </ul>
 
@@ -65,5 +66,5 @@
 {% endblock %}
 
 {% block script %}
-<script src="{% static "js/intro/instructors.js" %}"></script>
+<script src="{% static "js/modal.js" %}"></script>
 {% endblock %}

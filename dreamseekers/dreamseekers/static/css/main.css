@@ -10,6 +10,7 @@
 }
 
 .main-content {
+    position: relative;
     text-align: center;
     color: black;
     font-family: 'Noto Sans KR', sans-serif;
@@ -246,6 +247,13 @@ table{
 }
 
 /*-----모달--------*/
+#modal-open{
+    position: absolute;
+    margin-top: 35px;
+    right: 0;
+    top: 0;
+}
+
 .modal{
     display: none;
     position: fixed;
@@ -299,14 +307,6 @@ table{
     border-radius: 50%;
     margin: 0 auto;
     cursor: pointer;
-}
-
-#modal-open{
-    border: 2px dashed black;
-    border-radius: 10%;
-    font-size: 100px;
-    padding: 50px;
-    margin: 0 20%;
 }
 
 /* 오시는 길 */
@@ -514,4 +514,47 @@ table{
 /* 종일 체크박스 */
 #allDay{
     display: none;
+}
+
+/*------- 주요 강의 --------- */
+/* 전체 틀 */
+.lecture-box li{
+    display: inline-block;
+    position: relative;
+    width: 350px;
+    height: 300px;
+    margin: 0 0 30px 10px;
+}
+
+/* 강의 제목과 틀*/
+.lecture-box .lecture-content{
+    padding: 20px 0px 40px 40px;
+    max-height: 280px;
+    min-height: 300px;
+    text-align: left;
+    border: 1px solid var(--line-color);
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.lecture-box .lecture-content:hover{
+    border: 1px solid var(--main-color);
+}
+
+/* 강의 설명 */
+.lecture-box .lecture-content .lecture-text{
+    padding: 20px 0px 20px 0px;
+    font-size: 15px;
+}
+
+/* 강의 수정 버튼 */
+.lecture-box .lecture-content .modal-edit{
+    position: absolute;
+    right: 55px;
+}
+
+/* 강의 삭제버튼 */
+.lecture-box .lecture-content .lecture-del{
+    position: absolute;
+    right: 0;
 }
