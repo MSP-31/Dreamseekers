@@ -48,10 +48,28 @@
                 <form method = "POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {% for field in form %}
-                        <div>
-                            <label>{{ field.label }}</label>
-                            {{ field }}
-                        </div>
+                    {% if field.name == 'image' %}
+                    <label class="img-label" id="img-label" for="img-input">
+                        <div class="img-inner" id="img-inner">클릭해서 업로드</div>
+                    </label>
+                    <input id="img-input" name="image" type="file" accept="image/*" hidden="true">
+                    <p class="preview-title">미리보기</p>
+                    <div class="preview" id="preview">
+                            <div class="container-img">
+                                <img class="embed-img" src="" alt="">
+                                <input type="checkbox" class="hidden-checkbox" style="display: none;" name="checkedImages" value="">
+                                <span class="delete-btn">
+                                <span class="x-mark">X</span>
+                                </spna>
+                            </div>
+                    </div>
+                    {% else %}
+                    <div>
+                        <label>{{ field.label }}</label>
+                        {{ field }}
+                    </div>
+                    {% endif %}
+                        
                     {% endfor %}
         
                     <input class="btn" type="submit" value="등록">
@@ -67,4 +85,5 @@
 
 {% block script %}
 <script src="{% static "js/modal.js" %}"></script>
+<script src="{% static "js/notice.js" %}"></script>
 {% endblock %}

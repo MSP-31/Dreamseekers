@@ -231,6 +231,13 @@ def lecture_update(request,pk):
     if request.method == 'POST':
         form = lectureTitleForm(request.POST,instance=lecture)
         if form.is_valid():
+            # 이미지가 등록되었다면
+            if(request.POST.getlist('checkedImages')):
+                # 기존에 등록된 이미지 삭제
+                lecture.image.delete()
+                # 새 이미지 추가
+                lecture.image = request.FILES['image']
+
             form.save()
             return redirect('lecture:lecture_list')
     return redirect('lecture:lecture_list')

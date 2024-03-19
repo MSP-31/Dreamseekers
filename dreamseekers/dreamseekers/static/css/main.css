@@ -271,7 +271,7 @@ table{
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
-    width: 50%;
+    width: 30%;
     border-radius: 25px;
 }
 
@@ -540,6 +540,10 @@ table{
 .lecture-box .lecture-content:hover{
     border: 1px solid var(--main-color);
 }
+.lecture-box .lecture-content:hover .modal-edit,
+.lecture-box .lecture-content:hover .lecture-del{
+    display: block;
+}
 
 /* 강의 설명 */
 .lecture-box .lecture-content .lecture-text{
@@ -551,10 +555,12 @@ table{
 .lecture-box .lecture-content .modal-edit{
     position: absolute;
     right: 55px;
+    display: none;
 }
 
 /* 강의 삭제버튼 */
 .lecture-box .lecture-content .lecture-del{
     position: absolute;
     right: 0;
+    display: none;
 }

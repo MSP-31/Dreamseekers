@@ -2,17 +2,22 @@
 var modal = document.getElementById("modal-box");
 var modal_btn = document.getElementById("modal-open");
 var modal_span = document.getElementsByClassName("modal-close")[0];
+var form = document.querySelector('#modal-box form');
+var imgElement = form.querySelector('.embed-img');
+var containerImg = document.getElementsByClassName("container-img")[0];
 
 modal_btn.onclick = function() {
+  containerImg.style.display = 'none';
   modal.style.display = "block";
 }
 modal_span.onclick = function() {
   modal.style.display = "none";
-}
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
+  form.removeAttribute('action');
+  form.querySelector('input[name="title"]').value = '';
+  form.querySelector('textarea[name="contents"]').value = '';
+
+  imgElement.removeAttribute('alt');
+  imgElement.removeAttribute('src');
 }
 
 var editButtons = document.querySelectorAll('.modal-edit');
@@ -26,13 +31,22 @@ editButtons.forEach(function(button) {
     var title = lectureElement.querySelector('.lecture-title').textContent;
     var contents = lectureElement.querySelector('.lecture-text').innerHTML;
     var contentText = contents.replace(/<br>/g, '\n');
-    var image = lectureElement.querySelector('img').src;
+    var image = lectureElement.querySelector('img').dataset.src;
 
-    var form = document.querySelector('#modal-box form');
     form.action = "list/update/" + id;
     form.querySelector('input[name="title"]').value = title;
     form.querySelector('textarea[name="contents"]').value = contentText
+    
+    // 이미지 src 설정
+    imgElement.src = image;
+    imgElement.alt = title;
+
+    var inputCheck = form.querySelector('.hidden-checkbox');
+    inputCheck.value = id;
+
+    containerImg.removeAttribute('style');
 
     modal.style.display = "block";
   });
 });
+
