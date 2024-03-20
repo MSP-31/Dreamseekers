@@ -234,9 +234,8 @@ table{
 .instrs-box li{
     display: inline-block;
     position: relative;
-    width: 500px;
     height: 300px;
-    margin: 0 0 30px 10px;
+    margin: 0 0 30px 50px;
 }
 
 /* 강사 이미지 */
@@ -258,7 +257,7 @@ table{
     display: none;
     position: fixed;
     z-index: 3;
-    padding-top: 15%;
+    padding-top: 5%;
     left: 0;
     top: 0;
     height: 100%;
@@ -540,7 +539,7 @@ table{
 .lecture-box .lecture-content:hover{
     border: 1px solid var(--main-color);
 }
-.lecture-box .lecture-content:hover .modal-edit,
+.lecture-box .lecture-content:hover .lecture-edit,
 .lecture-box .lecture-content:hover .lecture-del{
     display: block;
 }
@@ -552,7 +551,7 @@ table{
 }
 
 /* 강의 수정 버튼 */
-.lecture-box .lecture-content .modal-edit{
+.lecture-box .lecture-content .lecture-edit{
     position: absolute;
     right: 55px;
     display: none;

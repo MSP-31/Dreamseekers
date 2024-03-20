@@ -26,16 +26,35 @@ def instructors(request):
         
     return render(request, 'instructors.html', {'form':form, 'list':list,})
 
-# 게시글 삭제
+# 강사 수정
+def instrs_update(request,pk):
+    # 관리자 여부 확인
+    if not request.user.is_staff:
+        return redirect('accounts:login')
+
+    instrs = Instructors.objects.get(pk=pk)
+
+    if request.method == 'POST':
+        form = InstructorsForm(request.POST,instance=instrs)
+        if form.is_valid():
+            # 이미지가 등록되었다면
+            if(request.POST.getlist('checkedImages')):
+                # 기존에 등록된 이미지 삭제
+                instrs.image.delete()
+                # 새 이미지 추가
+                instrs.image = request.FILES['image']
+
+            form.save()
+            return redirect('intro:instructors')
+    return redirect('intro:instructors')
+
+# 강사 삭제
 def instrs_delete(request,pk):
     post = Instructors.objects.get(pk=pk)
     if request.method == 'POST':
         post.delete()
         return redirect('intro:instructors')
-    
-    form = InstructorsForm()
-    list = Instructors.objects.order_by()
-    return render(request, 'instructors.html', {'form':form, 'list':list,})
+    return render(request)
 
 # 오시는 길
 def contact(request):

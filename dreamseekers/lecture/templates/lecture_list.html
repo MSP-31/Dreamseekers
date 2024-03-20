@@ -18,7 +18,7 @@
         {% for title in titles %}
         <li class="lecture-content">
             {% if request.user.is_staff %}
-            <span class="btn modal-edit" data-id="{{title.pk}}">수정</span>
+            <span class="btn lecture-edit" data-id="{{title.pk}}">수정</span>
             <form action="{% url 'lecture:lecture_del' title.pk  %}"
                 method="POST" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
                 {% csrf_token %}

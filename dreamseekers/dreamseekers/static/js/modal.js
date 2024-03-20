@@ -7,20 +7,32 @@ var imgElement = form.querySelector('.embed-img');
 var containerImg = document.getElementsByClassName("container-img")[0];
 
 modal_btn.onclick = function() {
-  containerImg.style.display = 'none';
+  if (containerImg){
+    containerImg.style.display = 'none';
+  }
   modal.style.display = "block";
 }
 modal_span.onclick = function() {
   modal.style.display = "none";
+  // 초기화
   form.removeAttribute('action');
-  form.querySelector('input[name="title"]').value = '';
-  form.querySelector('textarea[name="contents"]').value = '';
-
-  imgElement.removeAttribute('alt');
-  imgElement.removeAttribute('src');
+  if(form.querySelector('input[name="title"]')){
+    form.querySelector('input[name="title"]').value = '';
+  }
+  if(form.querySelector('input[name="name"]')){
+    form.querySelector('input[name="name"]').value = '';
+  }
+  if(form.querySelector('textarea[name="contents"]')){
+    form.querySelector('textarea[name="contents"]').value = '';
+  }
+  if(imgElement){
+    imgElement.removeAttribute('alt');
+    imgElement.removeAttribute('src');
+  }
 }
 
-var editButtons = document.querySelectorAll('.modal-edit');
+// 주요강의
+var editButtons = document.querySelectorAll('.lecture-edit');
 // 각 버튼에 이벤트 리스너를 추가
 editButtons.forEach(function(button) {
   button.addEventListener('click', function() {
@@ -50,3 +62,33 @@ editButtons.forEach(function(button) {
   });
 });
 
+// 강사소개
+var editButtons = document.querySelectorAll('.instrs-edit');
+// 각 버튼에 이벤트 리스너를 추가
+editButtons.forEach(function(button) {
+  button.addEventListener('click', function() {
+    var id = this.dataset.id;
+    console.log(id);
+    // 부모 클래스를 가져옴
+    var parent = this.parentNode;
+    var name = parent.querySelector('.instrs-name').textContent;
+    var contents = parent.querySelector('.instrs-content').innerHTML;
+    var contentText = contents.replace(/<br>/g, '\n');
+    var image = parent.querySelector('img').dataset.src;
+
+    form.action = "update/" + id;
+    form.querySelector('input[name="name"]').value = name;
+    form.querySelector('textarea[name="contents"]').value = contentText
+    
+    // 이미지 src 설정
+    imgElement.src = image;
+    imgElement.alt = name;
+
+    var inputCheck = form.querySelector('.hidden-checkbox');
+    inputCheck.value = id;
+
+    containerImg.removeAttribute('style');
+
+    modal.style.display = "block";
+  });
+});

@@ -16,28 +16,26 @@
     {% endif %}
 
     <ul class="instrs-box">
-        {% for instructor in list %}
-            <li>
-                <div class="member-img">
-                    {% if instructor.image %}
-                        <img src = "{{instructor.image.url}}" alt="{{instructor.name}}">
-                        <br>
-                    {% endif %}
-                </div>
-                
-                <div>
-                    {{instructor.name}}
-                    {{instructor.contents}}
-                </div>
+        {% for instrs in list %}
+            <li class="instrs-content">
                 {% if request.user.is_staff %}
+                <span class="btn instrs-edit" data-id="{{instrs.pk}}">수정</span>
+                <form action="{% url 'intro:instrs_del' instrs.pk  %}"
+                    method="POST" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
+                    {% csrf_token %}
+                    <input class="btn" type="submit" value="삭제">
+                </form>
+                {% endif %} 
+
                 <div>
-                    <form action="{% url 'intro:instrs_del' instructor.pk  %}"
-                        method="POST" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
-                        {% csrf_token %}
-                        <input class="btn" type="submit" value="삭제">
-                    </form>
+                    {% if instrs.image %}
+                    <img src = "{{instrs.image.url}}" data-src="{{ instrs.image.url }}" alt="{{instrs.name}}">
+                    {% endif %}
+                
+                    <h2 class="instrs-name">{{instrs.name}}</h2>
+                    <span class="instrs-content">{{instrs.contents|linebreaksbr}}</span>
                 </div>
-                {% endif %}                
+                               
             </li>
         {% endfor %}
 
