@@ -230,6 +230,11 @@ function showModal(fullDate){
             contentTime.textContent = timeText;
             li.appendChild(contentTime);
 
+            // 'content-div' span 요소 생성
+            var contentDiv = document.createElement('span');
+            contentDiv.className = 'content-div';
+            li.appendChild(contentDiv);
+
             // 'content-text' span 요소 생성
             var contentText = document.createElement('span');
             contentText.className = 'content-text';

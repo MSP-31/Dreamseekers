@@ -12,9 +12,8 @@
     <div class="comment-list">
         <ul>
             {% for comment in comments %}
-                <li>
+            <li class="comment-box">
                 <!-- 부모 댓글 -->
-                <div></div>
                 {{ comment.user }}<br>
                 <div id="comment_{{comment.id}}" class = "comment" data-comment-id="{{comment.id}}">
                     {{ comment.content }}
@@ -45,28 +44,30 @@
 
             <!--삭제 / 수정-->
             {% if user.username == comment.user %}
+            <div class="btn-group">
                 <a class="btn" href="{% url 'comment:comments_update' post.pk comment.id %}">수정</a>
                 <form action="{% url 'comment:comments_delete' comment.id %}" method = "POST"
                 onsubmit="return confirm('댓글을 삭제하시겠습니까?');">
                     {% csrf_token %}
                     <input class="btn" type="submit" value="삭제">
                 </form>
+            </div>
             {% endif %}
-                </li>
-                {% endfor %}
-            </ul>
+            </li>
+        {% endfor %}
+        </ul>
     
             <br>
     
             <div> <!-- 댓글 입력 -->
                 {% if request.user.is_authenticated %}
-                    <form action="{% url 'comment:comments_create' board_name post.pk %}" method="POST">
-                        {% csrf_token %}
-                        {{ comment_form }}
-                        <input class="btn" type="submit" value="작성">
-                    </form>
+                <form action="{% url 'comment:comments_create' board_name post.pk %}" method="POST">
+                    {% csrf_token %}
+                    {{ comment_form }}
+                    <input class="btn comment-write" type="submit" value="작성">
+                </form>
                 {% else %}
-                    <a class="btn" href="{% url 'accounts:login' %}">[로그인 후 댓글작성이 가능합니다.]</a>
+                <a class="btn" href="{% url 'accounts:login' %}">[로그인 후 댓글작성이 가능합니다.]</a>
                 {% endif %}
             </div>
     </div>

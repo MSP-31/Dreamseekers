@@ -15,8 +15,32 @@
     color: black;
     font-family: 'Noto Sans KR', sans-serif;
     flex:1;
-    margin: 0 10%;
+    margin: 0 20%;
     padding-bottom: 5%;
+}
+
+/* 게시글 작성*/
+.main-content .post-write{
+    position: relative;
+}
+
+.main-content .post-write label{
+    position: absolute;
+    left: 0;
+    
+}
+
+.main-content .post-write .input-box input,
+.main-content .post-write .input-box textarea{
+    width: 80%;
+}
+
+.main-content .post-write div{
+    margin-bottom: 10px;
+}
+.main-content .post-write .btn-group{
+    float: right;
+    margin-right: 9%;
 }
 
 /*-------로그인 디자인---------*/
@@ -94,7 +118,7 @@ table{
 /* 제목 */
 .board-box {
     font-family: 'Noto Sans KR', sans-serif;
-    margin: 0 10%;
+    margin: 0 20%;
     padding-bottom: 5%;
 }
 .board-box h1{
@@ -125,6 +149,31 @@ table{
     padding: 30px;
     border-top: 1px solid var(--line-color);
     background-color: #f8f8f8;
+}
+
+.board-comment .comment-box{
+    position: relative;
+}
+
+.board-comment textarea{
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+}
+
+.board-comment .comment-list .comment-write{
+    margin-left: 90%;
+}
+
+.comment-list .comment-box .btn-group{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.btn-group{
+    display: flex;
+    float: right;
 }
 
 /*------------------------------*/
@@ -174,24 +223,18 @@ table{
 /* ---- 게시판 파일 업로드 ----- */
 
 /* 드래그 버튼 */
-.img-label {
-    width: 100%;
-    height: 100%;
+.main-content .post-write .img-label {
     margin: 0px auto;
     cursor: pointer;
-    background-color: #d3d3d3;
+    margin-left: 11%;
 }
 
 .img-inner {
-    width: 100%;
-    height: 128px;
-    margin: 64px auto;
-    border-radius: 8px;
     font-size: 16px;
-    line-height: 128px;
-    background-color: #d3d3d3;
     color: var(--text);
 }
+
+/*임시속성*/
 
 @media (any-hover: hover) {
     .img-inner:hover{
@@ -208,11 +251,12 @@ table{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 16px;
-    padding: 16px;
+    padding: 16px 16px 16px 10%;
     margin-bottom: 16px;
-    border-radius: 8px;
+    margin-left: 10%;
+    width: 80%;
     align-items: center;
-    background-color: #d3d3d3;
+    border: solid 1px var(--black);
   }
 
 /* 미리보기 자식 */
@@ -239,6 +283,7 @@ table{
     align-items: center;
     position: absolute;
     background-color: black;
+    opacity: 0.5;
     top:0;
     left: 0;
     right: 0;
@@ -311,7 +356,7 @@ table{
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
-    width: 30%;
+    width: 50%;
     border-radius: 25px;
 }
 
@@ -347,6 +392,32 @@ table{
     border-radius: 50%;
     margin: 0 auto;
     cursor: pointer;
+}
+
+.modal-detail .detail-list-area{
+    padding-left: 0;
+}
+
+.modal-detail .detail-list-area .detail-list{
+    position: relative;
+    margin-top: 15px;
+}
+
+.modal-detail .detail-list-area .detail-list .modal-revise{
+    position: absolute;
+    display: inline-flex;
+    transform: translateY(-20%);
+    right: 0;
+}
+
+/* 날짜 구분선 */
+.modal-detail .detail-list-area .detail-list .content-div{
+    width: 1px;
+    height: 12px;
+    margin: 0 5px;
+    background-color: var(--line-color);
+    vertical-align: middle;
+    display: inline-block;
 }
 
 /* 오시는 길 */

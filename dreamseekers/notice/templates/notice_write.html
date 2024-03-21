@@ -10,16 +10,18 @@
 
 <div class="main-content">
     <h1>공지사항</h1>
-    <div id="post">
+    <div class="post-write">
         <form method = "POST" action="." enctype="multipart/form-data">
             {% csrf_token %}
             {% for field in form %}
                 {% if field.name == 'image' %}
+                
+                <div>
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
                     <label class="img-label" id="img-label" for="img-input">
-                        <div class="img-inner" id="img-inner">드래그하거나 클릭해서 업로드</div>
+                        <div class="img-inner" id="img-inner">업로드</div>
                     </label>
                     <input id="img-input" name="image" type="file" accept="image/*" multiple="true" hidden="true">
-                    <p class="preview-title">미리보기</p>
 
                     <div class="preview" id="preview">
                         {% for image in post.image.all %}
@@ -32,21 +34,27 @@
                             </div>
                         {% endfor %}
                     </div>
+                </div>
 
                 {% elif field.name == 'files' %}
+                <div class="input-box">
                     <label for="{{ field.id_for_label }}">{{ field.label }}</label>
                     <input type="file" id="{{ field.id_for_label }}" name="{{ field.html_name }}" multiple>
+                </div>
 
                 {% else %}
+                <div class="input-box">
+                    <label for = "{{ field.id_for_label }}">{{field.label}}</label>
                     {{ field }}
+                </div>
                 {% endif %}
             {% endfor %}
-            <button class="btn save-img" type="submit">작성</button>
+            <div class="btn-group">
+                <a class="btn" href="/board/notice/">취소</a>
+                <button class="btn-active" type="submit">등록</button>
+            </div>
         </form>
     </div>
-    <br>
-    <br>
-    <a href="/board/notice/">목록</a>
 </div>
 
 {% endblock %}

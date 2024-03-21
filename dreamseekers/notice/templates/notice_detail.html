@@ -34,7 +34,7 @@
     <br>
 
     <!--게시글 수정 / 삭제-->
-    <div>
+    <div class="btn-group">
         {% if request.user.id == post.author_id %}
         <a class="btn" href="{% url 'notice:update' post.pk  %}">수정</a>
 
@@ -44,8 +44,8 @@
             <input class="btn" type="submit" value="삭제">
         </form>
         {% endif %}
+        <a class="btn" href="/board/notice/">목록</a>
     </div>
-    <a class="btn" href="/board/notice/">목록</a>
 </div>
 
 {% endblock %}

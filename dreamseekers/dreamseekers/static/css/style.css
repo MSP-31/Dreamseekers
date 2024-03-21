@@ -9,6 +9,10 @@
     --black: #000000;
 }
 
+input, textarea {
+    resize: none;
+}
+
 .btn,
 .btn-block,
 .btn-active{
