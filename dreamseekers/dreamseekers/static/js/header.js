@@ -126,6 +126,30 @@ $(document).ready(function() {
       document.body.style.overflow = 'auto';
     }
   });
+
+  // top-header에 마우스를 올려도 글자색변경
+  document.querySelector('.top-header').addEventListener('mouseover', function() {
+    var menuItems = document.querySelectorAll('.menu-list .menu a');
+    var burger    = document.querySelectorAll('.menu-trigger span');
+    menuItems.forEach(function(item) {
+      item.style.color = 'black';
+    });
+    burger.forEach(function(item){
+      item.style.backgroundColor = 'black';
+    });
+  });
+  // 원래 색상으로 되돌림
+  document.querySelector('.top-header').addEventListener('mouseout', function() {
+    var menuItems = document.querySelectorAll('.menu-list .menu a');
+    var burger    = document.querySelectorAll('.menu-trigger span');
+    menuItems.forEach(function(item) {
+      item.style.color = ''; 
+    });
+    burger.forEach(function(item){
+      item.style.backgroundColor = '';
+    });
+  });
+  
 });
 
 /* header에 on클래스 추가 (스크롤시 변경) */
@@ -140,3 +164,15 @@ window.onscroll = function(){
     header.classList.remove('on');
   }
 }
+
+// 메뉴 색 변경
+document.querySelectorAll('.menu-list > li.menu a').forEach(function(item) {
+  item.addEventListener('mouseover', function() {
+    // 마우스를 올렸을 때의 스타일
+    item.style.color = 'var(--primary-color)';
+  });
+  item.addEventListener('mouseout', function() {
+    // 마우스를 내렸을 때의 스타일
+    item.style.color = '';
+  });
+});

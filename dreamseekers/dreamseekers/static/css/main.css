@@ -19,6 +19,28 @@
     padding-bottom: 5%;
 }
 
+/*-------로그인 디자인---------*/
+
+.login-form input {
+    border: none;
+    border-bottom: 2px solid var(--line-color);
+    border-top: 0px;
+    border-radius: 0px;
+    font-weight: bold;
+    outline: 0;
+    padding-left: 0px;
+    margin-bottom: 20px;
+    transition: border-bottom 0.2s ease-in-out; 
+}
+
+.login-form input:focus{
+    border-bottom: 2px solid var(--primary-color);
+}
+.login-box{
+    text-align: -webkit-center;
+}
+
+
 /*--------게시판--------*/
 table{
     width: 100%;
@@ -231,11 +253,30 @@ table{
 }
 
 /*----------- 강사 소개 --------------*/
-.instrs-box li{
+.instrs-box .instrs-content{
     display: inline-block;
     position: relative;
     height: 300px;
     margin: 0 0 30px 50px;
+    padding-top: 50px;
+}
+
+.instrs-box .instrs-content:hover .instrs-edit,
+.instrs-box .instrs-content:hover .instrs-del{
+    display: block;
+}
+
+.instrs-edit{
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: none;
+}
+.instrs-del{
+    position: absolute;
+    top: 0;
+    right: 55px;
+    display: none;
 }
 
 /* 강사 이미지 */
@@ -317,7 +358,7 @@ table{
 
 /* 주소 */
 .map_address h2{
-    color: var(--main-color);
+    color: var(--primary-color);
 }
 
 .map_address a{
@@ -327,12 +368,15 @@ table{
 }
 
 .list_info{
-    border-top: 1px solid black;
+    border-top: 1px solid var(--line-color);
     padding: 25px;
+    align-items: center;
+    display: flex;
 }
 
 .list_info .item_title{
-    float: left;
+    left: 0;
+    position: absolute;
 }
 
 
@@ -437,7 +481,7 @@ table{
 /* 선택시 */
 .sec-cal .cal-wrap .day:hover,
 .sec-cal .cal-wrap .selected {
-    border: 0.5px solid var(--main-color);
+    border: 0.5px solid var(--primary-color);
 }
 
 .current.today {background: rgb(242 242 242);}
@@ -498,12 +542,12 @@ table{
     right: -1px;
     bottom: -1px;
     opacity: .05;
-    background-color: var(--main-color)
+    background-color: var(--primary-color)
 }
 
 /* 달력 모달 */
 .modal .modal-title .selected-date{
-    color: var(--main-color);
+    color: var(--primary-color);
 }
 
 #add-calender .setDate{
@@ -537,7 +581,7 @@ table{
     overflow: hidden;
 }
 .lecture-box .lecture-content:hover{
-    border: 1px solid var(--main-color);
+    border: 1px solid var(--primary-color);
 }
 .lecture-box .lecture-content:hover .lecture-edit,
 .lecture-box .lecture-content:hover .lecture-del{

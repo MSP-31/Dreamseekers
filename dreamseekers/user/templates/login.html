@@ -1,18 +1,13 @@
 {% extends 'header.html' %}
 {% load static %}
 
-{% block script %}
-<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+{% block topImg %}
+    <img class="login-img" src = {% static "img/1.jpg" %} alt="예제이미지">
 {% endblock %}
 
 {% block content %}
-
 <div class="main-content">
-    <a href="/social/naver/login">
-        <img src = {% static "img/user/naver_btnG.png" %}>
-    </a>
-
-    <div class="container my-3">
+    <div class="login-box">
         <h1>로그인</h1>
         {% if form.non_field_errors %}
         <span style = "color:red">{{ form.non_field_errors }}</span>
@@ -20,21 +15,26 @@
         <form method="post" action=".">
             {% csrf_token %}
             {% for field in form %}
-            <div class ="form-group">
-                <label for = "{{ field.id_for_label }}">{{field.label}}</label>
+            <div class ="login-form">
+                <!-- <label for = "{{ field.id_for_label }}">{{field.label}}</label> -->
                 <input type = "{{ field.field.widget.input_type }}" class ="form-control" id ="{{field.id_for_label}}" 
                 placeholder = "{{field.label}}" name = "{{field.name}}">
+                {% if field.errors %}
+                <span style = "color:red">{{field.errors}}</span>
+                {% endif %}
             </div>
-            {% if field.errors %}
-            <span style = "color:red">{{field.errors}}</span>
-            {% endif %}
             {% endfor %}
-            <button type="submit" class="btn btn-primary">로그인</button>
+            <button type="submit" class="btn-block btn-active">로그인</button>
         </form>
+        <div class='social-login'>
+            <a href="/social/naver/login">
+                <img class='social-login-btn' src = {% static "img/user/naver_btnG.png" %}>
+            </a>
+        </div>
     </div>
-    <a href="/user/signup"><p>회원가입</p></a>
-    
-    <a href="http://nid.naver.com/nidlogin.logout">로그아웃 테스트</a>
+    <div>또는</div>
+    <a class='btn-block' href="/user/signup">회원가입</a>
+
 </div>
 
 {% endblock %}

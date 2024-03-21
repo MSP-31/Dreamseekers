@@ -72,7 +72,7 @@ editButtons.forEach(function(button) {
     // 부모 클래스를 가져옴
     var parent = this.parentNode;
     var name = parent.querySelector('.instrs-name').textContent;
-    var contents = parent.querySelector('.instrs-content').innerHTML;
+    var contents = parent.querySelector('.instrs-text').innerHTML;
     var contentText = contents.replace(/<br>/g, '\n');
     var image = parent.querySelector('img').dataset.src;
 

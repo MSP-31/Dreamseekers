@@ -23,7 +23,7 @@ AUTH_USER_MODEL = 'user.Users'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.0.2', 'localhost', '127.0.0.1']
 
 # Application definition
 INSTALLED_APPS = [
@@ -210,3 +210,4 @@ SIMPLE_JWT = {
 MAX_IMAGE_SIZE = 20
 # 사용자별 최대 이미지 개수
 MAX_IMAGE_COUNT = 5
+

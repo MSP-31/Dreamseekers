@@ -2,6 +2,12 @@ header{
   position: fixed;
   width: 100%;
   z-index: 3;
+  transition: background-color 0.2s ease-in-out
+}
+
+header:hover{
+  background-color: var(--white);
+  transition: background-color 0.2s ease-in-out
 }
 /* -----top header------ */
 .top-header{
@@ -9,16 +15,10 @@ header{
   right: 2%;
   top: 12px;
   padding-right: 30px;
-  color: rgb(228, 228, 228);
+  color: #e4e4e4;
   z-index: 2;
 
-  transition: top 1s
-}
-
-/* 기본 글자색 */
-header.on .top-header,
-.nav-menu:hover .top-header{
-  color: rgb(63, 63, 63);
+  transition: top 1s, color 0.2s ease-in-out
 }
 
 /* 로그인 경계선 */
@@ -29,6 +29,7 @@ header.on .top-header,
   background-color: rgb(228, 228, 228);
   vertical-align: middle;
   display:inline-block;
+  transition: background-color 0.2s ease;
 }
 
 /*--------헤더 메뉴--------*/
@@ -37,7 +38,7 @@ header.on .top-header,
     justify-content: space-between;
     align-items: center;
     position: relative;
-    height: 110px;
+    height: 90px;
     transition: background-color 0.5s ease;
     width: 100%;
     top: 0;
@@ -49,12 +50,9 @@ header.on .top-header,
 /* 스크롤시 헤더 사라짐 */
 header.on .top-header,
 header.on .nav-menu{
-  top: -110px;
+  top: -90px;
   height: 0px;
   transition: top 0.2s
-}
-.nav-menu:hover{
-  background-color: var(--main-header-color);
 }
 
 /* 메뉴 글꼴 스타일 */
@@ -71,25 +69,31 @@ header.on .nav-menu{
   padding: 40px 12px 13px 12px;
 }
 
+/* 기본 글꼴색 */
+ul.menu-list > li.menu a,
+ul.submenu > li{
+  color: var(--white);
+  transition: color 0.2s ease-in-out
+}
+
 /* 메뉴에 마우스가 올라갔을때 색변경 */
 ul.menu-list > li.menu a:hover ,
 ul.submenu > li:hover{
-  color: var(--main-color);
+  color: var(--primary-color);
   transition: color 0.2s ease-in-out
 }
 
-ul.menu-list > li.menu a,
-ul.submenu > li{
-  color: var(--main-header-color);
-  transition: color 0.2s ease-in-out
-}
-
-/* 스크롤시 메뉴 글꼴색*/
-header:hover .top-header a,
+/* 메뉴 글꼴색 */
+header:hover .top-header,
 .nav-menu:hover ul.menu-list > li.menu a,
 .nav-menu:hover ul.submenu > li{
-    color: var(--main-header-re);
+    color: var(--black);
 }
+header:hover .top-header .span-contour{
+    background-color: var(--black);
+    transition: background-color 0.2s ease;
+}
+
 
 /* 서브 메뉴 배경 */
 #blind{
@@ -134,7 +138,7 @@ header:hover .top-header a,
 
 /* 마우스가 hover시 서브 메뉴 배경색 */
 .menu.on .submenu-container{
-  background-color: var(--main-header-color);
+  background-color: var(--white);
 }
 
 /* 서브메뉴 설정*/
@@ -145,6 +149,10 @@ header:hover .top-header a,
   font-weight: bold;
 }
 
+.submenu:hover{
+  color: var(--primary-color);
+}
+
 /* 메뉴 선택 바*/
 .menu-bar span {
   position: absolute;
@@ -153,7 +161,7 @@ header:hover .top-header a,
   left: 0;
   height: 2px;
   margin-left: 12;
-  background-color: var(--main-color);
+  background-color: var(--primary-color);
   border-radius: 4px;
   z-index: 2;
 }
@@ -188,24 +196,26 @@ header:hover .top-header a,
   left: 0;
   width: 100%;
   height: 4px;
-  background-color: var(--main-header-color);
+  background-color: var(--white);
   border-radius: 4px;
+  transition: background-color 0.2s ease-in-out
 }
 
 /* 햄버거 줄 색 변경 */
 .nav-menu:hover .menu-trigger span{
-  background-color: var(--main-header-re);
+  background-color: var(--black);
+  transition: background-color 0.2s ease-in-out
 }
 
 /* 햄버거 줄 세부위치 */
 .menu-trigger span:nth-of-type(1) {
-  top: 10px;
-}
-.menu-trigger span:nth-of-type(2) {
   top: 25px;
 }
+.menu-trigger span:nth-of-type(2) {
+  top: 38px;
+}
 .menu-trigger span:nth-of-type(3) {
-  bottom: 0;
+  bottom: -10;
 }
 
 /* 햄버거 위치*/
@@ -230,7 +240,7 @@ header:hover .top-header a,
   left: 0;
   width: 100%;
   height: 4px;
-  background-color: var(--main-header-color);
+  background-color: var(--white);
   border-radius: 4px;
 }
 
@@ -270,7 +280,7 @@ header:hover .top-header a,
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: var(--main-header-re);
+  background-color: var(--black);
   opacity: 0;
   z-index: 4;
   transition: opacity 0.5s ease;
@@ -299,6 +309,10 @@ header:hover .top-header a,
   height: 300px;
   mix-blend-mode: multiply;
   background-color: rgba(0, 0, 0, 0.205);
+}
+
+#top-content .top-img .login-img{
+  height: 200px;
 }
 
 /* 제목 */

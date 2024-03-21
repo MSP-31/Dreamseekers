@@ -23,7 +23,7 @@
                 <form action="{% url 'intro:instrs_del' instrs.pk  %}"
                     method="POST" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
                     {% csrf_token %}
-                    <input class="btn" type="submit" value="삭제">
+                    <input class="btn instrs-del" type="submit" value="삭제">
                 </form>
                 {% endif %} 
 
@@ -33,7 +33,7 @@
                     {% endif %}
                 
                     <h2 class="instrs-name">{{instrs.name}}</h2>
-                    <span class="instrs-content">{{instrs.contents|linebreaksbr}}</span>
+                    <span class="instrs-text">{{instrs.contents|linebreaksbr}}</span>
                 </div>
                                
             </li>
