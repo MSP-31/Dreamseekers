@@ -6,6 +6,8 @@ class NoticeForm(forms.ModelForm):
         model = Notice
         fields = ['title', 'contents','image','files']
         widgets = {
+            'title': forms.TextInput(attrs={'class': 'width'}),
+            'contents': forms.Textarea(attrs={'class': 'width'}),
             'image': forms.FileInput(attrs={'required': False}),
             'files': forms.FileInput(attrs={'required': False}),
         }

@@ -11,8 +11,8 @@ class RecursiveSerializer(serializers.Serializer):
 class CommentSerializer(serializers.ModelSerializer):
     reply = serializers.SerializerMethodField()
     user = serializers.SlugRelatedField(read_only=True, slug_field='username')
-    created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M")
-    updated_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M")
+    created_at = serializers.DateTimeField(format="%Y.%m.%d")
+    updated_at = serializers.DateTimeField(format="%Y.%m.%d")
 
     class Meta:
         model = Comment

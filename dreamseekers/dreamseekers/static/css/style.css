@@ -38,10 +38,12 @@ input, textarea {
     color: var(--white);
     transition: background-color 0.2s ease-in-out,
                 color 0.2s ease-in-out; 
+    cursor: pointer;
 }
 
 .btn-active:hover{
     background-color: var(--primary-color);
+    cursor: pointer;
 }
 
 .btn-block{

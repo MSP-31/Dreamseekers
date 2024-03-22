@@ -11,44 +11,44 @@
 <div class="main-content">
     <h1>공지사항</h1>
     <div class="post-write">
-        <form method = "POST" action="." enctype="multipart/form-data">
+        <form method="POST" action="." enctype="multipart/form-data">
             {% csrf_token %}
-            {% for field in form %}
+            <table>
+                {% for field in form %}
                 {% if field.name == 'image' %}
-                
-                <div>
-                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                    <label class="img-label" id="img-label" for="img-input">
-                        <div class="img-inner" id="img-inner">업로드</div>
-                    </label>
-                    <input id="img-input" name="image" type="file" accept="image/*" multiple="true" hidden="true">
-
-                    <div class="preview" id="preview">
-                        {% for image in post.image.all %}
+                <tr>
+                    <th><label for="{{ field.id_for_label }}">{{ field.label }}</label></th>
+                    <td>
+                        <label class="img-label" id="img-label" for="img-input">
+                            <div class="img-inner" id="img-inner">업로드</div>
+                        </label>
+                        <input id="img-input" name="image" type="file" accept="image/*" multiple="true" hidden="true">
+                        <div class="preview" id="preview">
+                            {% for image in post.image.all %}
                             <div class="container-img">
                                 <img class="embed-img" src="{{ image.image.url }}" alt="{{ image.image.name }}">
                                 <input type="checkbox" class="hidden-checkbox" style="display: none;">
                                 <span class="delete-btn">
                                     <span class="x-mark">X</span>
-                                </spna>
+                                </span>
                             </div>
-                        {% endfor %}
-                    </div>
-                </div>
-
+                            {% endfor %}
+                        </div>
+                    </td>
+                </tr>
                 {% elif field.name == 'files' %}
-                <div class="input-box">
-                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                    <input type="file" id="{{ field.id_for_label }}" name="{{ field.html_name }}" multiple>
-                </div>
-
+                <tr>
+                    <th><label for="{{ field.id_for_label }}">{{ field.label }}</label></th>
+                    <td><input type="file" id="{{ field.id_for_label }}" name="{{ field.html_name }}" multiple></td>
+                </tr>
                 {% else %}
-                <div class="input-box">
-                    <label for = "{{ field.id_for_label }}">{{field.label}}</label>
-                    {{ field }}
-                </div>
+                <tr>
+                    <th><label for="{{ field.id_for_label }}">{{ field.label }}</label></th>
+                    <td>{{ field }}</td>
+                </tr>
                 {% endif %}
-            {% endfor %}
+                {% endfor %}
+            </table>
             <div class="btn-group">
                 <a class="btn" href="/board/notice/">취소</a>
                 <button class="btn-active" type="submit">등록</button>
@@ -56,6 +56,7 @@
         </form>
     </div>
 </div>
+
 
 {% endblock %}
 

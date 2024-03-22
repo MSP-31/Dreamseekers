@@ -8,6 +8,10 @@ class InquiryForm(forms.ModelForm):
     class Meta:
         model = Inquiry
         fields = ['phone', 'title', 'contents']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'width'}),
+            'contents': forms.Textarea(attrs={'class': 'width'}),
+        }
         error_messages = {
             'phone' : {
                 'required' : '연락처를 입력해주세요',
