@@ -85,10 +85,13 @@ def post_write(request):
             user_id = request.user.id
             user = Users.objects.get(pk = user_id)
 
+            # 비밀글 여부 확인
+            is_private = request.POST.get('is_private', False) == 'on'
+
             new_post = Post.objects.create(
                 title     = form.cleaned_data['title'],
                 contents  = form.cleaned_data['contents'],
-                is_private= form.cleaned_data['is_private'],
+                is_private= is_private,
                 author    = user
             )
             return redirect(post_detail,pk=new_post.pk)

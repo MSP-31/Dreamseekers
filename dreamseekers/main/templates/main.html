@@ -1,18 +1,28 @@
 {% extends 'header.html' %}
 {% load static %}
+
+{% block topContent %}
+{% endblock %}
+
 {% block content %}
-<div class="">
-    <div class="test"></div>
+<div class="slide">
+    {% for slide in slides %}
+    <div class="slide_item">
+        <!--
+        <span class="slide_title">{{slide.title}}</span>
+        <span class="slide_content">{{slide.contents}}</span>
+        -->
+        <img class="slide_img" src = "{{slide.image.url}}" alt="slide_img">
+    </div>
+    {% endfor %}
+    <a href="#" class="slide-btn go-prev">prev</a>
+    <a href="#" class="slide-btn go-next">next</a>
+    <ul class="slide_pagination"></ul>
+</div>
+
+<div class="main-content">
+    
     <h1 class="title">꿈을 찾는사람들 교육원 입니다</h1>
-    <p>
-        ※코로나 19에 따른 최적화된 온라인/방송교육 가능<br>
-        ZOOM / Webex / Google Classroom등등<br><br>
-        ■강의특징<br>
-        ★전문적인 지식으로 사례화된 교육 실시<br>
-        ★대면강의와 온라인 강의가능합니다.<br>
-        ★모두가 공감하는 현실적인 교육<br>
-        ★대상별 차별화된 맞춤형 강의내용<br>
-    </p>
     <a class="btn" href="/admin">관리자 페이지 바로가기</a>
 </div>
 
@@ -20,5 +30,6 @@
 
 {% endblock %}
 
-{% block topContent %}
+{% block script %}
+<script src="{% static 'js/main/slide.js'%}"></script>
 {% endblock %}

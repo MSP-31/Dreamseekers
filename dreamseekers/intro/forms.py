@@ -6,6 +6,8 @@ class InstructorsForm(forms.ModelForm):
         model = Instructors
         fields = ['name', 'contents','image']
         widgets = {
+            'name': forms.TextInput(attrs={'class': 'width'}),
+            'contents': forms.Textarea(attrs={'class': 'width'}),
             'image': forms.FileInput(attrs={'required': False}),
         }
         labels = {

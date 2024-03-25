@@ -10,6 +10,11 @@
 
 <div class="main-content">
     <h1>인사말</h1>
+
+    {% if request.user.is_staff %}
+    <span id="modal-open" class="btn">수정</span>
+    {% endif %}
+
     <div class="board-title">
     </div>
     

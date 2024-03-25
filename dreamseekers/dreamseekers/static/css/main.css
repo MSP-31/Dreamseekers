@@ -1,4 +1,5 @@
 /*--------메인 부분--------*/
+/*
 .test{
     background-color: rgba(0, 0, 0, 0.205);
     background-image: url('../img/1.jpg');
@@ -8,7 +9,91 @@
     background-blend-mode: multiply;
     height: 100vh;
 }
+*/
+/* 메인 슬라이더 */
+.slide {
+    /* layout */
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    flex: none;
 
+    position: relative;
+    width: 100%;
+
+    /* slide drag를 위해 DOM요소가 드래그로 선택되는것을 방지 */
+    user-select: none;
+}
+
+.slide .slide_item{
+    /* layout */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+    left: 0px;
+    width: 100%;
+    height: 100vh;
+    flex-shrink: 0;
+    transition: left 0.15s;
+}
+
+.slide .slide-btn{
+    position: absolute;
+    top: calc(50% - 16px);
+}
+.slide .go-prev{
+    left: 50px;
+}
+.slide .go-next{
+    right: 50px;
+}
+
+.slide .slide_item .slide_img{
+    width: 100%;
+    height: 100%;
+}
+.slide .slide_item .slide_img::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-blend-mode: multiply;
+}
+
+/* 슬라이드 페이지네비 */
+.slide_pagination {
+    /* layout */
+    display: flex;
+    gap: 5px;
+  
+    /* position */
+    position: absolute;
+    bottom: 0;
+    /* left:50%, translateX(-50%)를 하면 가로 가운데로 위치시킬 수 있다. */
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .slide_pagination > li {
+    /* 현재 슬라이드가 아닌 것은 투명도 부여 */
+    color: #7fb5ff88;
+    cursor: pointer;
+    font-size: 25px;
+  }
+  .slide_pagination > li.active {
+    /* 현재 슬라이드 색상은 투명도 없이 */
+    color: #7fb5ff;
+  }
+
+
+/* 메인 */
 .main-content {
     position: relative;
     text-align: center;
@@ -32,11 +117,15 @@
 }
 
 /* 강의 상담문의 예외*/
-.main-content .post-write table th{
-    display: flex;
+.main-content table th{
+    /* display: flex; */
     height: 60px;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* text-align: center; */
+    width: 10%;
+    vertical-align: middle;
+    padding-bottom: 3%;
 }
 
 /* 라벨 상세 */
@@ -51,9 +140,18 @@
     width: 80%;
 }
 
-.main-content .post-write table td .width{
+.main-content table td .width{
     width: 100%;
 }
+.main-content .post-write table td .widthxt{
+    width: 123%;
+}
+.main-content .post-write table tr .wwww{
+    width: 20%;
+    text-align: center;
+    text-align: -webkit-center;
+}
+
 .main-content .post-write .right{
     float: right;
     margin-top: 20px;
@@ -166,6 +264,7 @@ table{
     font-family: 'Noto Sans KR', sans-serif;
     margin: 0 20%;
     padding-bottom: 5%;
+    flex: 1;
 }
 .board-box h1{
     text-align: center;
@@ -174,7 +273,7 @@ table{
 .board-title{
     position: relative;
     overflow: hidden;
-    padding: 20px 0;
+    padding: 10px 0;
     border-bottom: 1px solid var(--line-color);
 }
 .board-title h3{
@@ -462,6 +561,11 @@ table{
     right: 0;
 }
 
+/* 추가모달의 미리보기*/
+#modal-box .preview{
+    display: block;
+}
+
 /* 날짜 구분선 */
 .modal-detail .detail-list-area .detail-list .content-div{
     width: 1px;
@@ -530,6 +634,8 @@ table{
     border-radius: 5px;
 }
 
+.slide .go-prev,
+.slide .go-next,
 .sec-cal .cal-nav .go-prev,
 .sec-cal .cal-nav .go-next {
     display: block;
@@ -541,6 +647,8 @@ table{
     align-items: center;
 }
 
+.slide .go-prev::before,
+.slide .go-next::before,
 .sec-cal .cal-nav .go-prev::before,
 .sec-cal .cal-nav .go-next::before {
     content: "";
@@ -552,15 +660,19 @@ table{
     transition: border 0.1s;
 }
 
+.slide .go-prev::before,
+.slide .go-next::before,
 .sec-cal .cal-nav .go-prev:hover::before,
 .sec-cal .cal-nav .go-next:hover::before {
     border-color: #ed2a61;
 }
 
+.slide .go-prev::before,
 .sec-cal .cal-nav .go-prev::before {
     transform: rotate(-135deg);
 }
 
+.slide .go-next::before,
 .sec-cal .cal-nav .go-next::before {
     transform: rotate(45deg);
 }
@@ -673,8 +785,11 @@ table{
     color: var(--primary-color);
 }
 
-#add-calender .setDate{
+#add-calender .set-date{
     padding-bottom: 10px;
+}
+#add-calender .set-schedule input{
+    width: 80%;
 }
 
 /* 종일 체크박스 */

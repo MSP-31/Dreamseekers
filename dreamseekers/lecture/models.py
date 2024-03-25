@@ -21,7 +21,7 @@ class Inquiry(models.Model):
 
 # 강의 일정
 class lectureCalender(models.Model):
-    contents   = models.TextField(max_length=500, verbose_name='내용')
+    contents   = models.CharField(max_length=50, verbose_name='내용')
     date       = models.DateField(verbose_name='날짜')
     startTime  = models.TimeField(verbose_name='시작시간')
     endTime    = models.TimeField(verbose_name='종료시간')

@@ -15,10 +15,21 @@
         {% csrf_token %}
         <table>
             {% for field in form %}
+            {% if field.name == 'title' %}
+            <tr>
+                <th><label for="{{ field.id_for_label }}">{{ field.label }}</label></th>
+                <td>{{ field }}</td>
+                <td class="wwww">
+                    <label for='is_private'>비밀글</label>
+                    <input type='checkbox' name='is_private' id='is_private'>
+                </td>
+            </tr>
+            {% else %}
             <tr>
                 <th><label for="{{ field.id_for_label }}">{{ field.label }}</label></th>
                 <td>{{ field }}</td>
             </tr>
+            {% endif %}
             {% endfor %}
         </table>
 

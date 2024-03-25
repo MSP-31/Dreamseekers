@@ -64,7 +64,7 @@
                 <form method = "POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {% for field in form %}
-                    <div class="setDate">
+                    <div class="set-date">
                         <input type="date" id="startDate" name="startDate">
                         <input type="time" id="startTime" name="startTime" value="12:00">
                         <span>~</span>
@@ -72,7 +72,7 @@
                         <input type="checkbox" id="allDay" name="allDay" value="1">
                         <label for="allDay" class="btn">종일</label>
                     </div>
-                    <div>
+                    <div class="set-schedule">
                         {{ field }}
                     </div>
                     {% endfor %}

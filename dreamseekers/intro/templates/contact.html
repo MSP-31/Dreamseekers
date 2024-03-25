@@ -14,6 +14,11 @@
 
 <div class="main-content">
     <h1>오시는 길</h1>
+
+    {% if request.user.is_staff %}
+    <span id="modal-open" class="btn">수정</span>
+    {% endif %}
+
     <div id="map" style="width:100%;height:400px;"></div>
     <div class="map_address">
         <h3>꿈을찾는사람들교육원</h3>

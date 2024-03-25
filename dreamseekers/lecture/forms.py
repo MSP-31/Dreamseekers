@@ -41,18 +41,16 @@ class CalenderForm(forms.ModelForm):
     class Meta:
         model = lectureCalender
         fields = ['contents']
-        error_messages = {
-            'contents' : {
-                'required' : '내용을 입력해주세요.',
-                'max_length' : '내용은 3000 글자 이하로 입력해야 합니다.',
-            },
-        }
 
 # 강의 추가 폼
 class lectureTitleForm(forms.ModelForm):
     class Meta:
         model = lectureTitle
         fields = ['title','contents','image']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'width'}),
+            'contents': forms.Textarea(attrs={'class': 'width'}),
+        }
 
 # 강의 추가 폼
 class lectureListForm(forms.ModelForm):

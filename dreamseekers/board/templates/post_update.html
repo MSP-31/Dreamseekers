@@ -10,19 +10,36 @@
 
 <div class="main-content">
     <h1>방명록 수정</h1>
-    <div>
+    <div class="post-write">
         <form method = "POST" action="." enctype="multipart/form-data">
-            {% csrf_token %}
+        {% csrf_token %}
+        <table>
             {% for field in form %}
-                {{ field }}
+            {% if field.name == 'title' %}
+            <tr>
+                <th><label for="{{ field.id_for_label }}">{{ field.label }}</label></th>
+                <td>{{ field }}</td>
+                <td class="wwww">
+                    <label for='is_private'>비밀글</label>
+                    <input type='checkbox' name='is_private' id='is_private'>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <th><label for="{{ field.id_for_label }}">{{ field.label }}</label></th>
+                <td>{{ field }}</td>
+            </tr>
+            {% endif %}
             {% endfor %}
+        </table>
 
-            <button type="submit">수정</button>
+        <div class="btn-group">
+            <a class="btn" href="/board/guest/">취소</a>
+            <input class="btn-active" type="submit" value="작성">
+        </div>
+    
         </form>
     </div>
-    <br>
-    <br>
-    <a href="/board/guest/">목록</a>
 </div>
 
 {% endblock %}

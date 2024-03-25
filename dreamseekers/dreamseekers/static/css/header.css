@@ -334,10 +334,10 @@ header:hover .top-header .span-contour{
   
 /*-------- footer ----------*/
 footer{
-  position : relative;
   padding: 2rem;
-
-  text-align:center;
+  text-align: center;
   color: white;
   background-color: #1d1d1d;
+  width: 100%;
+  top: 100%;
 }
