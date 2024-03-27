@@ -331,13 +331,43 @@ header:hover .top-header .span-contour{
   margin: 0 10%;
   padding: 2% 5%;
 }
+
+/* floating 메뉴*/
+.floating{
+  position: fixed;
+  z-index: 3;
+  right: 50px;
+  bottom: 50px;
+  text-align: right;
+}
+
+.floating span,
+.floating a{
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+  width: 60px;
+  height: 60px;
+  -webkit-border-radius: 30px;
+  border-radius: 30px;
+  background-color: var(--primary-color-light);
+
+  -webkit-box-shadow: 3px 2px 8px 1px rgba(0,0,0,.2);
+  box-shadow: 3px 2px 8px 1px rgba(0,0,0,.2);
+
+  font-size: 40px;
+  color: var(--line-color);
+  text-align: center;
+  text-align: -webkit-center;
+
+  margin-top: 10px;
+  padding-top: 15%;
+}
   
 /*-------- footer ----------*/
 footer{
   padding: 2rem;
   text-align: center;
-  color: white;
-  background-color: #1d1d1d;
   width: 100%;
-  top: 100%;
+  background: var(--line-color);
 }

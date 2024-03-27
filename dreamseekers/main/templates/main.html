@@ -5,19 +5,24 @@
 {% endblock %}
 
 {% block content %}
+<!-- 슬라이드 -->
 <div class="slide">
     {% for slide in slides %}
-    <div class="slide_item">
-        <!--
-        <span class="slide_title">{{slide.title}}</span>
-        <span class="slide_content">{{slide.contents}}</span>
-        -->
-        <img class="slide_img" src = "{{slide.image.url}}" alt="slide_img">
+    <div class="slide-item">
+        <img class="slide-img" src = "{{slide.image.url}}" alt="slide-img">
+        <div class="slide-text">
+            <h1 class="slide-title">{{slide.title}}</h1>
+            <p class="slide-content">{{slide.contents}}</p>
+        </div>
+        
     </div>
     {% endfor %}
-    <a href="#" class="slide-btn go-prev">prev</a>
-    <a href="#" class="slide-btn go-next">next</a>
-    <ul class="slide_pagination"></ul>
+    <div class="slide-btns">
+        <a href="#" class="slide-btn slide-prev">prev</a>
+        <ul class="slide-pagination"></ul>
+        <a href="#" class="slide-btn slide-next">next</a>
+    </div>
+    
 </div>
 
 <div class="main-content">

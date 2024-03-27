@@ -1,7 +1,8 @@
 :root{
     /* header */
     --primary-color: #126EB1;
-    --primary-color-light:#167fca;
+    --primary-color-light:#1fa2ff;
+    --primary-color-trans:#126EB188;
 
     --line-color: #ebebeb;
 

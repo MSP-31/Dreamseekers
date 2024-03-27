@@ -1,12 +1,31 @@
 from django.conf import settings
 from django.shortcuts import redirect, render
 
-from .models import Instructors
-from .forms import InstructorsForm
+from .models import BusinessInfo, Contact, Instructors, Intro
+from .forms import IntroForm,InstructorsForm
 
 # 인사말
 def greeting(request):
-    return render(request, 'greeting.html')
+
+    instrs = Intro.objects.first()
+
+    if request.method == 'POST':
+        form = IntroForm(request.POST,instance=instrs)
+        if form.is_valid():
+            # 이미지가 등록되었다면
+            if(request.POST.getlist('checkedImages')):
+                # 기존에 등록된 이미지 삭제
+                instrs.image.delete()
+                # 새 이미지 추가
+                instrs.image = request.FILES['image']
+
+            form.save()
+            return redirect('intro:greeting')
+    else:
+        form  = IntroForm(instance=instrs)
+        intro = Intro.objects.first()
+        
+    return render(request, 'greeting.html', {'form':form,'intro':intro,})
 
 # 강사 소개
 def instructors(request):
@@ -59,4 +78,6 @@ def instrs_delete(request,pk):
 # 오시는 길
 def contact(request):
     context = {'client_id': settings.NAVER_MAPS_CLIENT_ID}
-    return render(request, 'contact.html',context)
+    contacts = Contact.objects.first()
+    business_info = BusinessInfo.objects.first()
+    return render(request, 'contact.html', {'context':context, 'contacts':contacts, 'business_info':business_info,})

@@ -14,14 +14,82 @@
     {% if request.user.is_staff %}
     <span id="modal-open" class="btn">수정</span>
     {% endif %}
+    
+    <div class="intro-box">
+        <img src = "{{intro.image.url}}" alt="대표이미지" height = "300">
+        <div class="intro-text">
+            <h2>{{intro.title}}</h2>
+            <p>{{intro.contents|linebreaksbr}}</p>
+        </div>
+    </div>
+    
+    
 
     <div class="board-title">
     </div>
     
+    {% if request.user.is_staff %}
+        <div id="modal-box" class ="modal">
+            <div class="modal-content">
+                <span class="modal-close">&times;</span>
+                <form method = "POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <table>
+                        {% for field in form %}
+                            {% if field.name == 'image' %}
+                                <tr>
+                                    <td colspan="2">
+                                        <label class="img-label" id="img-label" for="img-input">
+                                            <div class="img-inner" id="img-inner">클릭해서 업로드</div>
+                                        </label>
+                                        <input id="img-input" name="image" type="file" accept="image/*" hidden="true">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <p class="preview-title">미리보기</p>
+                                        <div class="preview" id="preview">
+                                            <div class="container-img">
+                                                <img class="embed-img" src="{{intro.image.url}}" alt="">
+                                                <input type="checkbox" class="hidden-checkbox" style="display: none;" name="checkedImages" value="">
+                                                <span class="delete-btn">
+                                                    <span class="x-mark">X</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <th><label for="{{ field.id_for_label }}">{{ field.label }}</label></th>
+                                    <td>{{ field }}</td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </table>
+                    <input class="btn" type="submit" value="등록">
+                </form>
+            </div>
+        </div>
+        {% endif %}
+
     <br>
 </div>
 
 {% endblock %}
 
 {% block script %}
+<script>
+    var modal = document.getElementById("modal-box");
+    var modal_btn = document.getElementById("modal-open");
+    var modal_span = document.getElementsByClassName("modal-close")[0];
+
+    modal_btn.onclick = function() {
+        modal.style.display = "block";
+      }
+      modal_span.onclick = function() {
+        modal.style.display = "none";
+      }
+</script>
+<script src="{% static "js/notice.js" %}"></script>
 {% endblock %}

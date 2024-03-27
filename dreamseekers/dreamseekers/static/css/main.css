@@ -13,84 +13,98 @@
 /* 메인 슬라이더 */
 .slide {
     /* layout */
-    display: flex;
-    flex-wrap: nowrap;
+    position: relative;
     overflow: hidden;
     flex: none;
-
-    position: relative;
     width: 100%;
+    height: 100%;
 
     /* slide drag를 위해 DOM요소가 드래그로 선택되는것을 방지 */
     user-select: none;
 }
-
-.slide .slide_item{
+/* 슬라이드 내용  */
+.slide .slide-item{
     /* layout */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    position: relative;
-    left: 0px;
-    width: 100%;
-    height: 100vh;
-    flex-shrink: 0;
-    transition: left 0.15s;
-}
-
-.slide .slide-btn{
     position: absolute;
-    top: calc(50% - 16px);
-}
-.slide .go-prev{
-    left: 50px;
-}
-.slide .go-next{
-    right: 50px;
-}
-
-.slide .slide_item .slide_img{
     width: 100%;
     height: 100%;
 }
-.slide .slide_item .slide_img::before{
-    content: "";
+
+/* 슬라이드 이미지 설정 */
+.slide .slide-item .slide-img{
+    width: 100%;
+    height: 100%;
     position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.5) !important;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    background-blend-mode: multiply;
+    filter: brightness(70%);
+    object-fit: cover;
+}
+
+/* 슬라이드 텍스트 */
+.slide .slide-item .slide-text{
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    color: var(--white);
+}
+
+/* 슬라이드 버튼 묶음 */
+.slide .slide-btns{
+    display: flex; /* flex 레이아웃 설정 */
+    justify-content: space-between; /* 요소들을 양쪽 끝으로 배치 */
+    align-items: center; /* 요소들을 세로 방향으로 중앙에 배치 */
+    width: 20%;
+    height: 30px;
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* 슬라이드 넘기기 버튼 */
+.slide .slide-prev::before,
+.slide .slide-next::before{
+    content: "";
+    display: block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid var(--white);
+    border-width: 3px 3px 0 0;
+    transition: border 0.1s;
+}
+.slide .slide-next::before{
+    transform: rotate(45deg);
+}
+.slide .slide-prev::before{
+    transform: rotate(-135deg);
 }
 
 /* 슬라이드 페이지네비 */
-.slide_pagination {
+.slide-pagination {
     /* layout */
     display: flex;
     gap: 5px;
   
     /* position */
     position: absolute;
-    bottom: 0;
-    /* left:50%, translateX(-50%)를 하면 가로 가운데로 위치시킬 수 있다. */
     left: 50%;
     transform: translateX(-50%);
-  }
-  .slide_pagination > li {
+    align-items: center;
+    padding: 0 0;
+}
+.slide-pagination > li {
     /* 현재 슬라이드가 아닌 것은 투명도 부여 */
-    color: #7fb5ff88;
     cursor: pointer;
-    font-size: 25px;
-  }
-  .slide_pagination > li.active {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 1px solid var(--white);
+}
+.slide-pagination > li.active {
     /* 현재 슬라이드 색상은 투명도 없이 */
-    color: #7fb5ff;
-  }
+    background-color: var(--white);
+}
+
 
 
 /* 메인 */
@@ -634,8 +648,8 @@ table{
     border-radius: 5px;
 }
 
-.slide .go-prev,
-.slide .go-next,
+.slide .slide-prev,
+.slide .slide-next,
 .sec-cal .cal-nav .go-prev,
 .sec-cal .cal-nav .go-next {
     display: block;
@@ -647,8 +661,6 @@ table{
     align-items: center;
 }
 
-.slide .go-prev::before,
-.slide .go-next::before,
 .sec-cal .cal-nav .go-prev::before,
 .sec-cal .cal-nav .go-next::before {
     content: "";
@@ -844,4 +856,14 @@ table{
     position: absolute;
     right: 0;
     display: none;
+}
+
+/* -------인사말------- */
+.intro-box{
+    display: flex;
+}
+
+.intro-box .intro-text{
+    padding-top: 50px;
+    padding-left: 50px;
 }

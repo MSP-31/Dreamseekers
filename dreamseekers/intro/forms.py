@@ -1,5 +1,15 @@
 from django import forms
-from .models import Instructors
+from .models import Intro,Instructors
+
+class IntroForm(forms.ModelForm):
+    class Meta:
+        model = Intro
+        fields = ['title', 'contents','image']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'width'}),
+            'contents': forms.Textarea(attrs={'class': 'width'}),
+            'image': forms.FileInput(attrs={'required': False}),
+        }
 
 class InstructorsForm(forms.ModelForm):
     class Meta:

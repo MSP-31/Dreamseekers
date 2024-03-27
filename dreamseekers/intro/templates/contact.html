@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block f_script %}
-<script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId={{ client_id }}"></script>
+<script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId={{ context.client_id }}"></script>
 {% endblock %}
 
 {% block topImg %}
@@ -18,34 +18,49 @@
     {% if request.user.is_staff %}
     <span id="modal-open" class="btn">수정</span>
     {% endif %}
-
+    <!-- 지도 -->
     <div id="map" style="width:100%;height:400px;"></div>
     <div class="map_address">
         <h3>꿈을찾는사람들교육원</h3>
-        <h2>경상남도 창원시 성산구용지로 70 / 성원그랜드오피스텔 10층 1029호</h2>
-        <a class="btn" href="https://map.naver.com/p/entry/place/1605260808" target="_blank">지도에서 보기</a>
+        <h2>{{contacts.address}} / {{contacts.sub_address}}</h2>
+        <a class="btn-active" href="{{contacts.map_add}}" target="_blank">지도에서 보기</a>
     </div>
     <div class="info_box">
-        <div class="list_info">
-            <div class="item_title">
-                오시는길
-            </div>
-        </div>
-        <div class="list_info">
-            <div class="item_title">
-                이용시간
-            </div>
-        </div>
-        <div class="list_info">
-            <div class="item_title">
-                전화번호
-            </div>
-        </div>
-        <div class="list_info">
-            <div class="item_title">
-                사업자 정보
-            </div>
-        </div>
+        <table>
+            <tr>
+                <th>오시는길</th>
+                <td></td> <!-- 여기에 필요한 정보를 입력하세요 -->
+            </tr>
+            <tr>
+                <th>이용시간</th>
+                <td>
+                    평일 {{ contacts.weekday_start_time }} - {{ contacts.weekday_end_time }}<br>
+                    주말 {{ contacts.weekend_start_time }} - {{ contacts.weekend_end_time }}
+                </td>
+            </tr>
+            <tr>
+                <th>전화번호</th>
+                <td>
+                    {{ contacts.phone }}<br>
+                    {{ contacts.sub_phone }}
+                </td>
+            </tr>
+            <tr>
+                <th>사업자 정보</th>
+                <td>
+                    상호명: 꿈을찾는사람들교육원<br>
+                    대표: {{ business_info.rep }}<br>
+                    이메일: {{ business_info.email }}<br>
+                </td>
+                <th>입금 정보</th>
+                <td>
+                    예금주: {{ business_info.depositor }}<br>
+                    은행: {{ business_info.bank }}<br>
+                    계좌번호: {{ business_info.account }}
+                </td>
+            </tr>
+        </table>
+        
     </div>
     <br>
 </div>
@@ -53,5 +68,9 @@
 {% endblock %}
 
 {% block script %}
+<script>
+    var latitude = {{ contacts.latitude }};
+    var longitude = {{ contacts.longitude }};
+</script>
 <script src="{% static 'js/intro/contact.js'%}"></script>
 {% endblock %}

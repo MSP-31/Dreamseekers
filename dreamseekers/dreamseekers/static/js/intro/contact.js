@@ -1,11 +1,12 @@
 // 기본 좌표
-var position = new naver.maps.LatLng(35.2220973957462, 128.676299239476);
+var position = new naver.maps.LatLng(latitude, longitude);
 var markerImageUrl = "{% static 'img/intro/contact/marker.png' %}";
 
 var mapOptions = {
     center: position,
-    zoom: 15,
+    zoom: 18,
     disableKineticPan: false,
+    scrollWheel: false, // 마우스 스크롤 휠을 이용한 지도 확대/축소 허용 여부
 
     zoomControl: true,
     zoomControlOptions: {
@@ -21,5 +22,3 @@ var marker = new naver.maps.Marker({
     position: position,
     map: map,
 });
-
-//https://map.naver.com/p/entry/place/1605260808
