@@ -24,6 +24,17 @@ class Image(models.Model):
 class File(models.Model):
     file = models.FileField(upload_to='file', blank=True, null=True)
 
+    def delete(self, *args, **kwargs):
+        # 파일이 실제로 존재하는 경우
+        if os.path.isfile(self.file.path):
+            try:
+                # 삭제
+                os.remove(self.file.path)
+            except FileNotFoundError:
+                pass
+        # DB에서 기록 삭제
+        super(File, self).delete(*args, **kwargs)
+
     class Meta:
         db_table = "community_notice_file"
 

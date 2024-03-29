@@ -394,7 +394,6 @@ table{
 .main-content .post-write .img-label {
     margin: 0px auto;
     cursor: pointer;
-    margin-left: 11%;
 }
 
 .img-inner {
@@ -415,6 +414,7 @@ table{
 }
 
 /* 미리보기 부모 */
+
 .preview {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -422,7 +422,12 @@ table{
     padding: 16px 16px;
     align-items: center;
     border: solid 1px var(--black);
-  }
+}
+
+.file-preview{
+    padding: 16px 16px;
+    border: solid 1px var(--black);
+}
 
 /* 미리보기 자식 */
 .embed-img {
@@ -437,11 +442,11 @@ table{
     position: relative;
 }
 
-.container-img:hover .delete-btn {
+.container-img:hover .img-delete-btn {
     visibility: visible;
 }
 
-.delete-btn{
+.img-delete-btn{
     visibility: hidden;
     display: flex;
     justify-content: center;
@@ -460,6 +465,14 @@ table{
     color: white;
     line-height:1;
     user-select: none;
+}
+
+.file-delete-btn{
+    position: absolute;
+    right: 0;
+    padding-right: 20;
+    color: red;
+    cursor: pointer;
 }
 
 /*----------- 강사 소개 --------------*/

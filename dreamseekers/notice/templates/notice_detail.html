@@ -41,7 +41,7 @@
         <form action="{% url 'notice:delete' post.pk  %}"
         method="POST" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
             {% csrf_token %}
-            <input class="btn" type="submit" value="삭제">
+            <input class="btn btn-warning" type="submit" value="삭제">
         </form>
         {% endif %}
         <a class="btn" href="/board/notice/">목록</a>

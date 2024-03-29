@@ -51,7 +51,7 @@
                 <form action="{% url 'comment:comments_delete' comment.id %}" method = "POST"
                 onsubmit="return confirm('댓글을 삭제하시겠습니까?');">
                     {% csrf_token %}
-                    <input class="btn" type="submit" value="삭제">
+                    <input class="btn btn-warning" type="submit" value="삭제">
                 </form>
             </div>
             {% endif %}

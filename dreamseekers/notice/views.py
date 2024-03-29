@@ -71,7 +71,6 @@ def write(request):
 
             # 여러개의 파일 처리
             for file in request.FILES.getlist('files'):
-                print(file)
                 files = File.objects.create(file=file)
                 new_post.files.add(files)
             
@@ -101,17 +100,25 @@ def update(request,pk):
     if request.method == 'POST':
         form = NoticeForm(request.POST, instance=post)
         if form.is_valid():
-
+            print(request.POST.getlist('checkedImages'))
             # 기존 이미지 삭제
             for image in Image.objects.filter(notice=post):
-                # 이미지 리스트 비교
-                if image.id in [int(id) for id in request.POST.getlist('checkedImages')]:
+                if 'deleteImage' + str(image.id) in request.POST:
                     image.delete()
+            # 기존 파일 삭제
+            for file in File.objects.filter(notice=post):
+                if 'deleteFile' + str(file.id) in request.POST:
+                    file.delete()
 
             # 새 이미지 추가
             for image in request.FILES.getlist('image'):
                 image = Image.objects.create(image=image)
                 post.image.add(image)
+            
+            # 새 파일 추가
+            for file in request.FILES.getlist('files'):
+                files = File.objects.create(file=file)
+                post.files.add(files)
 
             post.save()
             return redirect('notice:detail', pk=post.pk)

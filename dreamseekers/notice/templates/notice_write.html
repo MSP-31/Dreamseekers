@@ -28,7 +28,7 @@
                             <div class="container-img">
                                 <img class="embed-img" src="{{ image.image.url }}" alt="{{ image.image.name }}">
                                 <input type="checkbox" class="hidden-checkbox" style="display: none;">
-                                <span class="delete-btn">
+                                <span class="img-delete-btn">
                                     <span class="x-mark">X</span>
                                 </span>
                             </div>
@@ -39,7 +39,23 @@
                 {% elif field.name == 'files' %}
                 <tr>
                     <th><label for="{{ field.id_for_label }}">{{ field.label }}</label></th>
-                    <td><input type="file" id="{{ field.id_for_label }}" name="{{ field.html_name }}" multiple></td>
+                    <td>
+                        <label class="file-label" id="file-label" for="file-input">
+                            <div class="img-inner" id="img-inner">업로드</div>
+                        </label>
+
+                        <input id="file-input" name="{{ field.html_name }}" type="file" multiple="true" hidden="true">
+
+                        <ul class="file-preview" id="file-preview">
+                            {% for file in post.file.all %}
+                            <li class="container-file">
+                                <span class="embed-file">{{file.name}}</span>
+                                <span class="file-delete-btn">X</span>
+                                <input type="checkbox" class="hidden-checkbox" style="display: none;">
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </td>
                 </tr>
                 {% else %}
                 <tr>

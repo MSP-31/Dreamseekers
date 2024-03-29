@@ -363,6 +363,12 @@ header:hover .top-header .span-contour{
   margin-top: 10px;
   padding-top: 15%;
 }
+
+.floating img{
+  filter: invert(100%) sepia(0%) saturate(7498%) hue-rotate(163deg) brightness(114%) contrast(101%);
+  width: 40px;
+  height: 40px;
+}
   
 /*-------- footer ----------*/
 footer{

@@ -22,7 +22,7 @@
             <form action="{% url 'lecture:lecture_del' title.pk  %}"
                 method="POST" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
                 {% csrf_token %}
-                <input class="btn lecture-del" type="submit" value="삭제">
+                <input class="btn btn-warning lecture-del" type="submit" value="삭제">
             </form>
             {% endif %}
             <a href="list/{{ title.pk }}">
@@ -58,7 +58,7 @@
                                         <div class="container-img">
                                             <img class="embed-img" src="" alt="">
                                             <input type="checkbox" class="hidden-checkbox" style="display: none;" name="checkedImages" value="">
-                                            <span class="delete-btn">
+                                            <span class="img-delete-btn">
                                                 <span class="x-mark">X</span>
                                             </span>
                                         </div>

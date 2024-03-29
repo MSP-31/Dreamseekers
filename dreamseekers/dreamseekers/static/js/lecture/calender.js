@@ -276,7 +276,7 @@ function showModal(fullDate){
 
                 // '삭제' 버튼을 포함하는 input 요소 생성
                 var deleteButton = document.createElement('input');
-                deleteButton.className = 'btn';
+                deleteButton.className = 'btn btn-warning';
                 deleteButton.type = 'submit';
                 deleteButton.value = '삭제';
                 form.appendChild(deleteButton);

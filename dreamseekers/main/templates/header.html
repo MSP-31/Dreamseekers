@@ -118,17 +118,17 @@
 
 <ul class="floating">
     <li>
-        <a href="#"><ion-icon name="call-outline"></ion-icon></a>
+        <a href="#"><img src = {% static 'img/icon/call-outline.svg'%} alt="call-outline"></a>
     </li>
     <li>
-        <a href="/intro/contact/"><ion-icon name="map-outline"></ion-icon></a>
+        <a href="/intro/contact/"><img src = {% static 'img/icon/map-outline.svg'%} alt="map-outline"></ion-icon></a>
     </li>
     <li>
-        <a href="#"><ion-icon name="chatbubble-ellipses-outline"></ion-icon></a>
+        <a href="#"><img src = {% static 'img/icon/chatbubble-ellipses-outline.svg'%} alt="chatbubble-ellipses-outline"></ion-icon></a>
     </li>
     <li>
         <span style="cursor:pointer;" onclick="window.scrollTo(0,0);">
-            <ion-icon name="arrow-up-circle-outline"></ion-icon>
+            <img src = {% static 'img/icon/arrow-up-outline.svg'%} alt="arrow-up-outline">
         </span>
     </li>
 </ul>
@@ -162,11 +162,10 @@
             <li>기타 : (강의접수)010-9371-0450</li>
         </ul>
         <p><small>2024 꿈을찾는사람들교육원</small></p>
+        <p>Icon by Ionicons</p>
     </div>
 </footer>
 
 {% block script %}
 {% endblock %}
 <script src="{% static 'js/header.js'%}"></script>
-<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
