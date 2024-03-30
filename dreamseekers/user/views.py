@@ -44,3 +44,34 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('/')
+
+# 계정 관리
+def account(request):
+    return render(request,'account.html')
+
+# 계정 수정
+def account_modify(request):
+    # 현재 로그인되어있는 계정
+    user = request.user
+
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        user_account = Users.objects.get(pk=user.id)
+        if form.is_valid():
+            user_account.username = form.cleaned_data['username'],
+            user_account.password = make_password(form.cleaned_data['password']),
+            user_account.email    = form.cleaned_data['email'],
+            user_account.save()
+
+            return redirect('accounts:account')
+    else:
+        initial_data = {'username': user.username, 'email': user.email}
+        form = SignUpForm(initial=initial_data)
+
+    return render(request,'account_modify.html',{'form': form})
+
+# 계정탈퇴
+def account_del(request):
+    user = Users.objects.get(pk=request.user.id)
+    user.delete()
+    return redirect('/')

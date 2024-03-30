@@ -1,0 +1,66 @@
+{% extends 'header.html' %}
+{% load static %}
+
+{% block topImg %}
+    <img class="login-img" src = {% static "img/1.jpg" %} alt="예제이미지">
+{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <h1>계정 수정</h1>
+
+    <form method="post" action=".">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class ="login-form">
+            {% if field.name != 'password' and field.name != 're_password' %}
+            <input type = "{{ field.field.widget.input_type }}" class ="form-control" id ="{{field.id_for_label}}" 
+            placeholder = "{{field.label}}" name = "{{field.name}}" value="{{ field.value }}">
+            {% else %}
+            <input type="{{ field.field.widget.input_type }}" class="form-control" id="{{ field.id_for_label }}" 
+            placeholder="{{ field.label }}" name="{{ field.name }}">
+            {% endif %}
+
+            {% if field.errors %}
+            <span style = "color:red">{{field.errors}}</span>
+            {% endif %}
+        </div>
+        {% endfor %}
+        <button type="submit" class="btn-block btn-active">변경</button>
+    </form>
+    <span id="modal-open" class="btn btn-warning">계정삭제</span>
+    <a class='btn-block' href="/user/account/">돌아가기</a>
+    
+    <div id="modal-box" class ="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div class="consent-header">
+                <h3>정말 계정을 삭제하시겠습니까?</h3>
+            </div>
+            <div class="consent-con">
+                작성하신 모든 글은 삭제처리됩니다.<br>
+                계정을 삭제한 뒤에는 다시 복구할 수 없습니다.<br>
+            </div>
+            <br>
+            <a class='btn btn-warning' href="del">계정삭제</a>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script>
+    var modal = document.getElementById("modal-box");
+    var modal_btn = document.getElementById("modal-open");
+    var modal_span = document.getElementsByClassName("modal-close")[0];
+
+    modal_btn.onclick = function() {
+        modal.style.display = "block";
+      }
+      modal_span.onclick = function() {
+        modal.style.display = "none";
+      }
+</script>
+{% endblock %}

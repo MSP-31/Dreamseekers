@@ -210,8 +210,6 @@ def lecture_list(request):
         form = lectureTitleForm(request.POST, request.FILES)
 
         if form.is_valid():
-            print("성공")
-
             new_lecture = lectureTitle.objects.create(
                 title     = form.cleaned_data['title'],
                 contents  = form.cleaned_data['contents'],

@@ -1,0 +1,22 @@
+{% extends 'header.html' %}
+{% load static %}
+
+{% block topImg %}
+    <img class="login-img" src = {% static "img/1.jpg" %} alt="예제이미지">
+{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <h1>정보 수정</h1>
+
+    <a class="btn-block btn-active" href="/user/account/modify">계정 수정</a>
+
+    {% if request.user.is_staff %}
+    <a class="btn-block btn" href="/user/admin/slide">메인 슬라이더 수정</a>
+
+    <a class="btn-block btn" href="/admin">관리자 페이지 바로가기</a>
+    {% endif %}
+    
+</div>
+
+{% endblock %}

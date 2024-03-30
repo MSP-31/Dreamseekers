@@ -52,7 +52,7 @@ class lectureTitleForm(forms.ModelForm):
             'contents': forms.Textarea(attrs={'class': 'width'}),
         }
 
-# 강의 추가 폼
+# 세부 강의 추가 폼
 class lectureListForm(forms.ModelForm):
     class Meta:
         model  = lectureList

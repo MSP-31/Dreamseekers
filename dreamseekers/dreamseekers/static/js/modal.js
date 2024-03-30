@@ -40,12 +40,28 @@ editButtons.forEach(function(button) {
     var id = this.dataset.id;
     // 해당 id값에 해당하는 요소를 찾아 가져옴
     var lectureElement = document.querySelector('a[href="list/' + id + '"]');
+    if (!lectureElement){ // 만약 해당 요소가 없으면 다른값으로 대체
+      lectureElement = document.querySelector('div[data-id="' + id + '"]');
+      lectureElement.foundBy = 'divTag';
+    }
+    else{
+      lectureElement.foundBy = 'aTag';
+    }
+    console.log(lectureElement.foundBy);
     var title = lectureElement.querySelector('.lecture-title').textContent;
     var contents = lectureElement.querySelector('.lecture-text').innerHTML;
     var contentText = contents.replace(/<br>/g, '\n');
     var image = lectureElement.querySelector('img').dataset.src;
-
-    form.action = "list/update/" + id;
+  
+  if (lectureElement) {
+    if (lectureElement.foundBy === 'aTag') {
+      form.action = "list/update/" + id;
+    }
+    else if (lectureElement.foundBy === 'divTag') {
+      form.action = "slide/update/" + id;
+    }
+  }
+    
     form.querySelector('input[name="title"]').value = title;
     form.querySelector('textarea[name="contents"]').value = contentText
     

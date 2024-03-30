@@ -1,0 +1,87 @@
+{% extends 'header.html' %}
+{% load static %}
+
+{% block topImg %}
+    <img class="login-img" src = {% static "img/1.jpg" %} alt="예제이미지">
+{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <h1>메인 슬라이더 목록</h1>
+    
+    {% if request.user.is_staff %}
+    <span id="modal-open" class="btn">추가</span>
+    {% endif %}
+
+    <ul class="lecture-box">
+        {% for title in titles %}
+        <li class="lecture-content">
+            {% if request.user.is_staff %}
+            <span class="btn lecture-edit" data-id="{{title.pk}}">수정</span>
+            <form action="{% url 'slide_del' title.pk  %}"
+                method="POST" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
+                {% csrf_token %}
+                <input class="btn btn-warning lecture-del" type="submit" value="삭제">
+            </form>
+            {% endif %}
+            <div data-id="{{title.pk}}">
+                <h2 class="lecture-title" data-id="{{title.pk}}">{{ title.title }}</h2>
+                <p class="lecture-text">{{ title.contents|linebreaksbr }}</p>
+                <img src="{{ title.image.url }}" data-src="{{ title.image.url }}" alt="{{title.title}}">
+            <div>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <div id="modal-box" class ="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <table>
+                    {% for field in form %}
+                        {% if field.name == 'image' %}
+                            <tr>
+                                <td colspan="2">
+                                    <label class="img-label" id="img-label" for="img-input">
+                                        <div class="img-inner" id="img-inner">클릭해서 업로드</div>
+                                    </label>
+                                    <input id="img-input" name="image" type="file" accept="image/*" hidden="true">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <p class="preview-title">미리보기</p>
+                                    <div class="preview" id="preview">
+                                        <div class="container-img">
+                                            <img class="embed-img" src="" alt="">
+                                            <input type="checkbox" class="hidden-checkbox" style="display: none;" name="checkedImages" value="">
+                                            <span class="img-delete-btn">
+                                                <span class="x-mark">X</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <th><label for="{{ field.id_for_label }}">{{ field.label }}</label></th>
+                                <td>{{ field }}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+                <input class="btn" type="submit" value="등록">
+            </form>
+            
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script src="{% static "js/modal.js" %}"></script>
+<script src="{% static "js/notice.js" %}"></script>
+{% endblock %}

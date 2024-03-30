@@ -31,6 +31,8 @@
             {% if request.user.is_authenticated %} <!--로그인 여부 확인-->
             <b>{{ request.user.username}}</b>님
             <span class="span-contour"></span>
+            <a href="{% url 'accounts:account' %}">정보수정</a>
+            <span class="span-contour"></span>
             <a href="{% url 'accounts:logout' %}">로그아웃</a>
             {% else %}
             <a href="{% url 'accounts:login' %}">로그인</a>
@@ -154,12 +156,12 @@
     <div>
         <ul>
             <li>꿈을찾는사람들교육원</li>
-            <li>홍의섭</li>
-            <li>경남 창원시 성산구 용지로70.1029호 (중앙동/성원그랜드 오피스텔)</li>
-            <li>사업자등록번호 : 102-27-75425</li>
-            <li>전화번호 : 055-601-0451</li>
-            <li>이메일 : jhs9747@naver.com</li>
-            <li>기타 : (강의접수)010-9371-0450</li>
+            <li>{{footer_info.rep}}</li>
+            <li>{{footer_info.address}} / {{footer_info.sub_address}}</li>
+            <li>사업자등록번호 : {{footer_info.CRN}}</li>
+            <li>전화번호 : {{footer_info.phone}}</li>
+            <li>이메일 : {{footer_info.email}}</li>
+            <li>기타 : (강의접수){{footer_info.sub_phone}}</li>
         </ul>
         <p><small>2024 꿈을찾는사람들교육원</small></p>
         <p>Icon by Ionicons</p>

@@ -132,11 +132,7 @@
 
 /* 강의 상담문의 예외*/
 .main-content table th{
-    /* display: flex; */
     height: 60px;
-    /* justify-content: center; */
-    /* align-items: center; */
-    /* text-align: center; */
     width: 10%;
     vertical-align: middle;
     padding-bottom: 3%;
