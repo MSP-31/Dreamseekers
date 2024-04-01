@@ -1,4 +1,5 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 
 from datetime import timedelta
@@ -51,7 +52,7 @@ def detail(request, pk):
 def write(request):
     # 로그인 여부 확인
     if not request.user.is_authenticated:
-        return redirect('accounts:login')
+        return HttpResponseRedirect('/user/login/?next=' + request.META['HTTP_REFERER'])
 
     elif request.method == 'POST':
         form = NoticeForm(request.POST)
@@ -89,7 +90,7 @@ def write(request):
 def update(request,pk):
     # 로그인 여부 확인
     if not request.user.is_authenticated:
-        return redirect('accounts:login')
+        return HttpResponseRedirect('/user/login/?next=' + request.META['HTTP_REFERER'])
 
     post = Notice.objects.get(pk=pk)
 

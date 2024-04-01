@@ -55,7 +55,7 @@ $(document).ready(function() {
           for(var j = 0; j < lectures.length; j++){
             var lecture = lectures[j];
             var lectureId = lecture.dataset.id;
-            var lectureHref = "/lecture/list/"+lectureId+"/"
+            var lectureHref = "/lecture/list/detail/"+lectureId+"/"
 
             // 버튼 생성
             var a = document.createElement('a');

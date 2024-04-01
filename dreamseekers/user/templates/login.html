@@ -24,6 +24,7 @@
                 {% endif %}
             </div>
             {% endfor %}
+            <input type="hidden" name="next" value="{{ request.GET.next }}">
             <button type="submit" class="btn-block btn-active">로그인</button>
         </form>
         <div class='social-login'>

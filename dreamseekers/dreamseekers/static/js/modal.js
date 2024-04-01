@@ -39,15 +39,18 @@ editButtons.forEach(function(button) {
     // id값을 가져옴
     var id = this.dataset.id;
     // 해당 id값에 해당하는 요소를 찾아 가져옴
-    var lectureElement = document.querySelector('a[href="list/' + id + '"]');
-    if (!lectureElement){ // 만약 해당 요소가 없으면 다른값으로 대체
-      lectureElement = document.querySelector('div[data-id="' + id + '"]');
-      lectureElement.foundBy = 'divTag';
+    var lectureElement = document.querySelector('a[href="list/detail/' + id + '"]');
+    if (document.querySelector('div[data-slide-id="' + id + '"]')){ // 만약 해당 요소가 없으면 다른값으로 대체
+      lectureElement = document.querySelector('div[data-slide-id="' + id + '"]');
+      lectureElement.foundBy = 'slide';
+    }
+    else if(document.querySelector('div[data-lecture-id="' + id + '"]')){
+      lectureElement = document.querySelector('div[data-lecture-id="' + id + '"]')
+      lectureElement.foundBy = 'lecture';
     }
     else{
       lectureElement.foundBy = 'aTag';
     }
-    console.log(lectureElement.foundBy);
     var title = lectureElement.querySelector('.lecture-title').textContent;
     var contents = lectureElement.querySelector('.lecture-text').innerHTML;
     var contentText = contents.replace(/<br>/g, '\n');
@@ -57,8 +60,11 @@ editButtons.forEach(function(button) {
     if (lectureElement.foundBy === 'aTag') {
       form.action = "list/update/" + id;
     }
-    else if (lectureElement.foundBy === 'divTag') {
+    else if (lectureElement.foundBy === 'slide') {
       form.action = "slide/update/" + id;
+    }
+    else if (lectureElement.foundBy === 'lecture') {
+      form.action = "/lecture/list/detail/update/" + id;
     }
   }
     

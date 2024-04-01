@@ -1,5 +1,5 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.utils import formats
 
@@ -77,7 +77,7 @@ def post_detail(request, pk):
 def post_write(request):
     # 로그인 여부 확인
     if not request.user.is_authenticated:
-        return redirect('accounts:login')
+        return HttpResponseRedirect('/user/login/?next=' + request.META['HTTP_REFERER'])
 
     elif request.method == 'POST':
         form = BoardForm(request.POST)
@@ -107,7 +107,7 @@ def post_write(request):
 def post_update(request,pk):
     # 로그인 여부 확인
     if not request.user.is_authenticated:
-        return redirect('accounts:login')
+        return HttpResponseRedirect('/user/login/?next=' + request.META['HTTP_REFERER'])
 
     post = Post.objects.get(pk=pk)
 

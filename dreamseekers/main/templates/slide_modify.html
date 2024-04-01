@@ -24,7 +24,7 @@
                 <input class="btn btn-warning lecture-del" type="submit" value="삭제">
             </form>
             {% endif %}
-            <div data-id="{{title.pk}}">
+            <div data-slide-id="{{title.pk}}">
                 <h2 class="lecture-title" data-id="{{title.pk}}">{{ title.title }}</h2>
                 <p class="lecture-text">{{ title.contents|linebreaksbr }}</p>
                 <img src="{{ title.image.url }}" data-src="{{ title.image.url }}" alt="{{title.title}}">

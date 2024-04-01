@@ -870,9 +870,9 @@ table{
 /* -------인사말------- */
 .intro-box{
     display: flex;
+    padding-top: 20px;
 }
 
 .intro-box .intro-text{
-    padding-top: 50px;
     padding-left: 50px;
 }

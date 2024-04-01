@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import login, logout
@@ -35,7 +36,13 @@ def login_view(request):
         form = LoginForm(request.POST)
         if form.is_valid():
             login(request,form.user)
+            
+            # 만약에 이전 페이지가 존재한다면
+            next_url = request.POST.get('next')
+            if next_url:
+                return HttpResponseRedirect(next_url)
             return redirect('/')
+            
     else:
         form = LoginForm()
     return render(request, 'login.html', {'form':form})

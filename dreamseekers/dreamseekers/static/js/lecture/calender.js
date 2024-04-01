@@ -286,16 +286,17 @@ function showModal(fullDate){
 
                 // 'detail-list' li 요소에 'modal-revise' span 요소 추가
                 li.appendChild(modalRevise);
+
+                console.log(schedulePK);
+                 // 일정 수정 (즉시 실행 함수)
+                reviseForm.onclick = (function(schedulePK) {
+                    return function() {
+                    updateCalender(fullDate, schedulePK);
+                    };
+                })(schedulePK);
             }
             // 'detail-list' li 요소를 detailListArea에 추가
             detailListArea.appendChild(li);
-
-            // 일정 수정 (즉시 실행 함수)
-            reviseForm.onclick = (function(schedulePK) {
-                return function() {
-                    updateCalender(fullDate, schedulePK);
-                };
-            })(schedulePK);
         }
     }
 
@@ -312,7 +313,7 @@ function showModal(fullDate){
     // 'x' 버튼 클릭시 모달창 닫기
     closeBtn.onclick = function() {
         modal.style.display = 'none';
-        if(contentText && timeText){
+        if(modalRevise){
             modalRevise.style.display = 'none';
         }
     }

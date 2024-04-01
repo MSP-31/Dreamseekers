@@ -1,12 +1,10 @@
 import os
 from django.db import models
-from django.core.validators import RegexValidator
 
 # 상담 문의
 class Inquiry(models.Model):
     author     = models.ForeignKey('user.Users', on_delete=models.CASCADE, related_name='lecture_posts', verbose_name='글쓴이')
-    phoneNumberRegex = RegexValidator(regex = r'^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$')
-    phone      = models.CharField(validators=[phoneNumberRegex], max_length=11, verbose_name='연락처')
+    phone      = models.CharField(max_length=11, verbose_name='연락처')
     title      = models.CharField(max_length=50, verbose_name='제목')
     contents   = models.TextField(max_length=3000, verbose_name='내용')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='등록일')
@@ -74,9 +72,28 @@ class lectureTitle(models.Model):
 class lectureList(models.Model):
     lecture_list = models.ForeignKey(lectureTitle, on_delete=models.CASCADE, verbose_name='강의리스트')
     title        = models.CharField(max_length=50, verbose_name='제목')
+    contents     = models.TextField(max_length=200, verbose_name='설명')
+    image        = models.ImageField(upload_to='lecture/list/detail/img/',blank=True, null=True, verbose_name='이미지')
 
     def __str__(self):
         return self.title
+    
+    # 강사진 삭제
+    def delete(self, *args, **kargs):
+
+        # 이미지가 존재하면 같이 삭제
+        if self.image:
+            if os.path.isfile(self.image.path):
+                try:
+                    # 이미지 삭제
+                    os.remove(self.image.path)
+                except FileNotFoundError:
+                    pass
+            else: #이미지 파일이 없는 경우
+                pass
+            self.image.delete()
+
+        super(lectureList,self).delete(*args, **kargs)
 
     class Meta:
         db_table = "lecture_list"

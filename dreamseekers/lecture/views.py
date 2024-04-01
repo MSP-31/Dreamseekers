@@ -1,5 +1,5 @@
 from datetime import datetime
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.core import serializers
@@ -15,8 +15,8 @@ from .forms import CalenderForm, InquiryForm, lectureListForm, lectureTitleForm
 def inquiry(request):
     # 로그인 여부 확인
     if not request.user.is_authenticated:
-        return redirect('accounts:login')
-    
+        return HttpResponseRedirect('/user/login/?next=' + '/lecture/inquiry')
+    #return HttpResponseRedirect('/user/login/?next=' + request.META['HTTP_REFERER'])
     # GET요청시 회원정보 넘겨줌
     elif request.method == 'GET':
         form = InquiryForm()
@@ -237,7 +237,6 @@ def lecture_update(request,pk):
                 lecture.image = request.FILES['image']
 
             form.save()
-            return redirect('lecture:lecture_list')
     return redirect('lecture:lecture_list')
 
 # 주요강의 삭제
@@ -256,15 +255,45 @@ def lecture_detail(request,pk):
 
     form = lectureListForm()
     if request.method == 'POST':
-        form = lectureListForm(request.POST)
+        form = lectureListForm(request.POST, request.FILES)
 
         if form.is_valid():
             new_lectureList = lectureList.objects.create(
                 lecture_list_id = pk,
                 title           = form.cleaned_data['title'],
+                contents        = form.cleaned_data['contents'],
+                image           = request.FILES.get('image'),
             )
             return redirect('lecture:lecture_detail', pk=pk)
         
     return render(request, 'lecture_detail.html',{'form': form,'titles':titles, 'list':title_list})
 
+# 강의 상세 수정
+def lecture_detail_update(request,pk):
+    # 관리자 여부 확인
+    if not request.user.is_staff:
+        return redirect('accounts:login')
+    
+    lecture = lectureList.objects.get(pk=pk)
+    lecture_pk = lecture.lecture_list.pk
+    if request.method == 'POST':
+        form = lectureListForm(request.POST,instance=lecture)
+        if form.is_valid():
+            # 이미지가 등록되었다면
+            if(request.POST.getlist('checkedImages')):
+                # 기존에 등록된 이미지 삭제
+                lecture.image.delete()
+                # 새 이미지 추가
+                lecture.image = request.FILES['image']
 
+            form.save()
+    return redirect('lecture:lecture_detail', pk=lecture_pk)
+
+# 강의 상세 삭제
+def lecture_detail_del(request,pk):
+    lecture = lectureList.objects.get(pk=pk)
+
+    if request.method == 'POST':
+        lecture.delete()
+        return redirect('lecture:lecture_detail', pk=pk)
+    return render(request)

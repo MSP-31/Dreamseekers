@@ -24,7 +24,8 @@ input, textarea {
     text-align: center;
   
     width: auto;
-    height: 30px;
+    height: 35px;
+    place-content: center;
     line-height: 30px;
     padding: 0 10px;
     margin: 5px;

@@ -1,7 +1,8 @@
 from django.urls import include,path
 from .views import inquiry,inquiry_index,inquiry_detail
 from .views import lecture_calender,calenderUpdate,calenderDel
-from .views import lecture_list,lecture_detail,lecture_del,lecture_update
+from .views import lecture_list,lecture_del,lecture_update
+from .views import lecture_detail, lecture_detail_update, lecture_detail_del
 
 app_name = 'lecture'
 
@@ -19,7 +20,11 @@ urlpatterns = [
 
     # 주요강의
     path('list',lecture_list,name='lecture_list'),
-    path('list/<int:pk>/',lecture_detail,name='lecture_detail'),
     path('list/update/<int:pk>',lecture_update,name='lecture_update'),
     path('list/del/<int:pk>/',lecture_del,name='lecture_del'),
+
+    # 강의 상세
+    path('list/detail/<int:pk>/',lecture_detail,name='lecture_detail'),
+    path('list/detail/update/<int:pk>',lecture_detail_update,name='detail_update'),
+    path('list/detail/del/<int:pk>/',lecture_detail_del,name='detail_del'),
 ]
