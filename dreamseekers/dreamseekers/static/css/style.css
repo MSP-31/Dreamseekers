@@ -68,3 +68,39 @@ input, textarea {
     width: 250px;
     height: 50px;
 }
+
+input {
+    border: none;
+    border-bottom: 2px solid var(--line-color);
+    border-top: 0px;
+    border-radius: 0px;
+    font-weight: bold;
+    outline: 0;
+    padding-left: 0px;
+    margin-bottom: 20px;
+    transition: border-bottom 0.2s ease-in-out; 
+}
+
+input:focus{
+    border-bottom: 2px solid var(--primary-color);
+}
+
+/* 검색 상자 */
+.search-box{
+    position: relative;
+    text-align: right;
+    text-align: -webkit-right;
+    padding-bottom: 30;
+}
+
+.search-box .search-text{
+    padding-right: 30;
+}
+
+.search-box .search-image{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 30;
+    border: none;
+}

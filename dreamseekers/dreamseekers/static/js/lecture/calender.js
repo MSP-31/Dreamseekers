@@ -1,4 +1,3 @@
-//출처: https://songsong.dev/entry/Javascript로-달력-만들기 [송송은 오늘도 열심히 코딩 하네:티스토리]
 $(document).ready(function() {
     calendarInit();
 });

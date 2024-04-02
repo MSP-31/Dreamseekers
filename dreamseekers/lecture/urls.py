@@ -3,6 +3,7 @@ from .views import inquiry,inquiry_index,inquiry_detail
 from .views import lecture_calender,calenderUpdate,calenderDel
 from .views import lecture_list,lecture_del,lecture_update
 from .views import lecture_detail, lecture_detail_update, lecture_detail_del
+from .views import LectureListView
 
 app_name = 'lecture'
 
@@ -27,4 +28,6 @@ urlpatterns = [
     path('list/detail/<int:pk>/',lecture_detail,name='lecture_detail'),
     path('list/detail/update/<int:pk>',lecture_detail_update,name='detail_update'),
     path('list/detail/del/<int:pk>/',lecture_detail_del,name='detail_del'),
+
+    path('list/search', LectureListView.as_view(), name='search'),
 ]

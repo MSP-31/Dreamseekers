@@ -35,7 +35,7 @@
                 </form>
                 {% endif %}
                 <div data-lecture-id="{{lecture.pk}}">
-                    <h2 class="lecture-title" data-id="{{lecture.pk}}">{{ lecture.title }}</h2>
+                    <h2 class="lecture-detail-title" data-id="{{lecture.pk}}">{{ lecture.title }}</h2>
                     <p class="lecture-text">{{ lecture.contents|linebreaksbr }}</p>
                     {% if lecture.image %}
                         <img src="{{ lecture.image.url }}" data-src="{{ lecture.image.url }}" alt="{{lecture.title}}">

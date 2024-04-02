@@ -8,6 +8,13 @@ from user.models import Users
 from .models import File, Image, Notice
 from .forms import NoticeForm
 
+from django.views.generic import ListView
+from django.contrib import messages
+from django.db.models import Q
+
+# 페이지당 항목 수
+ITEMS_PER_PAGE = 10
+
 # 게시글 목록
 def index(request):
     # 모든 Notice를 불러오고 페이지에 가져옴
@@ -15,7 +22,7 @@ def index(request):
     page = request.GET.get('page') # 페이지
 
     # 출력하는 Notice수 제한
-    paginator = Paginator(list,10)
+    paginator = Paginator(list,ITEMS_PER_PAGE)
 
     try:
         page_obj = paginator.page(page)
@@ -135,3 +142,53 @@ def delete(request,pk):
         post.delete()
         return redirect('notice:index')
     return render(request, 'notice_detail.html',{'post':post})
+
+# 게시글 검색 기능
+class NoticeView(ListView):
+    model = Notice  # 모델 설정
+    template_name = 'notice_index.html'  # 템플릿 이름 설정
+
+    # 기본 쿼리셋 지정
+    def get_queryset(self):
+        search_keyword = self.request.GET.get('q', '')
+        search_type = self.request.GET.get('type', '')
+        notice_list = Notice.objects.order_by('-id')
+
+        if search_keyword:
+            if len(search_keyword) > 1:
+                if search_type == 'all':
+                    search_notice_list = notice_list.filter(Q (title__icontains=search_keyword) | Q (contents__icontains=search_keyword))
+                elif search_type == 'title':
+                    search_notice_list = notice_list.filter(title__icontains=search_keyword)    
+                elif search_type == 'contents':
+                    search_notice_list = notice_list.filter(contents__icontains=search_keyword)
+                return search_notice_list
+            else:
+                messages.error(self.request, '검색어는 2글자 이상 입력해주세요.')
+        return notice_list
+    
+    # 템플릿에 전달될 컨텍스트 데이터 지정
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        search_keyword = self.request.GET.get('q', '')
+
+        if len(search_keyword) > 1:
+            context['q'] = search_keyword
+
+        # notice_list에 쿼리셋 할당
+        notice_list = self.get_queryset()
+
+        # Paginator 객체 생성
+        paginator = Paginator(notice_list, ITEMS_PER_PAGE)
+        
+        # 현재 페이지 번호 가져옴
+        page_number = self.request.GET.get('page')
+
+        # Page 객체 생성
+        page_obj = paginator.get_page(page_number)
+
+        # page_obj를 컨텍스트에 추가
+        context['page_obj'] = page_obj
+
+        return context

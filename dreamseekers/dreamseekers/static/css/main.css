@@ -197,22 +197,6 @@
 
 
 /*-------로그인 디자인---------*/
-
-.login-form input {
-    border: none;
-    border-bottom: 2px solid var(--line-color);
-    border-top: 0px;
-    border-radius: 0px;
-    font-weight: bold;
-    outline: 0;
-    padding-left: 0px;
-    margin-bottom: 20px;
-    transition: border-bottom 0.2s ease-in-out; 
-}
-
-.login-form input:focus{
-    border-bottom: 2px solid var(--primary-color);
-}
 .login-box{
     text-align: center;
     text-align: -webkit-center;

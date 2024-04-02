@@ -4,6 +4,11 @@ from django.shortcuts import redirect, render
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.core import serializers
 
+from django.views.generic import ListView
+from django.contrib import messages
+from django.db.models import Q
+from itertools import chain
+
 from comment.forms import CommentForm
 from comment.models import Comment, PostCommetns
 from comment.serializers import CommentSerializer
@@ -16,7 +21,6 @@ def inquiry(request):
     # 로그인 여부 확인
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/user/login/?next=' + '/lecture/inquiry')
-    #return HttpResponseRedirect('/user/login/?next=' + request.META['HTTP_REFERER'])
     # GET요청시 회원정보 넘겨줌
     elif request.method == 'GET':
         form = InquiryForm()
@@ -297,3 +301,35 @@ def lecture_detail_del(request,pk):
         lecture.delete()
         return redirect('lecture:lecture_detail', pk=pk)
     return render(request)
+
+# 강의 검색 기능
+class LectureListView(ListView):
+    model = lectureTitle  # 모델 설정
+    template_name = 'lecture_list.html'  # 템플릿 이름 설정
+
+    # 기본 쿼리셋 지정
+    def get_queryset(self):
+        search_keyword = self.request.GET.get('q', '')
+        print(search_keyword)
+        lecture_title_list = lectureTitle.objects.all()
+        lecture_detail_list = lectureList.objects.all()
+
+        if search_keyword:
+            if len(search_keyword) > 1:
+                search_lecture_title_list = lecture_title_list.filter(Q(title__icontains=search_keyword))
+                search_lecture_detail_list = lecture_detail_list.filter(Q(title__icontains=search_keyword))
+                return list(chain(search_lecture_title_list,search_lecture_detail_list))
+            else:
+                messages.error(self.request,'검색어는 2글자 이상 입력해주세요.')
+        return list(chain(lecture_title_list,lecture_detail_list))
+    
+    # 템플릿에 전달될 컨텍스트 데이터 지정
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        search_keyword = self.request.GET.get('q','')
+        if search_keyword and len(search_keyword) > 1:
+            context['titles'] = lectureTitle.objects.filter(Q(title__icontains=search_keyword))
+            context['list'] = lectureList.objects.filter(Q(title__icontains=search_keyword))
+        else:
+            context['titles'] = lectureTitle.objects.all()
+        return context

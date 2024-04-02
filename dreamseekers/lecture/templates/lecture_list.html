@@ -14,6 +14,22 @@
     <span id="modal-open" class="btn">추가</span>
     {% endif %}
 
+    <form method="GET" action="{% url 'lecture:search' %}">
+        <div class="search-box" style="position: relative;">
+            <input class="search-text" type="text" name="q" placeholder="강의명을 입력해주세요">
+            <input class="search-image" type="image" src="{% static '/img/icon/search-outline.svg' %}" alt="검색">
+        </div>
+    </form>
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <!-- 전체 강의 -->
     <ul class="lecture-box">
         {% for title in titles %}
         <li class="lecture-content">
@@ -25,7 +41,7 @@
                 <input class="btn btn-warning lecture-del" type="submit" value="삭제">
             </form>
             {% endif %}
-            <a href="list/detail/{{ title.pk }}">
+            <a href="/lecture/list/detail/{{ title.pk }}">
                 <h2 class="lecture-title" data-id="{{title.pk}}">{{ title.title }}</h2>
                 <p class="lecture-text">{{ title.contents|linebreaksbr }}</p>
                 <img src="{{ title.image.url }}" data-src="{{ title.image.url }}" alt="{{title.title}}">
@@ -34,7 +50,27 @@
         {% endfor %}
     </ul>
 
+    {% if list %}
+    <h1>강의 세부</h1>
+    {% endif %}
+    <!-- 세부 강의 내용 -->
+    <ul class="lecture-box">
+        {% for list in list %}
+            <li class="lecture-content">
+                <a href="/lecture/list/detail/{{ list.lecture_list.pk }}">
+                    <h2 class="lecture-detail-title" data-id="{{list.pk}}">{{ list.title }}</h2>
+                    <p class="lecture-text">{{ list.contents|linebreaksbr }}</p>
+                    {% if list.image %}
+                        <img src="{{ list.image.url }}" data-src="{{ list.image.url }}" alt="{{list.title}}">
+                    {% endif %}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+    
+
     {% if request.user.is_staff %}
+    <!-- 모달 부분 -->
     <div id="modal-box" class ="modal">
         <div class="modal-content">
             <span class="modal-close">&times;</span>

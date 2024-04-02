@@ -54,6 +54,7 @@ $(document).ready(function() {
           // 서브메뉴 개수만큼 반복
           for(var j = 0; j < lectures.length; j++){
             var lecture = lectures[j];
+            console.log(lecture);
             var lectureId = lecture.dataset.id;
             var lectureHref = "/lecture/list/detail/"+lectureId+"/"
 
