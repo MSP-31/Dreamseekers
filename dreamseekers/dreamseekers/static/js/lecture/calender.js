@@ -88,6 +88,7 @@ function calendarInit() {
             
             var span = document.createElement('span');
             span.textContent = i;
+            span.className = 'num'
             newDiv.appendChild(span);
             
             if (i == selectedDate){

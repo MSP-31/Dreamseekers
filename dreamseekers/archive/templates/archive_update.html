@@ -1,0 +1,81 @@
+{% extends 'header.html' %}
+{% load static %}
+{% load dr_filter %}
+
+{% block topImg %}
+    <img src = {% static "img/top_header/forum.jpg" %} alt="예제이미지">
+    <h1>소통 마당</h1>
+{% endblock %}
+
+{% block content %}
+
+<div class="main-content">
+    <h1>자료실 수정</h1>
+    <div class="post-write">
+        <form method="POST" action="." enctype="multipart/form-data">
+            {% csrf_token %}
+            <table>
+                {% for field in form %}
+                {% if field.name == 'image' %}
+                <tr>
+                    <th><label for="{{ field.id_for_label }}">{{ field.label }}</label></th>
+                    <td>
+                        <label class="img-label" id="img-label" for="img-input">
+                            <div class="img-inner" id="img-inner">업로드</div>
+                        </label>
+                        <input id="img-input" name="image" type="file" accept="image/*" multiple="true" hidden="true">
+                        <div class="preview" id="preview">
+                            {% for image in post.image.all %}
+                            <div class="container-img">
+                                <img class="embed-img" src="{{ image.image.url }}" alt="{{ image.image.name }}">
+                                <input type="checkbox" class="hidden-checkbox" name="deleteImage{{ image.id }}" style="display: none;">
+                                <span class="img-delete-btn">
+                                    <span class="x-mark">X</span>
+                                </span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </td>
+                </tr>
+                {% elif field.name == 'files' %}
+                <tr>
+                    <th><label for="{{ field.id_for_label }}">{{ field.label }}</label></th>
+                    <td>
+                        <label class="file-label" id="file-label" for="file-input">
+                            <div class="img-inner" id="img-inner">업로드</div>
+                        </label>
+
+                        <input id="file-input" name="{{ field.html_name }}" type="file" multiple="true" hidden="true">
+
+                        <ul class="file-preview" id="file-preview">
+                            {% for file in post.files.all %}
+                            <li class="container-file">
+                                <span class="embed-file">{{file.file.name|basename}}</span>
+                                <span class="file-delete-btn">X</span>
+                                <input type="checkbox" class="hidden-checkbox" name="deleteFile{{ file.id }}" style="display: none;">
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <th><label for="{{ field.id_for_label }}">{{ field.label }}</label></th>
+                    <td>{{ field }}</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </table>
+            <div class="btn-group">
+                <a class="btn" href="/board/archive/">취소</a>
+                <button class="btn-active" type="submit">등록</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script src="{% static "js/notice.js" %}"></script>
+{% endblock %}

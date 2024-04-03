@@ -11,9 +11,9 @@
 
 <div class="main-content">
 
-  <h1>공지사항</h1>
+  <h1>자료실</h1>
 
-  <form method="GET" action="{% url 'notice:search' %}">
+  <form method="GET" action="{% url 'archive:search' %}">
     <div class="search-box" style="position: relative;">
         <select name="type">
           <option value="all">전체</option>
@@ -38,19 +38,6 @@
         <th style="width: 15%;" scope="col">작성일</th>
       </tr>
     </thead>
-
-    {% for impost in important_notice %}
-    <tbody>
-      <tr class="clickable-row" data-href="{{impost.pk}}/">
-        <td>
-          <span class="megaphone-icon"></span>
-        </td>
-        <td style="text-align: left;"><a href="{{impost.pk}}/">{{impost.title}}</td>
-        <td>{{impost.author}}</td>
-        <td>{{impost.created_at | date:"Y.m.d" }}</td>
-      </tr>
-    </tbody>
-    {% endfor %}
 
     {% for post in page_obj %}
     <tbody>

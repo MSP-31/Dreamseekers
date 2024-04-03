@@ -15,11 +15,12 @@
         {% csrf_token %}
         <table>
             {% for field in form %}
-            {% if field.name == 'title' %}
+            {% if field.name == 'is_private' %}
+            {% elif field.name == 'title' %}
             <tr>
                 <th><label for="{{ field.id_for_label }}">{{ field.label }}</label></th>
                 <td>{{ field }}</td>
-                <td class="wwww">
+                <td class="is-check">
                     <label for='is_private'>비밀글</label>
                     <input type='checkbox' name='is_private' id='is_private'>
                 </td>

@@ -156,7 +156,7 @@
 .main-content .post-write table td .widthxt{
     width: 123%;
 }
-.main-content .post-write table tr .wwww{
+.main-content .post-write table tr .is-check{
     width: 20%;
     text-align: center;
     text-align: -webkit-center;
@@ -233,6 +233,11 @@ table{
     padding: 0 0 0 0;
 }
 
+.board-write{
+    position: absolute;
+    right: 0;
+}
+
 /* 게시판 페이징 네비*/
 .paging-navi ul {
   display: flex;
@@ -250,6 +255,23 @@ table{
   
 .paging-navi li.active a {
     color: red;
+}
+
+/* 공지사항 아이콘 */
+.megaphone-icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.megaphone-icon::after{
+    content: url('../img/icon/megaphone-outline.svg');
+    width: 24;
+}
+
+/* 게시판 열 */
+.board-table .clickable-row:hover{
+    background-color: var(--line-color-light);
 }
 
 /*--------------------*/
@@ -279,6 +301,15 @@ table{
 
 .board-content{
     min-height: 200px;
+}
+
+.board-content .file-download{
+    display: flex;
+    align-items: center;
+}
+.board-content .file-download::before{
+    content: url('../img/icon/document-text-outline.svg');
+    width: 30;
 }
 
 .board-comment .comment-count{
@@ -724,7 +755,14 @@ table{
     border: 0.5px solid var(--primary-color);
 }
 
-.current.today {background: rgb(242 242 242);}
+/* 오늘 날짜 */
+.current.today .num{
+    width: 15px;
+    height: 25px;
+    background-color: #3c6ffa;
+    border-radius: 50%;
+    color: white;
+}
 
 .sec-cal .cal-wrap .dates {
     display: flex;

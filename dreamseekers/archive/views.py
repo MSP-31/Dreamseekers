@@ -5,8 +5,8 @@ from django.shortcuts import redirect, render
 from datetime import timedelta
 
 from user.models import Users
-from .models import File, Image, Notice
-from .forms import NoticeForm
+from .models import File, Image, Archive
+from .forms import ArchiveForm
 
 from django.views.generic import ListView
 from django.contrib import messages
@@ -17,14 +17,11 @@ ITEMS_PER_PAGE = 10
 
 # 게시글 목록
 def index(request):
-    # 중요 공지만 따로 분리
-    important_notice = Notice.objects.filter(is_important=True).order_by('-created_at')
-
-    # 모든 Notice를 불러오고 페이지에 가져옴
-    list = Notice.objects.filter(is_important=False).order_by('-created_at')
+    # 모든 Archive를 불러오고 페이지에 가져옴
+    list = Archive.objects.order_by('-created_at')
     page = request.GET.get('page') # 페이지
 
-    # 출력하는 Notice수 제한
+    # 출력하는 Archive수 제한
     paginator = Paginator(list,ITEMS_PER_PAGE)
 
     try:
@@ -45,19 +42,18 @@ def index(request):
 
     custom_range = range(leftIndex, rightIndex+1)
 
-    return render(request, 'notice_index.html',{'important_notice':important_notice,'page_obj':page_obj,
-                                                'paginator':paginator, 'custom_range':custom_range})
+    return render(request, 'archive_index.html',{'page_obj':page_obj, 'paginator':paginator, 'custom_range':custom_range})
 
 # 게시글 자세히 보기
 def detail(request, pk):
     # 게시글에서 pk(primary_key)로 해당 게시글 검색
-    post = Notice.objects.get(pk=pk)
+    post = Archive.objects.get(pk=pk)
 
     # 시간 차이 측정
     time_difference = post.updated_at - post.created_at
     show_updated_at = time_difference > timedelta(seconds=1)
 
-    return render(request, 'notice_detail.html',{'post':post,'show_updated_at':show_updated_at,})
+    return render(request, 'archive_detail.html',{'post':post,'show_updated_at':show_updated_at,})
 
 # 게시글 작성
 def write(request):
@@ -66,12 +62,12 @@ def write(request):
         return HttpResponseRedirect('/user/login/?next=' + request.META['HTTP_REFERER'])
 
     elif request.method == 'POST':
-        form = NoticeForm(request.POST)
+        form = ArchiveForm(request.POST)
         if form.is_valid():
             user_id = request.user.id
             user = Users.objects.get(pk = user_id)
 
-            new_post = Notice.objects.create(
+            new_post = Archive.objects.create(
                 title     = form.cleaned_data['title'],
                 contents  = form.cleaned_data['contents'],
                 author    = user
@@ -88,14 +84,14 @@ def write(request):
             
             new_post.save()
 
-            return redirect('notice:detail',pk=new_post.pk)
+            return redirect('archive:detail',pk=new_post.pk)
         else:
             # 폼이 유효하지 않을 경우, 사용자가 입력한 데이터를 폼에 다시 채워 넣습니다.
-            form = NoticeForm(request.POST)
+            form = ArchiveForm(request.POST)
     else:
-        form = NoticeForm()
+        form = ArchiveForm()
         
-    return render(request, 'notice_write.html', {'form':form})
+    return render(request, 'archive_write.html', {'form':form})
 
 # 게시글 수정
 def update(request,pk):
@@ -103,22 +99,22 @@ def update(request,pk):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/user/login/?next=' + request.META['HTTP_REFERER'])
 
-    post = Notice.objects.get(pk=pk)
+    post = Archive.objects.get(pk=pk)
 
     # 작성자가 아닌 경우 접근 불가
     if request.user != post.author:
-        return redirect('notice:detail', pk=pk)
+        return redirect('archive:detail', pk=pk)
     
     if request.method == 'POST':
-        form = NoticeForm(request.POST, instance=post)
+        form = ArchiveForm(request.POST, instance=post)
         if form.is_valid():
             print(request.POST.getlist('checkedImages'))
             # 기존 이미지 삭제
-            for image in Image.objects.filter(notice=post):
+            for image in Image.objects.filter(archive=post):
                 if 'deleteImage' + str(image.id) in request.POST:
                     image.delete()
             # 기존 파일 삭제
-            for file in File.objects.filter(notice=post):
+            for file in File.objects.filter(archive=post):
                 if 'deleteFile' + str(file.id) in request.POST:
                     file.delete()
 
@@ -133,43 +129,43 @@ def update(request,pk):
                 post.files.add(files)
 
             post.save()
-            return redirect('notice:detail', pk=post.pk)
+            return redirect('archive:detail', pk=post.pk)
         
     else:
-        form = NoticeForm(instance=post)
-    return render(request, 'notice_update.html', {'form': form, 'post': post})
+        form = ArchiveForm(instance=post)
+    return render(request, 'archive_update.html', {'form': form, 'post': post})
 
 # 게시글 삭제
 def delete(request,pk):
-    post = Notice.objects.get(pk=pk)
+    post = Archive.objects.get(pk=pk)
     if request.method == 'POST':
         post.delete()
-        return redirect('notice:index')
-    return render(request, 'notice_detail.html',{'post':post})
+        return redirect('archive:index')
+    return render(request, 'archive_detail.html',{'post':post})
 
 # 게시글 검색 기능
-class NoticeView(ListView):
-    model = Notice  # 모델 설정
-    template_name = 'notice_index.html'  # 템플릿 이름 설정
+class ArchiveView(ListView):
+    model = Archive  # 모델 설정
+    template_name = 'archive_index.html'  # 템플릿 이름 설정
 
     # 기본 쿼리셋 지정
     def get_queryset(self):
         search_keyword = self.request.GET.get('q', '')
         search_type = self.request.GET.get('type', '')
-        notice_list = Notice.objects.order_by('-id')
+        archive_list = Archive.objects.order_by('-id')
 
         if search_keyword:
             if len(search_keyword) > 1:
                 if search_type == 'all':
-                    search_notice_list = notice_list.filter(Q (title__icontains=search_keyword) | Q (contents__icontains=search_keyword))
+                    search_archive_list = archive_list.filter(Q (title__icontains=search_keyword) | Q (contents__icontains=search_keyword))
                 elif search_type == 'title':
-                    search_notice_list = notice_list.filter(title__icontains=search_keyword)    
+                    search_archive_list = archive_list.filter(title__icontains=search_keyword)    
                 elif search_type == 'contents':
-                    search_notice_list = notice_list.filter(contents__icontains=search_keyword)
-                return search_notice_list
+                    search_archive_list = archive_list.filter(contents__icontains=search_keyword)
+                return search_archive_list
             else:
                 messages.error(self.request, '검색어는 2글자 이상 입력해주세요.')
-        return notice_list
+        return archive_list
     
     # 템플릿에 전달될 컨텍스트 데이터 지정
     def get_context_data(self, **kwargs):
@@ -180,11 +176,11 @@ class NoticeView(ListView):
         if len(search_keyword) > 1:
             context['q'] = search_keyword
 
-        # notice_list에 쿼리셋 할당
-        notice_list = self.get_queryset()
+        # archive_list에 쿼리셋 할당
+        archive_list = self.get_queryset()
 
         # Paginator 객체 생성
-        paginator = Paginator(notice_list, ITEMS_PER_PAGE)
+        paginator = Paginator(archive_list, ITEMS_PER_PAGE)
         
         # 현재 페이지 번호 가져옴
         page_number = self.request.GET.get('page')

@@ -21,6 +21,7 @@ urlpatterns = [
     path('lecture/',include('lecture.urls')),
 
     # 소통마당
+    path('board/archive/',include('archive.urls')),
     path('board/notice/',include('notice.urls')),
     path('board/guest/',include('board.urls')),
     path('board/news/',include('blog.urls')),

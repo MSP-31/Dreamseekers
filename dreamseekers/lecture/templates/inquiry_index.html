@@ -24,7 +24,7 @@
 
     {% for post in page_obj %}
     <tbody>
-      <tr>
+      <tr class="clickable-row" data-href="list/{{post.pk}}/">
         <td>
           <!-- 번호 = 전체건수 - 시작인덱스 - 현재인덱스 + 1 -->
           {{ page_obj.paginator.count|sub:page_obj.start_index|sub:forloop.counter0|add:1 }}
@@ -62,4 +62,8 @@
   </div>
 </div>
 
+{% endblock %}
+
+{% block script %}
+<script src="{% static "js/table.js" %}"></script>
 {% endblock %}

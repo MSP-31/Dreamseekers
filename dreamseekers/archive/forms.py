@@ -1,10 +1,10 @@
 from django import forms
-from .models import Notice
+from .models import Archive
 
-class NoticeForm(forms.ModelForm):
+class ArchiveForm(forms.ModelForm):
     class Meta:
-        model = Notice
-        fields = ['title', 'contents','image','files','is_important']
+        model = Archive
+        fields = ['title', 'contents','image','files']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'width'}),
             'contents': forms.Textarea(attrs={'class': 'width'}),
