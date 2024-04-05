@@ -121,17 +121,17 @@
 
 <ul class="floating">
     <li>
-        <a href="#"><img src = {% static 'img/icon/call-outline.svg'%} alt="call-outline"></a>
+        <a href="#"><img src = {% static 'img/icon/call_white_24dp.svg'%} alt="call_white_24dp"></a>
     </li>
     <li>
-        <a href="/intro/contact/"><img src = {% static 'img/icon/map-outline.svg'%} alt="map-outline"></ion-icon></a>
+        <a href="/intro/contact/"><img src = {% static 'img/icon/map_white_24dp.svg'%} alt="map_white_24dp"></ion-icon></a>
     </li>
     <li>
-        <a href="#"><img src = {% static 'img/icon/chatbubble-ellipses-outline.svg'%} alt="chatbubble-ellipses-outline"></ion-icon></a>
+        <a href="#"><img src = {% static 'img/icon/textsms_white_24dp.svg'%} alt="textsms_white_24dp"></ion-icon></a>
     </li>
     <li>
         <span style="cursor:pointer;" onclick="window.scrollTo(0,0);">
-            <img src = {% static 'img/icon/arrow-up-outline.svg'%} alt="arrow-up-outline">
+            <img src = {% static 'img/icon/arrow_upward_white_24dp.svg'%} alt="arrow_upward_white_24dp">
         </span>
     </li>
 </ul>
@@ -154,19 +154,75 @@
 {% endblock %}
 
 <footer>
-    <div>
-        <ul>
-            <li>꿈을찾는사람들교육원</li>
-            <li>{{footer_info.rep}}</li>
-            <li>{{footer_info.address}} / {{footer_info.sub_address}}</li>
-            <li>사업자등록번호 : {{footer_info.CRN}}</li>
-            <li>전화번호 : {{footer_info.phone}}</li>
-            <li>이메일 : {{footer_info.email}}</li>
-            <li>기타 : (강의접수){{footer_info.sub_phone}}</li>
-        </ul>
-        <p><small>2024 꿈을찾는사람들교육원</small></p>
-        <p>Icon by Ionicons</p>
+    <div class="footer-box">
+        <div class="footer-top">
+            <ul class="sub-menu">
+                <li>
+                    <a href="/intro/greeting/">교육원 소개</a>
+                </li>
+                <li>
+                    <a href="/lecture/list">주요 강의</a>
+                </li>
+                <li>
+                    <a href="/lecture/inquiry">강의 문의</a>
+                </li>
+                <li>
+                    <a href="/unauthorized-collection">이메일무단수집거부</a>
+                </li>
+                <li>
+                    <a href="/privacy-policy">개인정보처리방침</a>
+                </li>
+            </ul>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-info">
+                <ul class="info">
+                    <li>
+                        <p>꿈을 찾는 사람들 교육원</p>
+                    </li>
+                    <li>
+                        <p>대표 : {{footer_info.rep}}</p>
+                    </li>
+                    <li>
+                        <p>주소 : {{footer_info.address}} ({{footer_info.sub_address}})</p>
+                    </li>
+                    <li>
+                        <p>사업자등록번호 : {{footer_info.CRN}}</p>
+                    </li>
+                    <li>
+                        <p>전화번호 : {{footer_info.phone}}</p>
+                    </li>
+                    <li>
+                        <p>이메일 : {{footer_info.email}}</p>
+                    </li>
+                    <li>강의접수 : {{footer_info.sub_phone}}
+                    </li>
+                </ul>
+                <p>Copyright 2024. 꿈을 찾는 사람들 교육원 All rights reserved.</p>
+                
+            </div>
+            <div class="footer-sns">
+                <ul>
+                    <li>
+                        <a href="https://www.facebook.com/people/꿈을-찾는-사람들-교육원/100046588332120/" target="_blank" class="sns-link icon-facebook">
+                            <span class="blind">페이스북</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.instagram.com/dreamseekers1004/" target="_blank" class="sns-link icon-instagram">
+                            <span class="blind">인스타그램</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://blog.naver.com/jhs9747" target="_blank" class="sns-link icon-naverblog">
+                            <span class="blind">네이버 블로그</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
+    
 </footer>
 
 {% block script %}

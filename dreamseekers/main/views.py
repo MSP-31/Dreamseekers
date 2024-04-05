@@ -59,3 +59,11 @@ def slide_del(request,pk):
         slide.delete()
         return redirect('slide_modify')
     return render(request)
+
+# 개인정보처리방침
+def privacy_policy(request):
+    return render(request, 'privacy_policy.html')
+
+# 이메일 무단수집 거부
+def unauthorized_collection(request):
+    return render(request, 'unauthorized_collection.html')

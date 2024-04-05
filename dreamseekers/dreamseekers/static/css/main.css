@@ -265,7 +265,7 @@ table{
 }
 
 .megaphone-icon::after{
-    content: url('../img/icon/megaphone-outline.svg');
+    content: url('../img/icon/campaign_black_24dp.svg');
     width: 24;
 }
 
@@ -308,7 +308,7 @@ table{
     align-items: center;
 }
 .board-content .file-download::before{
-    content: url('../img/icon/document-text-outline.svg');
+    content: url('../img/icon/save_alt_black_24dp.svg');
     width: 30;
 }
 

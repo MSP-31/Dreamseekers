@@ -385,15 +385,100 @@ header:hover .top-header .span-contour{
 }
 
 .floating img{
-  filter: invert(100%) sepia(0%) saturate(7498%) hue-rotate(163deg) brightness(114%) contrast(101%);
   width: 40px;
   height: 40px;
 }
   
 /*-------- footer ----------*/
 footer{
-  padding: 2rem;
-  text-align: center;
+  padding: 2rem 0;
   width: 100%;
-  background: var(--line-color);
+  background: #515151;
+}
+
+/* footer 정렬 */
+.footer-box{
+  margin: 0 20%;
+}
+
+/* footer 전체 글꼴 크기 */
+.footer-box p,
+.footer-box li{
+  font-size: 14;
+  color: var(--line-color);
+}
+
+footer .footer-box li{
+  display: inline-block;
+}
+
+/* li 구분선 */
+footer .footer-top .sub-menu li::after,
+footer .footer-info .info li p::after{
+  display: inline-block;
+  width: 1px;
+  height: 12px;
+  margin: 4px 0px 0px 6px;
+  background-color: var(--line-color);
+  content: "";
+}
+
+/* 상단 */
+footer .footer-top{
+  padding-bottom: 20px;
+  border-bottom: solid 1px var(--line-color);
+}
+
+footer .footer-top .sub-menu li a{
+  padding: 0 17px;
+}
+
+/* 하단 정보 */
+.footer-bottom{
+  display: flex;
+  padding-top: 20px;
+}
+
+footer .footer-info .info{
+  margin-right: 20%;
+  padding-bottom: 20px;
+}
+
+/* footer sns 영역 */
+.footer-sns ul {
+  display: flex;
+  justify-content: space-between;
+  width: 120px;
+}
+
+footer .footer-bottom .footer-sns .sns-link{
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  background-size: auto;
+}
+
+.icon-facebook{
+  background-image: url(../img/icon/facebook.svg);
+}
+
+.icon-instagram{
+  background-image: url(../img/icon/instagram.svg);
+}
+
+.icon-naverblog{
+  background-image: url(../img/icon/naverblog.svg);
+}
+
+/* 개인정보처리방침 */
+.privacy-policy{
+  text-align: left;
+  text-align: -webkit-left;
+}
+
+.privacy-policy p{
+  padding-bottom: 20px;
+  font-size: 15px;
 }
