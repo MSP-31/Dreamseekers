@@ -22,18 +22,130 @@
         <ul class="slide-pagination"></ul>
         <a href="#" class="slide-btn slide-next">next</a>
     </div>
-    
 </div>
-
 <div class="main-content">
+    <!-- 전체 강의 -->
+    <div class="lecture-slide">
+        <h2>주요 강의 소개</h2>
+        <ul class="lecture-box">
+            {% for lecture in lectures %}
+            <li class="lecture-content">
+                <a href="/lecture/list/detail/{{ lecture.pk }}">
+                    <h2 class="lecture-title" data-id="{{lecture.pk}}">{{ lecture.title }}</h2>
+                    <p class="lecture-text">{{ lecture.contents|linebreaksbr }}</p>
+                    <img src="{{ lecture.image.url }}" data-src="{{ lecture.image.url }}" alt="{{lecture.title}}">
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
     
-    <h1 class="title">꿈을 찾는사람들 교육원 입니다</h1>
+    <!-- 달력 -->
+    <div>
+        <h1>강의 일정</h1>
+        <br>
+        <div class="sec-cal">
+            <div class="cal-nav">
+                <a href="javascript:;" class="nav-btn go-prev">prev</a>
+                <div class="year-month"></div>
+                <a href="javascript:;" class="nav-btn go-next">next</a>
+            </div>
+            <div class="cal-wrap">
+                <div class="days">
+                    <div class="week">월요일</div>
+                    <div class="week">화요일</div>
+                    <div class="week">수요일</div>
+                    <div class="week">목요일</div>
+                    <div class="week">금요일</div>
+                    <div class="week">토요일</div>
+                    <div class="week">일요일</div>
+                </div>
+            <div class="dates"></div>
+        </div>
+      </div>
+    </div>
+    <div id="calender-modal" class ="modal">
+        <div class="modal-content">
+            <div class="modal-title">
+                <span class="modal-close">&times;</span>
+                <span class="selected-date title"></span>
+                <span class="selected-day title"></span>
+                {% if user.is_staff %}
+                <span class="add-sched btn-active">추가</span>
+                {% endif %}
+            </div>
+            <div class="modal-detail">
+                <ul class="detail-list-area">
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- 오시는길 -->
+    <div>
+        <h1>오시는 길</h1>
+        <!-- 지도 -->
+        <div id="map" style="width:100%;height:400px;"></div>
+        <div class="map_address">
+            <h3>꿈을찾는사람들교육원</h3>
+            <h2>{{contacts.address}} / {{contacts.sub_address}}</h2>
+            <a class="btn-active" href="{{contacts.map_add}}" target="_blank">지도에서 보기</a>
+        </div>
+        <div class="info_box">
+            <table>
+                <tr>
+                    <th>오시는길</th>
+                    <td></td> <!-- 여기에 필요한 정보를 입력하세요 -->
+                </tr>
+                <tr>
+                    <th>이용시간</th>
+                    <td>
+                        평일 {{ contacts.weekday_start_time }} - {{ contacts.weekday_end_time }}<br>
+                        주말 {{ contacts.weekend_start_time }} - {{ contacts.weekend_end_time }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>전화번호</th>
+                    <td>
+                        {{ contacts.phone }}<br>
+                        {{ contacts.sub_phone }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>사업자 정보</th>
+                    <td>
+                        상호명: 꿈을찾는사람들교육원<br>
+                        대표: {{ business_info.rep }}<br>
+                        이메일: {{ business_info.email }}<br>
+                    </td>
+                    <th>입금 정보</th>
+                    <td>
+                        예금주: {{ business_info.depositor }}<br>
+                        은행: {{ business_info.bank }}<br>
+                        계좌번호: {{ business_info.account }}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </div>
 
-<!-- <img src = {% static "img/1.jpg" %}> -->
 
 {% endblock %}
 
 {% block script %}
+<script>
+    var latitude = {{ contacts.latitude }};
+    var longitude = {{ contacts.longitude }};
+    var schedules = JSON.parse('{{ schedules|escapejs }}');
+</script>
+<script src="{% static 'js/lecture/calender.js'%}"></script>
 <script src="{% static 'js/main/slide.js'%}"></script>
+<script src="{% static 'js/intro/contact.js'%}"></script>
+{% endblock %}
+
+{% block f_script %}
+<script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId={{ context.client_id }}"></script>
 {% endblock %}

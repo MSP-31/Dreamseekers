@@ -123,14 +123,6 @@ header:hover .top-header .span-contour{
 }
 
 /* 서브메뉴 배경 그림 */
-#blind span{
-  display:flex;
-  width: 200px;
-  height: 180px;
-  background-image: url(../img/temp.jpg);
-  background-size: contain;
-  left:0;
-}
 
 .submenu-container{
   width: 170px;

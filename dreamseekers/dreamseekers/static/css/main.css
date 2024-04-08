@@ -105,8 +105,6 @@
     background-color: var(--white);
 }
 
-
-
 /* 메인 */
 .main-content {
     position: relative;
@@ -130,11 +128,15 @@
     float: right;
 }
 
-/* 강의 상담문의 예외*/
+
 .main-content table th{
     height: 60px;
     width: 10%;
     vertical-align: middle;
+    
+}
+/* 강의 상담문의 예외*/
+.main-content .post-write table th{
     padding-bottom: 3%;
 }
 
@@ -760,7 +762,7 @@ table{
     width: 15px;
     height: 25px;
     background-color: #3c6ffa;
-    border-radius: 50%;
+    border-radius: 25%;
     color: white;
 }
 

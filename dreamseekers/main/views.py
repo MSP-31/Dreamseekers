@@ -1,13 +1,33 @@
+from django.conf import settings
 from django.shortcuts import redirect, render
+
+from django.core import serializers
+
+from intro.models import BusinessInfo, Contact
+
+from .models import Slides
+from lecture.models import lectureCalender, lectureTitle
 
 from .forms import SlidesForm
 
-from .models import Slides
-
 def main(request):
+    # 슬라이더
     slides = Slides.objects.all()
+    # 주요강의
+    lectureTitles = lectureTitle.objects.all()
 
-    return render(request, 'main.html',{'slides':slides})
+    # 캘린더
+    # DB에서 이벤트 데이터 가져오기
+    schedules = lectureCalender.objects.all()
+    schedules_json = serializers.serialize('json', schedules)
+
+    # 오시는길
+    context = {'client_id': settings.NAVER_MAPS_CLIENT_ID}
+    contacts = Contact.objects.first()
+    business_info = BusinessInfo.objects.first()
+
+    return render(request, 'main.html',{'slides':slides,'lectures':lectureTitles,'schedules': schedules_json,
+                                        'context':context, 'contacts':contacts, 'business_info':business_info,})
 
 # 메인슬라이더
 def slide_modify(request):

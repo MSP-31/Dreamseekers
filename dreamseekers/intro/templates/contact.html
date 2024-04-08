@@ -28,8 +28,17 @@
     <div class="info_box">
         <table>
             <tr>
-                <th>오시는길</th>
-                <td></td> <!-- 여기에 필요한 정보를 입력하세요 -->
+                <th>주차안내</th>
+                <td>
+                    유료주차 / 2시간 무료
+                </td>
+            </tr>
+            <tr>
+                <th>전화번호</th>
+                <td>
+                    {{ contacts.phone }}<br>
+                    {{ contacts.sub_phone }}
+                </td>
             </tr>
             <tr>
                 <th>이용시간</th>
@@ -39,11 +48,11 @@
                 </td>
             </tr>
             <tr>
-                <th>전화번호</th>
+                <th>이용안내</th>
                 <td>
-                    {{ contacts.phone }}<br>
-                    {{ contacts.sub_phone }}
-                </td>
+                    예약<br>
+                    주차
+                </td> <!-- 여기에 필요한 정보를 입력하세요 -->
             </tr>
             <tr>
                 <th>사업자 정보</th>
