@@ -2,9 +2,7 @@
 <head>
     <title>꿈을 찾는 사람들 교육원</title>
     <link rel="icon" href="{% static 'img/logo.svg'%}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/reset.css'%}?after">
     <link rel="stylesheet" href="{% static 'css/style.css'%}">
     <link rel="stylesheet" href="{% static 'css/main.css'%}">
@@ -119,17 +117,26 @@
 
 <ul class="floating">
     <li>
-        <a href="#"><img src = {% static 'img/icon/call_white_24dp.svg'%} alt="call_white_24dp"></a>
+        <a class="floating-btn" href="#">
+            <span class="icon call-icon"></span>
+            <span class="floating-text">전화</span>
+        </a>
     </li>
     <li>
-        <a href="/intro/contact/"><img src = {% static 'img/icon/map_white_24dp.svg'%} alt="map_white_24dp"></ion-icon></a>
+        <a class="floating-btn" href="/intro/contact/">
+            <span class="icon map-icon"></span>
+            <span class="floating-text">오시는길</span>
+        </a>
     </li>
     <li>
-        <a href="#"><img src = {% static 'img/icon/textsms_white_24dp.svg'%} alt="textsms_white_24dp"></ion-icon></a>
+        <a class="floating-btn" href="#">
+            <span class="icon text-icon"></span>
+            <span class="floating-text">톡톡</span>
+        </a>
     </li>
     <li>
-        <span style="cursor:pointer;" onclick="window.scrollTo(0,0);">
-            <img src = {% static 'img/icon/arrow_upward_white_24dp.svg'%} alt="arrow_upward_white_24dp">
+        <span class="floating-btn " style="cursor:pointer;" onclick="window.scrollTo(0,0);">
+            <span class="icon upward-icon"></span>
         </span>
     </li>
 </ul>

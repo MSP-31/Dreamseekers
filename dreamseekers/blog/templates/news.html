@@ -13,9 +13,9 @@
 
   <h1>활동 소식</h1>
 
-  <ul class="sns-box">
+  <ul class="sns-box scroll_wrap">
     {% for item in data %}
-      <li>
+      <li class="scroll_on type_bottom">
         <div class="sns-content">
           <h3 class="sns-title">
             <a href="{{ item.link }}" target="_blank">{{ item.title }}</a>

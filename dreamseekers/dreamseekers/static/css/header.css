@@ -351,10 +351,11 @@ header:hover .top-header .span-contour{
   right: 50px;
   bottom: 50px;
   text-align: right;
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
 }
 
-.floating span,
-.floating a{
+.floating .floating-btn{
   display: inline-block;
   overflow: hidden;
   position: relative;
@@ -366,19 +367,57 @@ header:hover .top-header .span-contour{
 
   -webkit-box-shadow: 3px 2px 8px 1px rgba(0,0,0,.2);
   box-shadow: 3px 2px 8px 1px rgba(0,0,0,.2);
-
-  font-size: 40px;
   color: var(--line-color);
   text-align: center;
   text-align: -webkit-center;
 
   margin-top: 10px;
-  padding-top: 15%;
+  align-content: center;
+  transition: width 0.2s;
 }
 
-.floating img{
+.floating a:hover{
+  width: 150;
+  text-align: left;
+  text-align: -webkit-left;
+  padding-left: 15px;
+}
+
+.floating .icon{
+  display: inline-flex;
   width: 40px;
   height: 40px;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-size: cover;
+}
+.floating .floating-text{
+  position: absolute;
+  padding-top: 5px;
+  margin-left: 10px;
+  font-size: 20px
+}
+
+.floating span.floating-btn{
+  border: solid 2px var(--line-color);
+  background-color: white;
+}
+
+.floating .call-icon{
+  background-image: url(../img/icon/call_white_24dp.svg);
+}
+
+.floating .map-icon{
+  background-image: url(../img/icon/map_white_24dp.svg);
+}
+
+.floating .text-icon{
+  background-image: url(../img/icon/textsms_white_24dp.svg);
+}
+
+.floating .upward-icon{
+  background-image: url(../img/icon/arrow_upward_white_24dp.svg);
 }
   
 /*-------- footer ----------*/

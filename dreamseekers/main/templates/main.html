@@ -23,13 +23,18 @@
         <a href="#" class="slide-btn slide-next">next</a>
     </div>
 </div>
-<div class="main-content">
+
+<div class="main-content padding-zero">
     <!-- 전체 강의 -->
-    <div class="lecture-slide">
-        <h2>주요 강의 소개</h2>
+    <div class="content-box scroll_wrap">
+        <div class="scroll_on type_bottom">
+            <p class="big-text">다양한 교육들</p>
+            <p>전문적인 지식으로 사례화된 교육을 실시하며 대면강의와 온라인 강의가능합니다.</p>
+            <p>모두가 공감하는 현실적인 교육 대상별 차별화된 맞춤형 강의내용</p>
+        </div>
         <ul class="lecture-box">
             {% for lecture in lectures %}
-            <li class="lecture-content">
+            <li class="lecture-content scroll_on type_bottom">
                 <a href="/lecture/list/detail/{{ lecture.pk }}">
                     <h2 class="lecture-title" data-id="{{lecture.pk}}">{{ lecture.title }}</h2>
                     <p class="lecture-text">{{ lecture.contents|linebreaksbr }}</p>
@@ -39,12 +44,14 @@
             {% endfor %}
         </ul>
     </div>
-    
+</div>
+
+<div class="main-content padding-zero">
     <!-- 달력 -->
-    <div>
-        <h1>강의 일정</h1>
+    <div class="scroll_wrap">
+        <h1 class="scroll_on type_bottom">강의 일정</h1>
         <br>
-        <div class="sec-cal">
+        <div class="sec-cal scroll_on type_bottom">
             <div class="cal-nav">
                 <a href="javascript:;" class="nav-btn go-prev">prev</a>
                 <div class="year-month"></div>
@@ -82,23 +89,21 @@
             </div>
         </div>
     </div>
+</div>
 
+<div class="main-content padding-zero">
     <!-- 오시는길 -->
-    <div>
-        <h1>오시는 길</h1>
+    <div class="content-box scroll_wrap">
+        <h1 class="scroll_on type_bottom">오시는 길</h1>
         <!-- 지도 -->
-        <div id="map" style="width:100%;height:400px;"></div>
-        <div class="map_address">
+        <div id="map" style="width:100%;height:400px;" class="scroll_on type_bottom"></div>
+        <div class="map_address scroll_on type_bottom">
             <h3>꿈을찾는사람들교육원</h3>
             <h2>{{contacts.address}} / {{contacts.sub_address}}</h2>
             <a class="btn-active" href="{{contacts.map_add}}" target="_blank">지도에서 보기</a>
         </div>
-        <div class="info_box">
+        <div class="info_box scroll_on type_bottom">
             <table>
-                <tr>
-                    <th>오시는길</th>
-                    <td></td> <!-- 여기에 필요한 정보를 입력하세요 -->
-                </tr>
                 <tr>
                     <th>이용시간</th>
                     <td>
