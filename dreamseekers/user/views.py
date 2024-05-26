@@ -1,8 +1,13 @@
+from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import login, logout
 from django.contrib.auth.backends import ModelBackend
+
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 from .models import Users
 from .forms import LoginForm, SignUpForm
@@ -82,3 +87,11 @@ def account_del(request):
     user = Users.objects.get(pk=request.user.id)
     user.delete()
     return redirect('/')
+
+# 이메일 보내기
+def send_email(title, message):
+    html_message = render_to_string("smtp_email.html",{'title':title ,'message': message})
+    plain_message = strip_tags(html_message)  # HTML 태그 제거
+    subject = '새로운 강의 상담 문의'
+    email = settings.EMAIL
+    send_mail(subject, plain_message, email, [email], html_message=html_message)

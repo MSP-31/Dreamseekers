@@ -1,4 +1,5 @@
 from datetime import datetime
+from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -15,6 +16,8 @@ from comment.serializers import CommentSerializer
 
 from .models import Inquiry, lectureCalender, lectureList, lectureTitle
 from .forms import CalenderForm, InquiryForm, lectureListForm, lectureTitleForm
+
+from user.views import send_email
 
 # 강의 상담 문의 작성
 def inquiry(request):
@@ -42,6 +45,9 @@ def inquiry(request):
                 contents  = form.cleaned_data['contents'],
                 author    = user
             )
+            # 이메일 알림 보내기
+            send_email(form.cleaned_data['title'],form.cleaned_data['contents'])
+
             return redirect('lecture:inquiry_detail', new_inquiry.pk)
         else:
             print("실패")

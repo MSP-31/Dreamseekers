@@ -2,6 +2,8 @@ import os
 import json
 from pathlib import Path
 import sys
+
+from . import settings
 from . import local_settings
 from datetime import timedelta
 
@@ -211,3 +213,12 @@ MAX_IMAGE_SIZE = 20
 # 사용자별 최대 이미지 개수
 MAX_IMAGE_COUNT = 5
 
+# 이메일 설정
+EMAIL = secrets.get('EMAIL_NAME') + '@naver.com'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.naver.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = secrets.get('EMAIL_NAME')
+EMAIL_HOST_PASSWORD = secrets.get('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
