@@ -69,12 +69,28 @@
                     </ul>
                 </div>
             </li>
-            <li class="menu"><a href="/lecture/inquiry">강의 문의</a>
+            <li class="menu">
+                {% if request.user.is_staff %}
+                <a href="/lecture/inquiry/list">강의 문의</a>
+                {% else %}
+                <a href="/lecture/inquiry">강의 문의</a>
+                {% endif %}
+                
                 <div class="menu-bar"><span></span></div>
                 <div class="submenu-container">
                     <ul class="submenu">
-                        <li><a href="/lecture/inquiry">강의 상담 문의</a></li>
-                        <li><a href="/lecture/inquiry/list">내 문의 내역</a></li>
+                        <li>
+                            {% if not request.user.is_staff %}
+                            <a href="/lecture/inquiry">강의 상담 문의</a></li>
+                            {% endif %}
+                        <li>
+                            {% if request.user.is_staff %}
+                            <a href="/lecture/inquiry/list">문의 내역</a>
+                            {% else %}
+                            <a href="/lecture/inquiry/list">내 문의 내역</a>
+                            {% endif %}
+                        </li>
+                        
                         <li><a href="/lecture/calender">강의 일정</a></li>
                     </ul>
                 </div>

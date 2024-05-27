@@ -30,9 +30,9 @@
     {% endif %}
 
     <!-- 전체 강의 -->
-    <ul class="lecture-box">
+    <ul class="lecture-box scroll_wrap">
         {% for title in titles %}
-        <li class="lecture-content">
+        <li class="lecture-content scroll_on">
             {% if request.user.is_staff %}
             <span class="btn lecture-edit" data-id="{{title.pk}}">수정</span>
             <form action="{% url 'lecture:lecture_del' title.pk  %}"

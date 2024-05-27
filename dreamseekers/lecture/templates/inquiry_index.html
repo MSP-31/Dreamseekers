@@ -10,7 +10,11 @@
 {% block content %}
 
 <div class="main-content">
-    <h1>내 문의 내역</h1>
+  {% if request.user.is_staff %}
+  <h1>문의 내역</h1>
+  {% else %}
+  <h1>내 문의 내역</h1>
+  {% endif %}
 
   <table class="board-table">
     <thead class>

@@ -13,6 +13,7 @@ from itertools import chain
 from comment.forms import CommentForm
 from comment.models import Comment, PostCommetns
 from comment.serializers import CommentSerializer
+from user.models import Users
 
 from .models import Inquiry, lectureCalender, lectureList, lectureTitle
 from .forms import CalenderForm, InquiryForm, lectureListForm, lectureTitleForm
@@ -36,7 +37,6 @@ def inquiry(request):
         form = InquiryForm(request.POST)
 
         if form.is_valid():
-            print("성공")
             user = request.user
 
             new_inquiry = Inquiry.objects.create(
@@ -46,11 +46,10 @@ def inquiry(request):
                 author    = user
             )
             # 이메일 알림 보내기
-            send_email(form.cleaned_data['title'],form.cleaned_data['contents'])
+            send_email(form.cleaned_data['title'],form.cleaned_data['contents'],new_inquiry.pk)
 
             return redirect('lecture:inquiry_detail', new_inquiry.pk)
         else:
-            print("실패")
             # 폼이 유효하지 않을 경우, 사용자가 입력한 데이터를 폼에 다시 채워 넣습니다.
             form = InquiryForm(request.POST)
     return render(request, 'inquiry_write.html', {'form':form})
@@ -106,6 +105,8 @@ def inquiry_detail(request,pk):
     else:
         return HttpResponse('<script>alert("접근 권한이 없습니다.");history.back();</script>')
     
+    user_data = Users.objects.get(pk=inquiry.author_id)
+
     post_comments = PostCommetns.objects.filter(inquiry=inquiry)
     comments = Comment.objects.filter(postcommetns__in=post_comments, parent=None)
     comment_form = CommentForm()
@@ -115,7 +116,7 @@ def inquiry_detail(request,pk):
     serialized_comments = serializer.data
 
     return render(request, 'inquiry_detail.html',{'post':inquiry, 'comments':serialized_comments,
-                            'comment_form':comment_form,'board_name':board_name})
+                            'comment_form':comment_form,'board_name':board_name, 'user':user_data})
 
 # 캘린더
 def lecture_calender(request):

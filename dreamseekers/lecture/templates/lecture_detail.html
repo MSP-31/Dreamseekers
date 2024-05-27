@@ -23,9 +23,9 @@
         <h1>{{list.title}}</h1>
 
         <!-- 본문 내용 -->
-        <ul class="lecture-box">
+        <ul class="lecture-box scroll_wrap">
             {% for lecture in list.lecturelist_set.all %}
-            <li class="lecture-content">
+            <li class="scroll_on lecture-content">
                 {% if request.user.is_staff %}
                 <span class="btn lecture-edit" data-id="{{lecture.pk}}">수정</span>
                 <form action="{% url 'lecture:detail_del' lecture.pk  %}"

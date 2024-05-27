@@ -8,28 +8,51 @@
 
 {% block content %}
 
-<div class="board-box">
+<div class="main-content">
+    {% if request.user.is_staff %}
+    <h1>문의 내역</h1>
+    {% else %}
     <h1>내 문의 내역</h1>
-    <div class="board-title">
-        <h3>{{post.title}}</h3>
-
-        {% if show_updated_at %}
-        <span>*{{ post.updated_at }}</span>
-        {% else %}
-        <span>{{ post.created_at }}</span>
-        {% endif %}
-    </div>
-
-    <div class="board-content">
-        <p>{{post.contents|linebreaksbr}}</p>
-    </div>
+    {% endif %}
     
+
+    <div class="post-write">
+        <table>
+            <tr>
+                <th><label>작성자</label></th>
+                <td>{{user.username}}</td>
+            </tr>
+            <tr>
+                <th><label>작성일</label></th>
+                <td>{{post.created_at}}</td>
+            </tr>
+            <tr>
+                <th><label>이메일</label></th>
+                <td>{{user.email}}</td>
+            </tr>
+            <tr>
+                <th><label for = "id_phone">연락처</label></th>
+                <td>{{post.phone}}</td>
+            </tr>
+            
+            <tr>
+                <th><label for = "id_title">제목</label></th>
+                <td>{{post.title}}</td>
+            </tr>
+            <tr>
+                <th><label for = "id_contents">내용</label></th>
+                <td>{{post.contents|linebreaksbr}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
     <br>
-    
+<div class="board-box">
     <!--댓글-->
     {% include "comment/comments.html" %}
 
     <a class="btn" href="/lecture/inquiry/list">목록</a>
+    </div>
 </div>
 
 {% endblock %}

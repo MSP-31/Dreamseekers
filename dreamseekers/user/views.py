@@ -89,8 +89,8 @@ def account_del(request):
     return redirect('/')
 
 # 이메일 보내기
-def send_email(title, message):
-    html_message = render_to_string("smtp_email.html",{'title':title ,'message': message})
+def send_email(title, message,pk):
+    html_message = render_to_string("smtp_email.html",{'title':title ,'message': message, 'id': pk})
     plain_message = strip_tags(html_message)  # HTML 태그 제거
     subject = '새로운 강의 상담 문의'
     email = settings.EMAIL
