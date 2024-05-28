@@ -325,6 +325,11 @@ table{
 
 .board-comment .comment-box{
     position: relative;
+    padding-bottom: 30px;
+}
+
+.board-comment .padding-t{
+    padding-bottom: 30px;
 }
 
 /* 댓글 날짜 */
@@ -350,6 +355,10 @@ table{
     position: absolute;
     top: 0;
     right: 0;
+}
+
+.comment-list .comment-box form .btn-group{
+    top: 100;
 }
 
 .btn-group{

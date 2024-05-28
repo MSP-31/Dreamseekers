@@ -66,6 +66,9 @@ INSTALLED_APPS = [
     
     # token
     'rest_framework_simplejwt',
+
+    # pycryptodome
+    'Crypto',
 ]
 
 REST_FRAMEWORK = {

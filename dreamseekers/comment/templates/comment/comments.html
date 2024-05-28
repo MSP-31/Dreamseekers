@@ -13,17 +13,16 @@
             {% for comment in comments %}
             <li class="comment-box">
                 <!-- 부모 댓글 -->
-                <div class="comment-detail">
-                    <span class="user">{{ comment.user }}</span>
-                    <span class="time">{{ comment.created_at }}</span>
-                </div>
-                <div id="comment_{{comment.id}}" class = "comment" data-comment-id="{{comment.id}}">
-                    {{ comment.content }}
-                </div>
-                
-                
-                <!-- 대댓글 -->
-                {% if request.user.is_authenticated %}
+                <div class="cmt{{comment.id}}">
+                    <div class="comment-detail">
+                        <span class="user">{{ comment.user }}</span>
+                        <span class="time">{{ comment.created_at }}</span>
+                    </div>
+                    <div id="comment_{{comment.id}}" class = "comment" data-comment-id="{{comment.id}}">
+                        {{ comment.content }}
+                    </div>
+                    <!-- 대댓글 -->
+                    {% if request.user.is_authenticated %}
                     <div id="reply_write_{{comment.id}}" class="reply_write" style="display:none" data-comment-id="{{comment.id}}">
                         <form action="{% url 'comment:comments_nested' board_name post.pk comment.id%}" method="POST">
                             {% csrf_token %}
@@ -31,9 +30,9 @@
                             <input class="btn" type="submit" value="대댓글 작성">
                         </form>
                     </div>
-                {% endif %}
-                
-                {% for reply in comment.reply %}
+                    {% endif %}
+            
+                    {% for reply in comment.reply %}
                     <ul>
                         <li>
                         <p>▼</p>
@@ -42,35 +41,49 @@
                         {{ reply.created_at}}
                         </li>
                     </ul>
-                {% endfor %}
+                    {% endfor %}
 
-            <!--삭제 / 수정-->
-            {% if user.username == comment.user %}
-            <div class="btn-group">
-                <a class="btn" href="{% url 'comment:comments_update' post.pk comment.id %}">수정</a>
-                <form action="{% url 'comment:comments_delete' comment.id %}" method = "POST"
-                onsubmit="return confirm('댓글을 삭제하시겠습니까?');">
-                    {% csrf_token %}
-                    <input class="btn btn-warning" type="submit" value="삭제">
-                </form>
-            </div>
-            {% endif %}
+                    <!--삭제 / 수정-->
+                    {% if user.username == comment.user %}
+                    <div class="btn-group">
+                        <a class="btn comment-modify" data-comment-id="{{comment.id}}">수정</a>
+                        <form action="{% url 'comment:comments_delete' comment.id %}" method = "POST"
+                            onsubmit="return confirm('댓글을 삭제하시겠습니까?');">
+                            {% csrf_token %}
+                            <input class="btn btn-warning" type="submit" value="삭제">
+                        </form>
+                    </div>
+                    {% endif %}
+                </div>
+                <!-- 수정 -->
+                <div class="cmt-modify{{comment.id}} padding-t" style="display:none"> 
+                    <form action="{% url 'comment:comments_update' post.pk comment.id %}" method="POST">
+                        {% csrf_token %}
+                        <textarea name="content" placeholder="댓글을 입력하세요"  required id="id_content">{{ comment.content }}</textarea>
+                        <div class="btn-group">
+                            <button class="btn cancel-{{comment.id}}" type="button">취소</button>
+                            <input class="btn comment-modify" type="submit" value="수정">
+                        </div>
+                        
+                    </form>
+                    
+                </div>
             </li>
-        {% endfor %}
+            {% endfor %}
         </ul>
     
-            <br>
+        <br>
     
-            <div> <!-- 댓글 입력 -->
-                {% if request.user.is_authenticated %}
-                <form action="{% url 'comment:comments_create' board_name post.pk %}" method="POST">
-                    {% csrf_token %}
-                    {{ comment_form }}
-                    <input class="btn comment-write" type="submit" value="작성">
-                </form>
-                {% else %}
-                <a class="btn" href="{% url 'accounts:login' %}">[로그인 후 댓글작성이 가능합니다.]</a>
-                {% endif %}
-            </div>
+        <div> <!-- 댓글 입력 -->
+            {% if request.user.is_authenticated %}
+            <form action="{% url 'comment:comments_create' board_name post.pk %}" method="POST">
+                {% csrf_token %}
+                {{ comment_form }}
+                <input class="btn comment-write" type="submit" value="작성">
+            </form>
+            {% else %}
+            <a class="btn" href="{% url 'accounts:login' %}">[로그인 후 댓글작성이 가능합니다.]</a>
+            {% endif %}
+        </div>
     </div>
 </div>

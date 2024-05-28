@@ -39,13 +39,10 @@ def comments_create(request,pk,board_name):
 def comments_update(request, post_pk, comment_pk):
     if request.user.is_authenticated:
         comments = Comment.objects.get(pk=comment_pk)
-        comment_form = CommentForm(instance = comments)
         if request.method == "POST":
             update_form = CommentForm(request.POST,instance = comments)
             update_form.save()
             return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
-            #return redirect('post_detail',post_pk)
-    return render(request,'comments_update.html',{'comment_form':comment_form})
 
 # 댓글 삭제
 def comments_delete(request, comment_pk):
