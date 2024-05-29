@@ -4,7 +4,7 @@ from django.db import models
 # 상담 문의
 class Inquiry(models.Model):
     author     = models.ForeignKey('user.Users', on_delete=models.CASCADE, related_name='lecture_posts', verbose_name='글쓴이')
-    phone      = models.CharField(max_length=11, verbose_name='연락처')
+    phone      = models.CharField(max_length=45, verbose_name='연락처')
     title      = models.CharField(max_length=50, verbose_name='제목')
     contents   = models.TextField(max_length=3000, verbose_name='내용')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='등록일')

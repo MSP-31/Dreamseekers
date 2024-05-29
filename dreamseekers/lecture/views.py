@@ -20,6 +20,8 @@ from .forms import CalenderForm, InquiryForm, lectureListForm, lectureTitleForm
 
 from user.views import send_email
 
+from dreamseekers.aescipher import AESCipher
+
 # 강의 상담 문의 작성
 def inquiry(request):
     # 로그인 여부 확인
@@ -39,8 +41,11 @@ def inquiry(request):
         if form.is_valid():
             user = request.user
 
+            phone_o = form.cleaned_data['phone']
+            encrypted_phone = AESCipher().encrypt_str(phone_o)
+
             new_inquiry = Inquiry.objects.create(
-                phone     = form.cleaned_data['phone'],
+                phone     = encrypted_phone,
                 title     = form.cleaned_data['title'],
                 contents  = form.cleaned_data['contents'],
                 author    = user
@@ -105,6 +110,8 @@ def inquiry_detail(request,pk):
     else:
         return HttpResponse('<script>alert("접근 권한이 없습니다.");history.back();</script>')
     
+    inquiry.phone = AESCipher().decrypt_str(inquiry.phone)
+
     user_data = Users.objects.get(pk=inquiry.author_id)
 
     post_comments = PostCommetns.objects.filter(inquiry=inquiry)

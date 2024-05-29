@@ -30,19 +30,3 @@ modify_btn.forEach(button => {
     });
 });
 
-/*
-cancel_btn.forEach(button => {
-    button.addEventListener('click',() => {
-        const commentId = button.getAttribute('data-comment-id');
-        console.log(commentId)
-
-        //요소 선택
-        const comment = button.closest(`.cmt${commentId}`);
-        const commentModify = document.querySelector(`.cmt-modify${commentId}`);
-
-        comment.style.display = 'block';
-        commentModify.style.display = 'none';
-    })
-})
-*/
-
