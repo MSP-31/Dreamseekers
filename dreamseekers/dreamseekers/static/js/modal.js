@@ -31,26 +31,36 @@ modal_span.onclick = function() {
   }
 }
 
-// 주요강의
+/**수정 버튼 */
 var editButtons = document.querySelectorAll('.lecture-edit');
 // 각 버튼에 이벤트 리스너를 추가
 editButtons.forEach(function(button) {
   button.addEventListener('click', function() {
-    // id값을 가져옴
+    /**해당 요소 ID 값 */
     var id = this.dataset.id;
-    // 해당 id값에 해당하는 요소를 찾아 가져옴
-    var lectureElement = document.querySelector('a[href="list/detail/' + id + '"]');
-    if (document.querySelector('div[data-slide-id="' + id + '"]')){ // 만약 해당 요소가 없으면 다른값으로 대체
-      lectureElement = document.querySelector('div[data-slide-id="' + id + '"]');
-      lectureElement.foundBy = 'slide';
+    /**선택된 요소 */
+    var lectureElement;
+    
+    // 전체 강의
+    if (document.querySelector('a[href="/lecture/list/detail/' + id + '"]')){
+      lectureElement = document.querySelector('a[href="/lecture/list/detail/' + id + '"]');
+      lectureElement.foundBy = 'aTag';
     }
+    // 세부 강의
     else if(document.querySelector('div[data-lecture-id="' + id + '"]')){
       lectureElement = document.querySelector('div[data-lecture-id="' + id + '"]')
       lectureElement.foundBy = 'lecture';
+      console.log(lectureElement)
+    }
+    // 메인 슬라이더
+    else if (document.querySelector('div[data-slide-id="' + id + '"]')){
+      lectureElement = document.querySelector('div[data-slide-id="' + id + '"]');
+      lectureElement.foundBy = 'slide';
     }
     else{
-      lectureElement.foundBy = 'aTag';
+      console.log("Edit Button Error!")
     }
+    
     var title = lectureElement.querySelector('.lecture-title').textContent;
     var contents = lectureElement.querySelector('.lecture-text').innerHTML;
     var contentText = contents.replace(/<br>/g, '\n');
@@ -60,11 +70,11 @@ editButtons.forEach(function(button) {
     if (lectureElement.foundBy === 'aTag') {
       form.action = "list/update/" + id;
     }
-    else if (lectureElement.foundBy === 'slide') {
-      form.action = "slide/update/" + id;
-    }
     else if (lectureElement.foundBy === 'lecture') {
       form.action = "/lecture/list/detail/update/" + id;
+    }
+    else if (lectureElement.foundBy === 'slide') {
+      form.action = "slide/update/" + id;
     }
   }
     
@@ -90,7 +100,6 @@ var editButtons = document.querySelectorAll('.instrs-edit');
 editButtons.forEach(function(button) {
   button.addEventListener('click', function() {
     var id = this.dataset.id;
-    console.log(id);
     // 부모 클래스를 가져옴
     var parent = this.parentNode;
     var name = parent.querySelector('.instrs-name').textContent;

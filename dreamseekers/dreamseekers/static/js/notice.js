@@ -59,15 +59,20 @@ function handleUpdate(fileList){
 };
 
 // 파일 선택시 업로드
-fileInupt.addEventListener("change",(event) => {
-    const files = event.target.files;
+/** file input 요소를 찾아서 할당 */
+const fileInput = document.querySelector('#fileInput');
 
-    // 선택한 파일들을 배열에 추가합니다.
-    selectedFiles.push(...files);
+if (fileInput) {
+    fileInput.addEventListener("change", (event) => {
+        const files = event.target.files;
 
-    fileHandleUpdate([...files]);
-    console.log("파일선택핸들러")
-})
+        // 선택한 파일들을 배열에 추가합니다.
+        selectedFiles.push(...files);
+
+        fileHandleUpdate([...files]);
+        console.log("파일 선택 핸들러");
+    });
+}
 
 // 모든 .container-file 요소에 이벤트 리스너 추가
 document.querySelectorAll('.container-file').forEach(addClickListener);
