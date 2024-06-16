@@ -1,251 +1,330 @@
 {%load static %}
 <head>
-    <title>꿈을 찾는 사람들 교육원</title>
-    <link rel="icon" href="{% static 'img/logo.svg'%}">
-    <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square.css" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/reset.css'%}?after">
-    <link rel="stylesheet" href="{% static 'css/style.css'%}">
-    <link rel="stylesheet" href="{% static 'css/main.css'%}">
-    <link rel="stylesheet" href="{% static 'css/header.css'%}">
+  <title>꿈을 찾는 사람들 교육원</title>
+  <link rel="icon" href="{% static 'img/logo.svg'%}" />
+  <link
+    href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square.css"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="{% static 'css/reset.css'%}?after" />
+  <link rel="stylesheet" href="{% static 'css/style.css'%}" />
+  <link rel="stylesheet" href="{% static 'css/main.css'%}" />
+  <link rel="stylesheet" href="{% static 'css/header.css'%}" />
 
-    <style>
-        @media screen and (max-width: 1140px){
-            .nav-menu .menu-list{display: none;}
-        }
-        @media screen and (min-width: 1140px){
-            .nav-menu .menu-list{display: flex;}
-        }
-    </style>
-
+  <style>
+    @media screen and (max-width: 1140px) {
+      .nav-menu .menu-list {
+        display: none;
+      }
+    }
+    @media screen and (min-width: 1140px) {
+      .nav-menu .menu-list {
+        display: flex;
+      }
+    }
+  </style>
 </head>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-{% block f_script %}
-{% endblock %}
+{% block f_script %} {% endblock %}
 
 <header>
-    <div class="top-header">
-        <div class="login">
-            {% if request.user.is_authenticated %} <!--로그인 여부 확인-->
-            <b>{{ request.user.username}}</b>님
-            <span class="span-contour"></span>
-            <a href="{% url 'accounts:account' %}">정보수정</a>
-            <span class="span-contour"></span>
-            <a href="{% url 'accounts:logout' %}">로그아웃</a>
-            {% else %}
-            <a href="{% url 'accounts:login' %}">로그인</a>
-            <span class="span-contour"></span>
-            <a href="{% url 'accounts:signup' %}">회원가입</a>
-            {% endif %}
-        </div>
+  <div class="top-header">
+    <div class="login">
+      {% if request.user.is_authenticated %}
+      <!--로그인 여부 확인-->
+      <b>{{ request.user.username}}</b>님
+      <span class="span-contour"></span>
+      <a href="{% url 'accounts:account' %}">정보수정</a>
+      <span class="span-contour"></span>
+      <a href="{% url 'accounts:logout' %}">로그아웃</a>
+      {% else %}
+      <a href="{% url 'accounts:login' %}">로그인</a>
+      <span class="span-contour"></span>
+      <a href="{% url 'accounts:signup' %}">회원가입</a>
+      {% endif %}
     </div>
-    
-    <nav class="nav-menu">
-        <div class="nav-logo">
-            <a class="logo-box" href="/">
-                <img class="logo-img" src = {% static "img/logo.svg" %} alt="꿈을 찾는 사람들 교육원" title="꿈을 찾는 사람들 교육원">
-                <span class="logo-text">꿈을 찾는 사람들 교육원</span>
-            </a>
-        </div>
+  </div>
 
-        <div id="blind"></div>
+  <nav class="nav-menu">
+    <div class="nav-logo">
+      <a class="logo-box" href="/">
+        <img class="logo-img" src = {% static "img/logo.svg" %} alt="꿈을 찾는
+        사람들 교육원" title="꿈을 찾는 사람들 교육원">
+        <span class="logo-text">꿈을 찾는 사람들 교육원</span>
+      </a>
+    </div>
 
-        <ul class="menu-list">
-            <li class="menu"><a href="/intro/greeting/">교육원 소개</a>
-                <div class="menu-bar"><span></span></div>
-                <div class="submenu-container">
-                    <ul class="submenu">
-                        <li><a href="/intro/greeting/">인사말</a></li>
-                        <li><a href="/intro/instructors/">강사 소개</a></li>
-                        <li><a href="/intro/contact/">오시는 길</a></li>
-                    </ul>
-                </div>
-            </li>
-            <li class="menu"><a href="/lecture/list">주요 강의</a>
-                <div class="menu-bar"><span></span></div>
-                <div class="submenu-container">
-                    <ul class="submenu">
-                        <li><a href="/lecture/list">주요 강의</a></li>
-                    </ul>
-                </div>
-            </li>
-            <li class="menu">
-                {% if request.user.is_staff %}
-                <a href="/lecture/inquiry/list">강의 문의</a>
-                {% else %}
-                <a href="/lecture/inquiry">강의 문의</a>
-                {% endif %}
-                
-                <div class="menu-bar"><span></span></div>
-                <div class="submenu-container">
-                    <ul class="submenu">
-                        <li>
-                            {% if not request.user.is_staff %}
-                            <a href="/lecture/inquiry">강의 상담 문의</a></li>
-                            {% endif %}
-                        <li>
-                            {% if request.user.is_staff %}
-                            <a href="/lecture/inquiry/list">문의 내역</a>
-                            {% else %}
-                            <a href="/lecture/inquiry/list">내 문의 내역</a>
-                            {% endif %}
-                        </li>
-                        
-                        <li><a href="/lecture/calender">강의 일정</a></li>
-                    </ul>
-                </div>
-            </li>
-            <li class="menu"><a href="/board/notice/">소통 마당</a>
-                <div class="menu-bar"><span></span></div>
-                <div class="submenu-container">
-                    <ul class="submenu">
-                        <li><a href="/board/notice/">공지사항</a></li>
-                        <li><a href="/board/archive/">자료실</a></li>
-                        <li><a href="/board/guest/">방명록</a></li>
-                        <li><a href="/board/news/">활동 소식</a></li>
-                        
-                    </ul>
-                </div>
-            </li>
-        </ul>
-        <div id="menuToggle">
-            <a class="menu-trigger burger-toggle" href="#">
-                <span></span>
-                <span></span>
-                <span></span>
-            </a>
+    <div id="blind"></div>
+
+    <ul class="menu-list">
+      <li class="menu">
+        <a href="/intro/greeting/">교육원 소개</a>
+        <div class="menu-bar"><span></span></div>
+        <div class="submenu-container">
+          <ul class="submenu">
+            <li><a href="/intro/greeting/">인사말</a></li>
+            <li><a href="/intro/instructors/">강사 소개</a></li>
+            <li><a href="/intro/contact/">오시는 길</a></li>
+          </ul>
         </div>
-    </nav>
+      </li>
+      <li class="menu">
+        <a href="/lecture/list">주요 강의</a>
+        <div class="menu-bar"><span></span></div>
+        <div class="submenu-container">
+          <ul class="submenu">
+            <li><a href="/lecture/list">주요 강의</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="menu">
+        {% if request.user.is_staff %}
+        <a href="/lecture/inquiry/list">강의 문의</a>
+        {% else %}
+        <a href="/lecture/inquiry">강의 문의</a>
+        {% endif %}
+
+        <div class="menu-bar"><span></span></div>
+        <div class="submenu-container">
+          <ul class="submenu">
+            <li>
+              {% if not request.user.is_staff %}
+              <a href="/lecture/inquiry">강의 상담 문의</a>
+            </li>
+            {% endif %}
+            <li>
+              {% if request.user.is_staff %}
+              <a href="/lecture/inquiry/list">문의 내역</a>
+              {% else %}
+              <a href="/lecture/inquiry/list">내 문의 내역</a>
+              {% endif %}
+            </li>
+
+            <li><a href="/lecture/calender">강의 일정</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="menu">
+        <a href="/board/notice/">소통 마당</a>
+        <div class="menu-bar"><span></span></div>
+        <div class="submenu-container">
+          <ul class="submenu">
+            <li><a href="/board/notice/">공지사항</a></li>
+            <li><a href="/board/archive/">자료실</a></li>
+            <li><a href="/board/guest/">방명록</a></li>
+            <li><a href="/board/news/">활동 소식</a></li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+    <div id="menuToggle">
+      <a class="menu-trigger burger-toggle" href="#">
+        <span></span>
+        <span></span>
+        <span></span>
+      </a>
+    </div>
+  </nav>
 </header>
 
 <!-- 사이드바 -->
-<div id="sidebar" style="display: none;">
-    <div class="background"></div>
-    <div class="inner">
-        <div id="sidebarToggle ">
-            <a class="side-trigger burger-toggle" href="#">
-                <span></span>
-                <span></span>
-            </a>
-        </div>
+<div id="sidebar" style="display: none">
+  <div class="background"></div>
+  <div class="inner">
+    <div id="sidebarToggle">
+      <a class="side-trigger burger-toggle" href="#">
+        <span></span>
+        <span></span>
+      </a>
     </div>
+    <ul class="side_menu">
+      <li class="side_header">
+        <a href="/intro/greeting/">교육원 소개</a>
+        <div>
+          <ul class="submenu">
+            <li><a href="/intro/greeting/">인사말</a></li>
+            <li><a href="/intro/instructors/">강사 소개</a></li>
+            <li><a href="/intro/contact/">오시는 길</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="side_header">
+        <a href="/lecture/list">주요 강의</a>
+        <div>
+          <ul class="submenu">
+            <li><a href="/lecture/list">주요 강의</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="side_header">
+        {% if request.user.is_staff %}
+        <a href="/lecture/inquiry/list">강의 문의</a>
+        {% else %}
+        <a href="/lecture/inquiry">강의 문의</a>
+        {% endif %}
+        <div>
+          <ul class="submenu">
+            <li>
+              {% if not request.user.is_staff %}
+              <a href="/lecture/inquiry">강의 상담 문의</a>
+            </li>
+            {% endif %}
+            <li>
+              {% if request.user.is_staff %}
+              <a href="/lecture/inquiry/list">문의 내역</a>
+              {% else %}
+              <a href="/lecture/inquiry/list">내 문의 내역</a>
+              {% endif %}
+            </li>
+
+            <li><a href="/lecture/calender">강의 일정</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="side_header">
+        <a href="/board/notice/">소통 마당</a>
+        <div>
+          <ul class="submenu">
+            <li><a href="/board/notice/">공지사항</a></li>
+            <li><a href="/board/archive/">자료실</a></li>
+            <li><a href="/board/guest/">방명록</a></li>
+            <li><a href="/board/news/">활동 소식</a></li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
 </div>
 
+<!-- 플로팅 버튼 -->
 <ul class="floating">
-    <li>
-        <a class="floating-btn" href="#">
-            <span class="icon call-icon"></span>
-            <span class="floating-text">전화</span>
-        </a>
-    </li>
-    <li>
-        <a class="floating-btn" href="/intro/contact/">
-            <span class="icon map-icon"></span>
-            <span class="floating-text">오시는길</span>
-        </a>
-    </li>
-    <li>
-        <a class="floating-btn" href="#">
-            <span class="icon text-icon"></span>
-            <span class="floating-text">톡톡</span>
-        </a>
-    </li>
-    <li>
-        <span class="floating-btn " style="cursor:pointer;" onclick="window.scrollTo(0,0);">
-            <span class="icon upward-icon"></span>
-        </span>
-    </li>
+  <!--
+  <li>
+    <a class="floating-btn" href="#">
+      <span class="icon call-icon"></span>
+      <span class="floating-text">전화</span>
+    </a>
+  </li>
+  -->
+  <li>
+    <a class="floating-btn" href="/intro/contact/">
+      <span class="icon map-icon"></span>
+      <span class="floating-text">오시는길</span>
+    </a>
+  </li>
+  <li>
+    <a class="floating-btn" href="#">
+      <span class="icon text-icon"></span>
+      <span class="floating-text">톡톡</span>
+    </a>
+  </li>
+  <li>
+    <span
+      class="floating-btn"
+      style="cursor: pointer"
+      onclick="window.scrollTo(0,0);"
+    >
+      <span class="icon upward-icon"></span>
+    </span>
+  </li>
 </ul>
 
 {% block topContent %}
 <!-- 본문 헤더 -->
 <div id="top-content">
-    <div class="top-img">
-        {% block topImg %}
-        <img src = {% static "img/1.jpg" %} alt="예제이미지">
-        <h1>예제 텍스트</h1>
-        {% endblock %}
-    </div>
-    <div class="menu-tab"></div>
+  <div class="top-img">
+    {% block topImg %} <img src = {% static "img/1.jpg" %} alt="예제이미지">
+    <h1>예제 텍스트</h1>
+    {% endblock %}
+  </div>
+  <div class="menu-tab"></div>
 </div>
 {% endblock %}
 
 <!-- 본문 -->
-{% block content %}
-{% endblock %}
+{% block content %} {% endblock %}
 
 <footer>
-    <div class="footer-box">
-        <div class="footer-top">
-            <ul class="sub-menu">
-                <li>
-                    <a href="/intro/greeting/">교육원 소개</a>
-                </li>
-                <li>
-                    <a href="/lecture/list">주요 강의</a>
-                </li>
-                <li>
-                    <a href="/lecture/inquiry">강의 문의</a>
-                </li>
-                <li>
-                    <a href="/unauthorized-collection">이메일무단수집거부</a>
-                </li>
-                <li>
-                    <a href="/privacy-policy">개인정보처리방침</a>
-                </li>
-            </ul>
-        </div>
-        <div class="footer-bottom">
-            <div class="footer-info">
-                <ul class="info">
-                    <li>
-                        <p>꿈을 찾는 사람들 교육원</p>
-                    </li>
-                    <li>
-                        <p>대표 : {{footer_info.rep}}</p>
-                    </li>
-                    <li>
-                        <p>주소 : {{footer_info.address}} ({{footer_info.sub_address}})</p>
-                    </li>
-                    <li>
-                        <p>사업자등록번호 : {{footer_info.CRN}}</p>
-                    </li>
-                    <li>
-                        <p>전화번호 : {{footer_info.phone}}</p>
-                    </li>
-                    <li>
-                        <p>이메일 : {{footer_info.email}}</p>
-                    </li>
-                    <li>강의접수 : {{footer_info.sub_phone}}
-                    </li>
-                </ul>
-                <p>Copyright 2024. 꿈을 찾는 사람들 교육원 All rights reserved.</p>
-                
-            </div>
-            <div class="footer-sns">
-                <ul>
-                    <li>
-                        <a href="https://www.facebook.com/people/꿈을-찾는-사람들-교육원/100046588332120/" target="_blank" class="sns-link icon-facebook">
-                            <span class="blind">페이스북</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.instagram.com/dreamseekers1004/" target="_blank" class="sns-link icon-instagram">
-                            <span class="blind">인스타그램</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://blog.naver.com/jhs9747" target="_blank" class="sns-link icon-naverblog">
-                            <span class="blind">네이버 블로그</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+  <div class="footer-box">
+    <div class="footer-top">
+      <ul class="sub-menu">
+        <li>
+          <a href="/intro/greeting/">교육원 소개</a>
+        </li>
+        <li>
+          <a href="/lecture/list">주요 강의</a>
+        </li>
+        <li>
+          <a href="/lecture/inquiry">강의 문의</a>
+        </li>
+        <li>
+          <a href="/unauthorized-collection">이메일무단수집거부</a>
+        </li>
+        <li>
+          <a href="/privacy-policy">개인정보처리방침</a>
+        </li>
+      </ul>
     </div>
-    
+    <div class="footer-bottom">
+      <div class="footer-info">
+        <ul class="info">
+          <li>
+            <p>꿈을 찾는 사람들 교육원</p>
+          </li>
+          <li>
+            <p>대표 : {{footer_info.rep}}</p>
+          </li>
+          <li>
+            <p>주소 : {{footer_info.address}} ({{footer_info.sub_address}})</p>
+          </li>
+          <li>
+            <p>사업자등록번호 : {{footer_info.CRN}}</p>
+          </li>
+          <li>
+            <p>전화번호 : {{footer_info.phone}}</p>
+          </li>
+          <li>
+            <p>이메일 : {{footer_info.email}}</p>
+          </li>
+          <li>강의접수 : {{footer_info.sub_phone}}</li>
+        </ul>
+        <p>Copyright 2024. 꿈을 찾는 사람들 교육원 All rights reserved.</p>
+      </div>
+      <div class="footer-sns">
+        <ul>
+          <li>
+            <a
+              href="https://www.facebook.com/people/꿈을-찾는-사람들-교육원/100046588332120/"
+              target="_blank"
+              class="sns-link icon-facebook"
+            >
+              <span class="blind">페이스북</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.instagram.com/dreamseekers1004/"
+              target="_blank"
+              class="sns-link icon-instagram"
+            >
+              <span class="blind">인스타그램</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://blog.naver.com/jhs9747"
+              target="_blank"
+              class="sns-link icon-naverblog"
+            >
+              <span class="blind">네이버 블로그</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </footer>
 
-{% block script %}
-{% endblock %}
+{% block script %} {% endblock %}
 <script src="{% static 'js/header.js'%}"></script>

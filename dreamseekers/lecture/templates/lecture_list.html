@@ -39,7 +39,7 @@
                 method="POST" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
                 {% csrf_token %}
                 <input class="btn btn-warning lecture-del" type="submit" value="삭제">
-            </form>
+        </form>
             {% endif %}
             <a href="/lecture/list/detail/{{ title.pk }}">
                 <h2 class="lecture-title" data-id="{{title.pk}}">{{ title.title }}</h2>

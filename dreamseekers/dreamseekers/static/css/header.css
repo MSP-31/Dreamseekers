@@ -1,16 +1,16 @@
-header{
+header {
   position: fixed;
   width: 100%;
   z-index: 3;
-  transition: background-color 0.2s ease-in-out
+  transition: background-color 0.2s ease-in-out;
 }
 
-header:hover{
+header:hover {
   background-color: var(--white);
-  transition: background-color 0.2s ease-in-out
+  transition: background-color 0.2s ease-in-out;
 }
 /* -----top header------ */
-.top-header{
+.top-header {
   position: absolute;
   right: 2%;
   top: 12px;
@@ -18,47 +18,47 @@ header:hover{
   color: #e4e4e4;
   z-index: 2;
 
-  transition: top 1s, color 0.2s ease-in-out
+  transition: top 1s, color 0.2s ease-in-out;
 }
 
 /* 로그인 경계선 */
-.span-contour{
+.span-contour {
   width: 1px;
   height: 12px;
   margin: 0 5px;
   background-color: rgb(228, 228, 228);
   vertical-align: middle;
-  display:inline-block;
+  display: inline-block;
   transition: background-color 0.2s ease;
 }
 
 /*--------헤더 메뉴--------*/
 .nav-menu {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-    height: 90px;
-    transition: background-color 0.5s ease;
-    width: 100%;
-    top: 0;
-    z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  height: 90px;
+  transition: background-color 0.5s ease;
+  width: 100%;
+  top: 0;
+  z-index: 1;
 
-    transition: top 1s
+  transition: top 1s;
 }
 /* 로고 */
-.nav-menu .nav-logo .logo-box{
+.nav-menu .nav-logo .logo-box {
   display: flex;
 }
 
 /* 로고 이미지 */
-.nav-menu .nav-logo .logo-box .logo-img{
+.nav-menu .nav-logo .logo-box .logo-img {
   width: 60;
   margin-left: 15;
 }
 
 /* 로고 이미지 */
-.nav-menu .nav-logo .logo-box .logo-text{
+.nav-menu .nav-logo .logo-box .logo-text {
   align-content: center;
   font-size: 20;
   padding-left: 20;
@@ -67,20 +67,20 @@ header:hover{
 
 /* 스크롤시 헤더 사라짐 */
 header.on .top-header,
-header.on .nav-menu{
+header.on .nav-menu {
   top: -90px;
   height: 0px;
-  transition: top 0.2s
+  transition: top 0.2s;
 }
 
 /* 메뉴 글꼴 스타일 */
-.nav-menu li.menu > a{
-    font-weight: bold;
-    font-size: 25px;
+.nav-menu li.menu > a {
+  font-weight: bold;
+  font-size: 25px;
 }
 
 /* 메인 메뉴 조정 */
-.menu-list li.menu{
+.menu-list li.menu {
   position: relative;
   text-align: center;
   width: 170px;
@@ -90,33 +90,32 @@ header.on .nav-menu{
 /* 기본 글꼴색 */
 .nav-menu .nav-logo .logo-box .logo-text,
 ul.menu-list > li.menu a,
-ul.submenu > li{
+ul.submenu > li {
   color: var(--white);
-  transition: color 0.2s ease-in-out
+  transition: color 0.2s ease-in-out;
 }
 
 /* 메뉴에 마우스가 올라갔을때 색변경 */
-ul.menu-list > li.menu a:hover ,
-ul.submenu > li:hover{
+ul.menu-list > li.menu a:hover,
+ul.submenu > li:hover {
   color: var(--primary-color);
-  transition: color 0.2s ease-in-out
+  transition: color 0.2s ease-in-out;
 }
 
 /* 메뉴 글꼴색 */
 header:hover .top-header,
 .nav-menu:hover .nav-logo .logo-box .logo-text,
 .nav-menu:hover ul.menu-list > li.menu a,
-.nav-menu:hover ul.submenu > li{
-    color: var(--black);
+.nav-menu:hover ul.submenu > li {
+  color: var(--black);
 }
-header:hover .top-header .span-contour{
-    background-color: var(--black);
-    transition: background-color 0.2s ease;
+header:hover .top-header .span-contour {
+  background-color: var(--black);
+  transition: background-color 0.2s ease;
 }
-
 
 /* 서브 메뉴 배경 */
-#blind{
+#blind {
   background-color: #fafafa;
   width: 100%;
   transition-duration: 0.4s;
@@ -124,7 +123,7 @@ header:hover .top-header .span-contour{
 
 /* 서브메뉴 배경 그림 */
 
-.submenu-container{
+.submenu-container {
   width: 170px;
   border-right: 1px solid var(--line-color);
   border-left: 1px solid var(--line-color);
@@ -140,28 +139,28 @@ header:hover .top-header .span-contour{
 
 /* 서브메뉴 기본상태 */
 .submenu-container,
-#blind{
+#blind {
   position: absolute;
   height: 0;
-  overflow:hidden;
+  overflow: hidden;
   top: 100%;
   z-index: 1;
 }
 
 /* 마우스가 hover시 서브 메뉴 배경색 */
-.menu.on .submenu-container{
+.menu.on .submenu-container {
   background-color: var(--white);
 }
 
 /* 서브메뉴 설정*/
-.submenu{
+.submenu {
   max-width: 300px;
   padding-left: 0;
   text-align: center;
   font-weight: bold;
 }
 
-.submenu:hover{
+.submenu:hover {
   color: var(--primary-color);
 }
 
@@ -181,7 +180,7 @@ header:hover .top-header .span-contour{
 /* 마우스가 올라갔을때 (bar) */
 .menu.on .menu-bar span {
   width: 170px;
-  transition: width 0.4s ease-in-out
+  transition: width 0.4s ease-in-out;
 }
 
 /*----햄버거 버튼----*/
@@ -210,13 +209,13 @@ header:hover .top-header .span-contour{
   height: 4px;
   background-color: var(--white);
   border-radius: 4px;
-  transition: background-color 0.2s ease-in-out
+  transition: background-color 0.2s ease-in-out;
 }
 
 /* 햄버거 줄 색 변경 */
-.nav-menu:hover .menu-trigger span{
+.nav-menu:hover .menu-trigger span {
   background-color: var(--black);
-  transition: background-color 0.2s ease-in-out
+  transition: background-color 0.2s ease-in-out;
 }
 
 /* 햄버거 줄 세부위치 */
@@ -233,7 +232,6 @@ header:hover .top-header .span-contour{
 /* 햄버거 위치*/
 .side-trigger {
   position: relative;
-  top: 60px;
   width: 50px;
   height: 44px;
   left: 52%;
@@ -275,14 +273,15 @@ header:hover .top-header .span-contour{
 }
 
 /* 사이드바 설정*/
-.inner{
+.inner {
   position: fixed;
   right: -500px;
   width: 500px;
   height: 100%;
-  background-color: #04ABDD;
+  padding: 50px;
+  background-color: #04abdd;
   z-index: 4;
-  transition: right .3s ease-out;
+  transition: right 0.3s ease-out;
 }
 
 /* ---- 사이드바 ------ */
@@ -299,23 +298,39 @@ header:hover .top-header .span-contour{
 }
 
 /* 펼침 */
-.inner.active{
+.inner.active {
   right: 0;
 }
 
+.inner .side_menu {
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.inner .side_header {
+  margin-bottom: 20px;
+}
+
+/* 서브메뉴 */
+.inner .side_menu .submenu {
+  font-size: 25px;
+  text-align: left;
+  padding-left: 40px;
+}
+
 /*-------- 본문헤더 ----------*/
-#top-content{
+#top-content {
   width: 100%;
   position: relative;
 }
 
 /* 이미지 */
-#top-content .top-img{
+#top-content .top-img {
   position: relative;
   mix-blend-mode: multiply;
   background-color: rgba(0, 0, 0, 0.205);
 }
-#top-content .top-img img{
+#top-content .top-img img {
   object-fit: cover;
   width: 100%;
   height: 300px;
@@ -323,29 +338,28 @@ header:hover .top-header .span-contour{
   background-color: rgba(0, 0, 0, 0.205);
 }
 
-#top-content .top-img .login-img{
+#top-content .top-img .login-img {
   height: 200px;
 }
 
 /* 제목 */
-#top-content .top-img h1{
+#top-content .top-img h1 {
   position: absolute;
   transform: translate(-50%, -50%);
   top: 50%;
   left: 50%;
   color: white;
-  
 }
 
 /* 메뉴 탭 */
 #top-content .lecture-menu-tab,
-#top-content .menu-tab{
+#top-content .menu-tab {
   margin: 0 10%;
   padding: 2% 5%;
 }
 
 /* floating 메뉴*/
-.floating{
+.floating {
   position: fixed;
   z-index: 3;
   right: 50px;
@@ -355,7 +369,7 @@ header:hover .top-header .span-contour{
   transition: opacity 0.2s ease-in-out;
 }
 
-.floating .floating-btn{
+.floating .floating-btn {
   display: inline-block;
   overflow: hidden;
   position: relative;
@@ -365,8 +379,8 @@ header:hover .top-header .span-contour{
   border-radius: 30px;
   background-color: var(--primary-color-light);
 
-  -webkit-box-shadow: 3px 2px 8px 1px rgba(0,0,0,.2);
-  box-shadow: 3px 2px 8px 1px rgba(0,0,0,.2);
+  -webkit-box-shadow: 3px 2px 8px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 3px 2px 8px 1px rgba(0, 0, 0, 0.2);
   color: var(--line-color);
   text-align: center;
   text-align: -webkit-center;
@@ -376,14 +390,14 @@ header:hover .top-header .span-contour{
   transition: width 0.2s;
 }
 
-.floating a:hover{
+.floating a:hover {
   width: 150;
   text-align: left;
   text-align: -webkit-left;
   padding-left: 15px;
 }
 
-.floating .icon{
+.floating .icon {
   display: inline-flex;
   width: 40px;
   height: 40px;
@@ -392,60 +406,60 @@ header:hover .top-header .span-contour{
   background-size: auto;
   background-size: cover;
 }
-.floating .floating-text{
+.floating .floating-text {
   position: absolute;
   padding-top: 5px;
   margin-left: 10px;
-  font-size: 20px
+  font-size: 20px;
 }
 
-.floating span.floating-btn{
+.floating span.floating-btn {
   border: solid 2px var(--line-color);
   background-color: white;
 }
 
-.floating .call-icon{
+.floating .call-icon {
   background-image: url(../img/icon/call_white_24dp.svg);
 }
 
-.floating .map-icon{
+.floating .map-icon {
   background-image: url(../img/icon/map_white_24dp.svg);
 }
 
-.floating .text-icon{
+.floating .text-icon {
   background-image: url(../img/icon/textsms_white_24dp.svg);
 }
 
-.floating .upward-icon{
+.floating .upward-icon {
   background-image: url(../img/icon/arrow_upward_white_24dp.svg);
 }
-  
+
 /*-------- footer ----------*/
-footer{
+footer {
   padding: 2rem 0;
   width: 100%;
   background: #515151;
 }
 
 /* footer 정렬 */
-.footer-box{
+.footer-box {
   margin: 0 20%;
 }
 
 /* footer 전체 글꼴 크기 */
 .footer-box p,
-.footer-box li{
+.footer-box li {
   font-size: 14;
   color: var(--line-color);
 }
 
-footer .footer-box li{
+footer .footer-box li {
   display: inline-block;
 }
 
 /* li 구분선 */
 footer .footer-top .sub-menu li::after,
-footer .footer-info .info li p::after{
+footer .footer-info .info li p::after {
   display: inline-block;
   width: 1px;
   height: 12px;
@@ -455,22 +469,22 @@ footer .footer-info .info li p::after{
 }
 
 /* 상단 */
-footer .footer-top{
+footer .footer-top {
   padding-bottom: 20px;
   border-bottom: solid 1px var(--line-color);
 }
 
-footer .footer-top .sub-menu li a{
+footer .footer-top .sub-menu li a {
   padding: 0 17px;
 }
 
 /* 하단 정보 */
-.footer-bottom{
+.footer-bottom {
   display: flex;
   padding-top: 20px;
 }
 
-footer .footer-info .info{
+footer .footer-info .info {
   margin-right: 20%;
   padding-bottom: 20px;
 }
@@ -482,7 +496,7 @@ footer .footer-info .info{
   width: 120px;
 }
 
-footer .footer-bottom .footer-sns .sns-link{
+footer .footer-bottom .footer-sns .sns-link {
   display: inline-block;
   width: 30px;
   height: 30px;
@@ -491,25 +505,25 @@ footer .footer-bottom .footer-sns .sns-link{
   background-size: auto;
 }
 
-.icon-facebook{
+.icon-facebook {
   background-image: url(../img/icon/facebook.svg);
 }
 
-.icon-instagram{
+.icon-instagram {
   background-image: url(../img/icon/instagram.svg);
 }
 
-.icon-naverblog{
+.icon-naverblog {
   background-image: url(../img/icon/naverblog.svg);
 }
 
 /* 개인정보처리방침 */
-.privacy-policy{
+.privacy-policy {
   text-align: left;
   text-align: -webkit-left;
 }
 
-.privacy-policy p{
+.privacy-policy p {
   padding-bottom: 20px;
   font-size: 15px;
 }
