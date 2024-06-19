@@ -3,7 +3,6 @@ import json
 from pathlib import Path
 import sys
 
-from . import settings
 from . import local_settings
 from datetime import timedelta
 
@@ -25,7 +24,7 @@ AUTH_USER_MODEL = 'user.Users'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.2', 'localhost', '127.0.0.1','211.117.200.67',]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1',]
 
 # Application definition
 INSTALLED_APPS = [

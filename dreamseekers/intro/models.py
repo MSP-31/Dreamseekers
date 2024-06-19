@@ -28,7 +28,7 @@ class Intro(models.Model):
         super(Intro,self).delete(*args, **kargs)
     
     class Meta:
-        db_table = "intro_Intro"
+        db_table = "intro_intro"
         verbose_name = "인사말"
         verbose_name_plural = "인사말"
 
@@ -59,7 +59,7 @@ class Instructors(models.Model):
         super(Instructors,self).delete(*args, **kargs)
     
     class Meta:
-        db_table = "intro_Instructors"
+        db_table = "intro_instructors"
         verbose_name = "강사진"
         verbose_name_plural = "강사진"
 
@@ -81,7 +81,7 @@ class Contact(models.Model):
         return self.address
 
     class Meta:
-        db_table = "intro_Contact"
+        db_table = "intro_contact"
         verbose_name = "오시는 길"
         verbose_name_plural = "오시는 길"
 
@@ -98,6 +98,6 @@ class BusinessInfo(models.Model):
         return self.rep
 
     class Meta:
-        db_table = "intro_BusinessInfo"
+        db_table = "intro_business_info"
         verbose_name = "사업자 정보"
         verbose_name_plural = "사업자 정보"
