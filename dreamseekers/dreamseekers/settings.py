@@ -3,8 +3,10 @@ import json
 from pathlib import Path
 import sys
 
-from . import local_settings
 from datetime import timedelta
+from dotenv import load_dotenv
+
+load_dotenv()
 
 SECRET_BASE_FILE = "dreamseekers/secrets.json"
 
@@ -12,8 +14,22 @@ secrets = json.load(open(SECRET_BASE_FILE))
 for key, value in secrets.items():
     setattr(sys.modules[__name__],key,value)
 
-DATABASES = local_settings.DATABASES
 SECRET_KEY = secrets.get('SECRET_KEY')
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.environ.get('DB_NAME', 'dreamsdb'),
+        'USER': os.environ.get('DB_USER', 'root'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', '1234'),
+        'HOST': os.environ.get('DB_HOST', 'localhost'),
+        'PORT': '3306',
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+        },
+    }
+}
+
 
 # 현재 폴더 기본 위치
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -22,7 +38,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 AUTH_USER_MODEL = 'user.Users'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1',]
 

@@ -6,9 +6,7 @@
 *.pot
 *.pyc
 __pycache__/
-local_settings.py
 secrets.json
-docker-compose.yml
 db.sqlite3
 db.sqlite3-journal
 media
@@ -28,6 +26,7 @@ venv
 
 # Distribution / packaging
 .Python
+initdb/
 build/
 develop-eggs/
 dist/
