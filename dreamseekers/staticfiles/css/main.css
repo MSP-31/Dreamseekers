@@ -1,0 +1,910 @@
+/*--------메인 부분--------*/
+
+/* 메인 슬라이더 */
+.slide {
+    /* layout */
+    position: relative;
+    overflow: hidden;
+    flex: none;
+    width: 100%;
+    height: 100%;
+    /* slide drag를 위해 DOM요소가 드래그로 선택되는것을 방지 */
+    user-select: none;
+}
+/* 슬라이드 내용  */
+.slide .slide-item{
+    /* layout */
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+/* 슬라이드 이미지 설정 */
+.slide .slide-item .slide-img{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    filter: brightness(70%);
+    object-fit: cover;
+}
+
+/* 슬라이드 텍스트 */
+.slide .slide-item .slide-text{
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    color: var(--white);
+}
+
+/* 슬라이드 버튼 묶음 */
+.slide .slide-btns{
+    display: flex; /* flex 레이아웃 설정 */
+    justify-content: space-between; /* 요소들을 양쪽 끝으로 배치 */
+    align-items: center; /* 요소들을 세로 방향으로 중앙에 배치 */
+    width: 20%;
+    height: 30px;
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* 슬라이드 넘기기 버튼 */
+.slide .slide-prev::before,
+.slide .slide-next::before{
+    content: "";
+    display: block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid var(--white);
+    border-width: 3px 3px 0 0;
+    transition: border 0.1s;
+}
+.slide .slide-next::before{
+    transform: rotate(45deg);
+}
+.slide .slide-prev::before{
+    transform: rotate(-135deg);
+}
+
+/* 슬라이드 페이지네비 */
+.slide-pagination {
+    /* layout */
+    display: flex;
+    gap: 5px;
+  
+    /* position */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    align-items: center;
+    padding: 0 0;
+}
+.slide-pagination > li {
+    /* 현재 슬라이드가 아닌 것은 투명도 부여 */
+    cursor: pointer;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 1px solid var(--white);
+}
+.slide-pagination > li.active {
+    /* 현재 슬라이드 색상은 투명도 없이 */
+    background-color: var(--white);
+}
+
+/* 메인 */
+.main-content {
+    position: relative;
+    text-align: center;
+    color: black;
+    flex:1;
+    margin: 0 20%;
+    padding-bottom: 5%;
+}
+
+/* 게시글 작성*/
+.main-content .post-write{
+    position: relative;
+}
+
+.main-content .post-write div{
+    margin-bottom: 10px;
+}
+.main-content .post-write .btn-group{
+    float: right;
+}
+
+
+.main-content table th{
+    height: 60px;
+    width: 10%;
+    vertical-align: middle;
+    
+}
+/* 강의 상담문의 예외*/
+.main-content .post-write table th{
+    padding-bottom: 3%;
+}
+
+/* 라벨 상세 */
+.main-content .post-write th label{
+    position: absolute;
+    left: 0;
+}
+
+.main-content .post-write table td{
+    text-align: left;
+    text-align: -webkit-left;
+    width: 80%;
+}
+
+.main-content table td .width{
+    width: 100%;
+}
+.main-content .post-write table td .widthxt{
+    width: 123%;
+}
+.main-content .post-write table tr .is-check{
+    width: 20%;
+    text-align: center;
+    text-align: -webkit-center;
+}
+
+.main-content .post-write .right{
+    float: right;
+    margin-top: 20px;
+}
+
+/* 개인정보 수집 동의문 */
+.main-content .post-write .consent{
+    text-align: left;
+    text-align: -webkit-left;
+    margin-top: 20px;
+    margin-bottom: 0px;
+    font-size: 12px;
+}
+/* 내용보기 */
+.main-content .post-write .content{
+    margin: 0px 15px;
+    color: #666;
+    text-decoration: underline;
+}
+.main-content .post-write .content:hover{
+    cursor: pointer;
+}
+
+.consent-header h3{
+    margin: 10px 0px 30px 0px;
+}
+
+.consent-con p{
+    font-size: 14px;
+    text-align: left;
+    text-align: -webkit-left;
+}
+
+/* 메인화면 여백 */
+.padding-zero{
+    padding: 0;
+}
+
+.content-box{
+    padding: 180px 0;
+}
+
+.content-box .lecture-box{
+    padding-top: 60px;
+}
+
+/*-------로그인 디자인---------*/
+.login-box{
+    text-align: center;
+    text-align: -webkit-center;
+}
+
+
+/*--------게시판--------*/
+table{
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    table-layout: fixed;
+    text-align: center;
+}
+
+/* 게시판 머리 */
+.board-table thead th {
+    background: #f8f8f8;
+    font-size: 20px;
+    font-weight: normal;
+    padding: 20px 0;
+    border-bottom: 1px solid rgb(65, 64, 64);
+    border-top: 2px solid rgb(37, 35, 35);
+}
+
+/* 게시판 리스트 */
+.board-table tbody td {
+    border-top: 1px solid rgb(235, 230, 230);
+    padding: 8px;
+}
+
+/* 게시판 폭 */
+.board-table table-num{
+    padding: 0 0 0 0;
+}
+
+.board-write{
+    position: absolute;
+    right: 0;
+}
+
+/* 게시판 페이징 네비*/
+.paging-navi ul {
+  display: flex;
+  justify-content: center;
+}
+
+.paging-navi li {
+    margin:3px;
+}
+
+.paging-navi li a {
+    text-decoration: none;
+    color: black;
+}
+  
+.paging-navi li.active a {
+    color: red;
+}
+
+/* 공지사항 아이콘 */
+.megaphone-icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.megaphone-icon::after{
+    content: url('../img/icon/campaign_black_24dp.svg');
+    width: 24;
+}
+
+/* 게시판 열 */
+.board-table .clickable-row:hover{
+    background-color: var(--line-color-light);
+}
+
+/*--------------------*/
+/* 제목 */
+.board-box {
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 0 20%;
+    padding-bottom: 5%;
+    flex: 1;
+}
+.board-box h1{
+    text-align: center;
+}
+
+.board-title{
+    position: relative;
+    overflow: hidden;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line-color);
+}
+.board-title h3{
+    float: left;
+}
+.board-title span{
+    float: right;
+}
+
+.board-content{
+    min-height: 200px;
+}
+
+.board-content .file-download{
+    display: flex;
+    align-items: center;
+}
+.board-content .file-download::before{
+    content: url('../img/icon/save_alt_black_24dp.svg');
+    width: 30;
+}
+
+.board-comment .comment-count{
+    margin-bottom: 10px;
+}
+.board-comment .comment-list{
+    padding: 30px;
+    border-top: 1px solid var(--line-color);
+    background-color: #f8f8f8;
+}
+
+.board-comment .comment-box{
+    position: relative;
+    padding-bottom: 30px;
+}
+
+.board-comment .padding-t{
+    padding-bottom: 30px;
+}
+
+/* 댓글 날짜 */
+.comment-list .comment-detail .time{
+    font-size: 13;
+}
+/*댓글 */
+.comment-list .comment{
+    margin-top: 5px;
+}
+
+.board-comment textarea{
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+}
+
+.board-comment .comment-list .comment-write{
+    margin-left: 90%;
+}
+
+.comment-list .comment-box .btn-group{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.comment-list .comment-box form .btn-group{
+    top: 100;
+}
+
+.btn-group{
+    display: flex;
+    float: right;
+}
+
+/*------------------------------*/
+/* 활동 소식 */
+.sns-box li{
+    display: inline-block;
+    position: relative;
+    width: 400px;
+    height: 300px;
+    margin: 0 0 30px 10px;
+}
+.sns-box .sns-content{
+    padding: 40px 40px 40px;
+    max-height: 280px;
+    min-height: 250px;
+    text-align: left;
+    background-color: #f8f8f8;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+/* 글자 빠져나옴 방지 */
+.sns-box .sns-title{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.sns-box .sns-description{
+    margin-top: 10px;
+    overflow: hidden;
+}
+.sns-box .sns-description a{
+    display: block;
+    height: 150px;
+}
+.sns-form{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+.sns-form span:not(:last-child)::after {
+    content: "|";
+    margin-left: 5px;
+}
+
+/* ---- 게시판 파일 업로드 ----- */
+
+/* 드래그 버튼 */
+.main-content .post-write .img-label {
+    margin: 0px auto;
+    cursor: pointer;
+}
+
+.img-inner {
+    font-size: 16px;
+    color: var(--text);
+}
+
+/*임시속성*/
+
+@media (any-hover: hover) {
+    .img-inner:hover{
+      background-color: #7e7e7e;
+    }
+}
+  
+.label--hover{
+    background-color: #7e7e7e;
+}
+
+/* 미리보기 부모 */
+
+.preview {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    padding: 16px 16px;
+    align-items: center;
+    border: solid 1px var(--black);
+}
+
+.file-preview{
+    padding: 16px 16px;
+    border: solid 1px var(--black);
+}
+
+/* 미리보기 자식 */
+.embed-img {
+    width: 100%;
+    height: 128px;
+    object-position: center;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.container-img{
+    position: relative;
+}
+
+.container-img:hover .img-delete-btn {
+    visibility: visible;
+}
+
+.img-delete-btn{
+    visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    background-color: black;
+    opacity: 0.5;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.x-mark{
+    font-size: 6em;
+    color: white;
+    line-height:1;
+    user-select: none;
+}
+
+.file-delete-btn{
+    position: absolute;
+    right: 0;
+    padding-right: 20;
+    color: red;
+    cursor: pointer;
+}
+
+/*----------- 강사 소개 --------------*/
+.instrs-box .instrs-content{
+    display: inline-block;
+    position: relative;
+    height: 300px;
+    margin: 0 0 30px 50px;
+    padding-top: 50px;
+}
+
+.instrs-box .instrs-content:hover .instrs-edit,
+.instrs-box .instrs-content:hover .instrs-del{
+    display: block;
+}
+
+.instrs-edit{
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: none;
+}
+.instrs-del{
+    position: absolute;
+    top: 0;
+    right: 55px;
+    display: none;
+}
+
+/* 강사 이미지 */
+.instrs-box li img{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+/*-----모달--------*/
+#modal-open{
+    position: absolute;
+    margin-top: 35px;
+    right: 0;
+    top: 0;
+}
+
+.modal{
+    display: none;
+    position: fixed;
+    z-index: 3;
+    padding-top: 5%;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content{
+    background-color: #fefefe;
+    margin: auto;
+    padding: 30px 50px;
+    width: 50%;
+    border-radius: 25px;
+}
+
+.modal-title{
+    padding-bottom: 25px;
+    border-bottom: 0.5px solid var(--line-color);
+}
+
+.modal-title .title{
+    font-size: 25px;
+}
+
+.modal-close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+.modal-detail .detail-list-area{
+    padding-left: 0;
+}
+
+.modal-detail .detail-list-area .detail-list{
+    position: relative;
+    margin-top: 15px;
+}
+
+.modal-detail .detail-list-area .detail-list .modal-revise{
+    position: absolute;
+    display: inline-flex;
+    transform: translateY(-20%);
+    right: 0;
+}
+
+/* 추가모달의 미리보기*/
+#modal-box .preview{
+    display: block;
+}
+
+/* 날짜 구분선 */
+.modal-detail .detail-list-area .detail-list .content-div{
+    width: 1px;
+    height: 12px;
+    margin: 0 5px;
+    background-color: var(--line-color);
+    vertical-align: middle;
+    display: inline-block;
+}
+
+/* 오시는 길 */
+.map_address{
+    position: relative;
+    text-align: left;
+    padding: 40px 0;
+}
+
+/* 주소 */
+.map_address h2{
+    color: var(--primary-color);
+}
+
+.map_address a{
+    position: absolute;
+    right: 0;
+    top: 5px;
+}
+
+.list_info{
+    border-top: 1px solid var(--line-color);
+    padding: 25px;
+    align-items: center;
+    display: flex;
+}
+
+.list_info .item_title{
+    left: 0;
+    position: absolute;
+}
+
+
+/* section calendar */
+.sec-cal {
+    width: auto;
+    margin: 0 auto;
+}
+
+.sec-cal .cal-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 78px;
+}
+
+.sec-cal .cal-nav .year-month {
+    width: 300px;
+    text-align: center;
+    line-height: 1;
+}
+
+.sec-cal .cal-nav .nav {
+    display: flex;
+    border: 1px solid #333333;
+    border-radius: 5px;
+}
+
+.slide .slide-prev,
+.slide .slide-next,
+.sec-cal .cal-nav .go-prev,
+.sec-cal .cal-nav .go-next {
+    display: block;
+    width: 50px;
+    height: 78px;
+    font-size: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sec-cal .cal-nav .go-prev::before,
+.sec-cal .cal-nav .go-next::before {
+    content: "";
+    display: block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #000;
+    border-width: 3px 3px 0 0;
+    transition: border 0.1s;
+}
+
+.slide .go-prev::before,
+.slide .go-next::before,
+.sec-cal .cal-nav .go-prev:hover::before,
+.sec-cal .cal-nav .go-next:hover::before {
+    border-color: #ed2a61;
+}
+
+.slide .go-prev::before,
+.sec-cal .cal-nav .go-prev::before {
+    transform: rotate(-135deg);
+}
+
+.slide .go-next::before,
+.sec-cal .cal-nav .go-next::before {
+    transform: rotate(45deg);
+}
+
+.sec-cal .cal-wrap {
+    padding-top: 40px;
+    position: relative;
+    margin: 0 auto;
+}
+
+.sec-cal .cal-wrap .days {
+    display: flex;
+    
+}
+
+.sec-cal .cal-wrap::after {
+    top: 368px;
+}
+
+/* 요일 */
+.sec-cal .cal-wrap .week {
+    display:flex;
+    justify-content: center;
+    width: calc(100% / 7);
+    text-align: left;
+    color: black;
+    text-align: center;
+    border: 0.5px solid var(--line-color);
+    padding: 25px 0;
+}
+
+/* 일 */
+.sec-cal .cal-wrap .day {
+    display:flex;
+    width: calc(100% / 7);
+    position: relative;
+    border: 0.5px solid var(--line-color);
+    padding: 9px 11px 11px;
+}
+
+/* 선택시 */
+.sec-cal .cal-wrap .day:hover,
+.sec-cal .cal-wrap .selected {
+    border: 0.5px solid var(--primary-color);
+}
+
+/* 오늘 날짜 */
+.current.today .num{
+    height: 25px;
+    background-color: #3c6ffa;
+    border-radius: 25%;
+    color: white;
+}
+
+.sec-cal .cal-wrap .dates {
+    display: flex;
+    flex-flow: wrap;
+    height: 600px;
+}
+
+.sec-cal .cal-wrap .day:nth-child(7n -1) {
+    color: #3c6ffa;
+}
+
+.sec-cal .cal-wrap .day:nth-child(7n) {
+    color: #ed2a61;
+}
+
+.sec-cal .cal-wrap .day.disable {
+    color: #ddd;
+}
+
+/* 추가된 일정 */
+.sec-cal .cal-wrap .day .cell-con-area{
+    display: inline;
+}
+
+.sec-cal .cal-wrap .day .cell-con-area .cell-con-time{
+    display: inline-block;
+    margin-left: 5px;
+    font-size: 13px;
+    color: #333;
+    letter-spacing: -.4px;
+}
+
+.sec-cal .cal-wrap .day .cell-con-area .cell-con-text{
+    overflow: hidden;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    max-height: 38px;
+    margin: 15px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-size: 12px;
+    color: #666;
+    line-height: 1.67;
+    letter-spacing: -.7px;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+.sec-cal .cal-wrap .day .cell-con-area .cell-con-background{
+    display: block;
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    opacity: .05;
+    background-color: var(--primary-color)
+}
+
+/* 달력 모달 */
+.modal .modal-title .selected-date{
+    color: var(--primary-color);
+}
+
+#add-calender .set-date{
+    padding-bottom: 10px;
+}
+#add-calender .set-schedule input{
+    width: 80%;
+}
+
+/* 종일 체크박스 */
+#allDay{
+    display: none;
+}
+
+/*------- 주요 강의 --------- */
+/* 전체 틀 */
+.lecture-box li{
+    display: inline-block;
+    position: relative;
+    width: 350px;
+    height: 300px;
+    margin: 0 0 30px 10px;
+}
+
+/* 강의 제목과 틀*/
+.lecture-box .lecture-content{
+    padding: 20px 0px 40px 40px;
+    max-height: 280px;
+    min-height: 300px;
+    text-align: left;
+    border: 1px solid var(--line-color);
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.lecture-box .lecture-content:hover{
+    border: 1px solid var(--primary-color);
+}
+.lecture-box .lecture-content:hover .lecture-edit,
+.lecture-box .lecture-content:hover .lecture-del{
+    display: block;
+}
+
+/* 강의 설명 */
+.lecture-box .lecture-content .lecture-text{
+    padding: 20px 0px 20px 0px;
+    font-size: 15px;
+}
+
+/* 강의 수정 버튼 */
+.lecture-box .lecture-content .lecture-edit{
+    position: absolute;
+    right: 55px;
+    display: none;
+}
+
+/* 강의 삭제버튼 */
+.lecture-box .lecture-content .lecture-del{
+    position: absolute;
+    right: 0;
+    display: none;
+}
+
+/* -------인사말------- */
+.intro-box{
+    display: flex;
+    padding-top: 20px;
+}
+
+.intro-box .intro-text{
+    padding-left: 50px;
+}
