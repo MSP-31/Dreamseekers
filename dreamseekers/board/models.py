@@ -1,6 +1,6 @@
 from django.db import models
 
-# 게시글
+# 방명록
 class Post(models.Model):
     author     = models.ForeignKey('user.Users', on_delete=models.CASCADE,related_name='board_posts', verbose_name='글쓴이')
     title      = models.CharField(max_length=50, verbose_name='제목')
@@ -15,7 +15,6 @@ class Post(models.Model):
     # 저장
     def save(self, *args, **kwargs):
         super(Post, self).save()
-
     
     # 게시글 삭제
     def delete(self, *args, **kargs):

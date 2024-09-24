@@ -38,9 +38,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 AUTH_USER_MODEL = 'user.Users'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', 'website']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1','34.45.75.1','web']
 
 # Application definition
 INSTALLED_APPS = [
@@ -105,8 +105,9 @@ MIDDLEWARE = [
 ]
 
 CORS_ORIGIN_WHITELSIT = [
-    "http://localhost:3000",
-    "http://127.0.0.1:8000",
+    "http://localhost",
+    'http://127.0.0.1',
+    "http://34.45.75.1",
 ]
 
 ROOT_URLCONF = 'dreamseekers.urls'

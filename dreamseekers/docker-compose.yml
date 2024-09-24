@@ -10,7 +10,10 @@ services:
       - ./media:/media/
     depends_on:
       - web
+    networks:
+      - webnet
   web:
+    image: jhss9747/dreamseekers:latest
     build:
       context: .
       dockerfile: Dockerfile
@@ -23,6 +26,8 @@ services:
       - "8000"
     depends_on:
       - db
+    networks:
+      - webnet
   db:
     image: mariadb:latest
     container_name: mysql
@@ -35,6 +40,12 @@ services:
     volumes:
       - mariadb_data:/var/lib/mysql
       - ./initdb:/docker-entrypoint-initdb.d
+    networks:
+      - webnet
 volumes:
   mariadb_data:
   initdb:
+
+networks:
+  webnet:
+# https://community.opendronemap.org/t/connectionrefusederror-errno-111-connection-refused/11598

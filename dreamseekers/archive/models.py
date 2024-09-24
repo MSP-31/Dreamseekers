@@ -38,7 +38,7 @@ class File(models.Model):
     class Meta:
         db_table = "community_archive_file"
 
-# 게시글
+# 자료실 게시글
 class Archive(models.Model):
     author     = models.ForeignKey('user.Users', on_delete=models.CASCADE,related_name='board_Archive', verbose_name='글쓴이')
     title      = models.CharField(max_length=50, verbose_name='제목')
@@ -107,8 +107,7 @@ class Archive(models.Model):
 
         # 모델을 다시 저장하여 필드를 업데이트
         super(Archive, self).save()
-
-    
+   
     # 게시글이 삭제
     def delete(self, *args, **kargs):
 

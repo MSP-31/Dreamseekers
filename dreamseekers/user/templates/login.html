@@ -1,41 +1,41 @@
-{% extends 'header.html' %}
-{% load static %}
-
-{% block topImg %}
-    <img class="login-img" src = {% static "img/1.jpg" %} alt="예제이미지">
-{% endblock %}
-
-{% block content %}
+{% extends 'header.html' %} {% load static %} {% block topImg %}
+<imgclass="login-img" src = {% static "img/1.jpg" %} alt="예제이미지">
+{%endblock%} {% block content %}
 <div class="main-content">
-    <div class="login-box">
-        <h1>로그인</h1>
-        {% if form.non_field_errors %}
-        <span style = "color:red">{{ form.non_field_errors }}</span>
+  <div class="login-box">
+    <h1>로그인</h1>
+    {% if form.non_field_errors %}
+    <span style="color: red">{{ form.non_field_errors }}</span>
+    {% endif %}
+    <form method="post" action=".">
+      {% csrf_token %} {% for field in form %}
+      <div class="login-form">
+        <!-- <label for = "{{ field.id_for_label }}">{{field.label}}</label> -->
+        <input
+          type="{{ field.field.widget.input_type }}"
+          class="form-control"
+          id="{{field.id_for_label}}"
+          placeholder="{{field.label}}"
+          name="{{field.name}}"
+        />
+        {% if field.errors %}
+        <span style="color: red">{{field.errors}}</span>
         {% endif %}
-        <form method="post" action=".">
-            {% csrf_token %}
-            {% for field in form %}
-            <div class ="login-form">
-                <!-- <label for = "{{ field.id_for_label }}">{{field.label}}</label> -->
-                <input type = "{{ field.field.widget.input_type }}" class ="form-control" id ="{{field.id_for_label}}" 
-                placeholder = "{{field.label}}" name = "{{field.name}}">
-                {% if field.errors %}
-                <span style = "color:red">{{field.errors}}</span>
-                {% endif %}
-            </div>
-            {% endfor %}
-            <input type="hidden" name="next" value="{{ request.GET.next }}">
-            <button type="submit" class="btn-block btn-active">로그인</button>
-        </form>
+      </div>
+      {% endfor %}
+      <input type="hidden" name="next" value="{{ request.GET.next }}" />
+      <button type="submit" class="btn-block btn-active">로그인</button>
+    </form>
+    <!--
         <div class='social-login'>
             <a href="/social/naver/login">
                 <img class='social-login-btn' src = {% static "img/user/naver_btnG.png" %}>
             </a>
         </div>
-    </div>
-    <div>또는</div>
-    <a class='btn-block' href="/user/signup">회원가입</a>
-
+    -->
+  </div>
+  <div>또는</div>
+  <a class="btn-block" href="/user/signup">회원가입</a>
 </div>
 
 {% endblock %}

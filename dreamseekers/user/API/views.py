@@ -1,9 +1,10 @@
 # settings.py 에서 설정한 MAIN_DOMAIN 등을 불러오기 위해 import 함
 from json import JSONDecodeError
 import secrets
+import time
 
 from django.conf import settings
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import redirect
 
 from rest_framework import status
@@ -26,12 +27,14 @@ main_domain = settings.MAIN_DOMAIN
 class NaverLoginAPIView(APIView):
     # 로그인을 위한 창은 누구든 접속이 가능해야 하기 때문에 permission을 AllowAny로 설정
     permission_classes = (AllowAny,)
+    print("로그인api접근")
     
     def get(self, request, *args, **kwargs):
         client_id = settings.NAVER_CLIENT_ID
         response_type = "code"
         # Naver에서 설정했던 callback url을 입력해주어야 한다.
-        uri = main_domain + "social/naver/callback"
+        uri = f"{main_domain}/social/naver/callback"
+        print("uri:",uri)
         state = secrets.token_urlsafe()
         # Naver Document 에서 확인했던 요청 url
         url = "https://nid.naver.com/oauth2.0/authorize"
@@ -48,7 +51,7 @@ class NaverCallbackAPIView(APIView):
     def get(self, request, *args, **kwargs):
         try:
             # Naver Login Parameters
-            grant_type = 'authorization_code' # = 발급 요청
+            grant_type = 'authorization_code' # 발급 요청
             client_id = settings.NAVER_CLIENT_ID
             client_secret = settings.NAVER_CLIENT_SECRET
             code = request.GET.get('code')
@@ -68,7 +71,7 @@ class NaverCallbackAPIView(APIView):
             # 에러 확인
             if error is not None:
                 raise JSONDecodeError(error)
-
+            
             # 에러가 없으면 access_token 할당
             access_token = token_response_json.get("access_token")
 
@@ -81,7 +84,7 @@ class NaverCallbackAPIView(APIView):
             # User 정보를 가지고 오는 요청이 잘못된 경우
             if user_info_request.status_code != 200:
                 return JsonResponse({"error": "failed to get email."}, status=status.HTTP_400_BAD_REQUEST)
-
+            
             # User의 정보를 가져와 user_info에 할당
             user_info = user_info_request.json().get("response")
             email = user_info["email"]
@@ -92,27 +95,35 @@ class NaverCallbackAPIView(APIView):
                     "error": "Can't Get Email Information from Naver"
                 }, status=status.HTTP_400_BAD_REQUEST)
 
-            # 로그인 처리
             try:
+                print("해당1")
                 # 이메일에 해당되는 유저를 찾음
                 user = Users.objects.get(email=email)
+                print("해당2",user)
                 data = {'access_token': access_token, 'code': code}
+                print("해당3",data)
+                print(f"Sending POST request to {main_domain}/social/naver/login/success with data: {data}")
                 # accept 에는 token 값이 json 형태로 들어온다({"key"}:"token value")
                 # 여기서 오는 key 값은 authtoken_token에 저장된다.
+
                 accept = requests.post(
                     f"{main_domain}/social/naver/login/success", data=data
                 )
+                
+                print("해당4")
                 # 만약 token 요청이 제대로 이루어지지 않으면 오류처리
                 if accept.status_code != 200:
+                    print("문제발생")
                     return JsonResponse({"error": "Failed to Signin."}, status=accept.status_code)
                 
                 # 해당 사용자 로그인
                 login(request, user)
-
+                print("해당 사용자가 있고 로그인됨")
                 return HttpResponseRedirect('/')
             
             # 회원가입 처리
             except Users.DoesNotExist:
+                time.sleep(1)
                 data = {'access_token': access_token, 'code': code}
                 accept = requests.post(
                     f"{main_domain}/social/naver/login/success", data=data
@@ -120,15 +131,17 @@ class NaverCallbackAPIView(APIView):
 
                 user = Users.objects.get(email=email)
                 login(request, user)
-
+                print("해당 사용자가 없고 회원가입 처리하고 로그인됨")
                 return HttpResponseRedirect('/')
                 
-        except:
-            return JsonResponse({
-                "error": "error",
-            }, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            print(f"Unexpected error: {e}")
+            return JsonResponse({"error": str(e)},
+                                status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
             
 # 로그인 정보 저장
 class NaverToDjangoLoginView(SocialLoginView):
+    print("로그인 정보 저장")
     adapter_class = naver_views.NaverOAuth2Adapter
     client_class = OAuth2Client
